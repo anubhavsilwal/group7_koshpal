@@ -13,7 +13,7 @@ public class lending extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(lending.class.getName());
 
     /**
-     * Creates new form lending
+     * Creates new form inventory
      */
     public lending() {
         initComponents();
@@ -28,18 +28,24 @@ public class lending extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
+
+        jPanel1.setBackground(new java.awt.Color(254, 251, 238));
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 1440, 100);
+
+        jPanel2.setBackground(new java.awt.Color(224, 236, 229));
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(0, 100, 200, 800);
+
+        jPanel3.setBackground(new java.awt.Color(205, 231, 217));
+        getContentPane().add(jPanel3);
+        jPanel3.setBounds(200, 100, 1240, 800);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -70,5 +76,8 @@ public class lending extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }
