@@ -29,13 +29,23 @@ public class inventory extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(102, 255, 102));
+        jPanel1.setBackground(new java.awt.Color(254, 251, 238));
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 1920, 1080);
+        jPanel1.setBounds(0, 0, 1440, 100);
+
+        jPanel2.setBackground(new java.awt.Color(224, 236, 229));
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(0, 100, 200, 800);
+
+        jPanel3.setBackground(new java.awt.Color(205, 231, 217));
+        getContentPane().add(jPanel3);
+        jPanel3.setBounds(200, 100, 1240, 800);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -67,5 +77,7 @@ public class inventory extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }
