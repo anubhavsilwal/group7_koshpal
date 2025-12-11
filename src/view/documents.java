@@ -29,13 +29,26 @@ public class documents extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(254, 251, 238));
+        jPanel1.setLayout(null);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(1340, 10, 80, 70);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1440, 100);
 
@@ -44,11 +57,78 @@ public class documents extends javax.swing.JFrame {
         jPanel2.setBounds(0, 100, 200, 800);
 
         jPanel3.setBackground(new java.awt.Color(205, 231, 217));
+        jPanel3.setLayout(null);
+
+        jButton1.setBackground(new java.awt.Color(0, 127, 76));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Add Expenses");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton1);
+        jButton1.setBounds(950, 20, 280, 60);
+
+        jButton3.setBackground(new java.awt.Color(0, 127, 76));
+        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Add Expenses");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton3);
+        jButton3.setBounds(950, 20, 280, 60);
+
+        jButton4.setBackground(new java.awt.Color(176, 220, 198));
+        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton4.setText("Filter");
+        jPanel3.add(jButton4);
+        jButton4.setBounds(730, 20, 180, 60);
+
+        jTextField1.setBackground(new java.awt.Color(220, 220, 220));
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField1.setText("Search Receipts....");
+        jPanel3.add(jTextField1);
+        jTextField1.setBounds(430, 20, 230, 40);
+
+        jTextField2.setBackground(new java.awt.Color(205, 231, 217));
+        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jTextField2.setText("Documents ");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jTextField2);
+        jTextField2.setBounds(0, 10, 370, 60);
+
+        jTextField3.setBackground(new java.awt.Color(205, 231, 217));
+        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField3.setText(" Store and manage important document ");
+        jPanel3.add(jTextField3);
+        jTextField3.setBounds(0, 60, 370, 60);
+
         getContentPane().add(jPanel3);
         jPanel3.setBounds(200, 100, 1240, 800);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -76,8 +156,15 @@ public class documents extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }
