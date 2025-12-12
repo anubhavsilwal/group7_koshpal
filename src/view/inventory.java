@@ -28,19 +28,21 @@ public class inventory extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        japnel3 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        headerpanel = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         inventoryheader = new javax.swing.JLabel();
+        dashboardpanel = new javax.swing.JPanel();
+        documentsbtn = new javax.swing.JButton();
+        dashboardbtn = new javax.swing.JButton();
+        inventorybtn = new javax.swing.JButton();
+        lendingbtn = new javax.swing.JButton();
+        goalsbtn = new javax.swing.JButton();
+        financialbtn = new javax.swing.JButton();
+        centerpanel = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
         searchbar = new javax.swing.JTextField();
-        additem = new javax.swing.JButton();
+        additembtn = new javax.swing.JButton();
         onloan = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -51,87 +53,98 @@ public class inventory extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jPanel3 = new javax.swing.JPanel();
-        image = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1440, 900));
         getContentPane().setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(254, 251, 238));
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 1440, 100);
+        headerpanel.setBackground(new java.awt.Color(254, 251, 238));
+        headerpanel.setLayout(null);
 
-        jPanel2.setBackground(new java.awt.Color(224, 236, 229));
-        jPanel2.setLayout(null);
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        headerpanel.add(jLabel8);
+        jLabel8.setBounds(40, -60, 110, 220);
 
-        jButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton1.setText("Documents");
-        jPanel2.add(jButton1);
-        jButton1.setBounds(0, 350, 200, 50);
-
-        jButton2.setBackground(new java.awt.Color(255, 220, 169));
-        jButton2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton2.setText("Dashboard");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton2);
-        jButton2.setBounds(0, 0, 200, 50);
-
-        jButton3.setBackground(new java.awt.Color(93, 177, 132));
-        jButton3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton3.setText("My Inventory");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton3);
-        jButton3.setBounds(0, 70, 200, 50);
-
-        jButton4.setBackground(new java.awt.Color(255, 220, 169));
-        jButton4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton4.setText("Lending");
-        jPanel2.add(jButton4);
-        jButton4.setBounds(0, 140, 200, 50);
-
-        jButton5.setBackground(new java.awt.Color(255, 220, 169));
-        jButton5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton5.setText("Goals");
-        jPanel2.add(jButton5);
-        jButton5.setBounds(0, 210, 200, 50);
-
-        jButton6.setBackground(new java.awt.Color(255, 220, 169));
-        jButton6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton6.setText("Financial Analytics");
-        jPanel2.add(jButton6);
-        jButton6.setBounds(0, 280, 200, 50);
-
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 100, 200, 800);
-
-        japnel3.setBackground(new java.awt.Color(205, 231, 217));
-        japnel3.setLayout(null);
-
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        jLabel7.setText("Your Assets");
-        japnel3.add(jLabel7);
-        jLabel7.setBounds(20, 250, 150, 35);
+        jPanel3.setBackground(new java.awt.Color(205, 231, 217));
+        jPanel3.setLayout(null);
 
         inventoryheader.setFont(new java.awt.Font("Arial Black", 1, 28)); // NOI18N
         inventoryheader.setText("My Inventory");
         inventoryheader.setAlignmentX(0.5F);
         inventoryheader.setPreferredSize(new java.awt.Dimension(300, 50));
-        japnel3.add(inventoryheader);
-        inventoryheader.setBounds(40, 15, 250, 40);
+        jPanel3.add(inventoryheader);
+        inventoryheader.setBounds(10, 0, 250, 40);
+
+        headerpanel.add(jPanel3);
+        jPanel3.setBounds(220, 60, 1230, 50);
+
+        getContentPane().add(headerpanel);
+        headerpanel.setBounds(-10, -10, 1450, 100);
+
+        dashboardpanel.setBackground(new java.awt.Color(224, 236, 229));
+        dashboardpanel.setLayout(null);
+
+        documentsbtn.setBackground(new java.awt.Color(255, 220, 169));
+        documentsbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        documentsbtn.setText("Documents");
+        documentsbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                documentsbtnActionPerformed(evt);
+            }
+        });
+        dashboardpanel.add(documentsbtn);
+        documentsbtn.setBounds(0, 350, 200, 50);
+
+        dashboardbtn.setBackground(new java.awt.Color(255, 220, 169));
+        dashboardbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        dashboardbtn.setText("Dashboard");
+        dashboardbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboardbtnActionPerformed(evt);
+            }
+        });
+        dashboardpanel.add(dashboardbtn);
+        dashboardbtn.setBounds(0, 10, 200, 50);
+
+        inventorybtn.setBackground(new java.awt.Color(93, 177, 132));
+        inventorybtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        inventorybtn.setText("My Inventory");
+        inventorybtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventorybtnActionPerformed(evt);
+            }
+        });
+        dashboardpanel.add(inventorybtn);
+        inventorybtn.setBounds(0, 70, 200, 50);
+
+        lendingbtn.setBackground(new java.awt.Color(255, 220, 169));
+        lendingbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lendingbtn.setText("Lending");
+        dashboardpanel.add(lendingbtn);
+        lendingbtn.setBounds(0, 140, 200, 50);
+
+        goalsbtn.setBackground(new java.awt.Color(255, 220, 169));
+        goalsbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        goalsbtn.setText("Goals");
+        dashboardpanel.add(goalsbtn);
+        goalsbtn.setBounds(0, 210, 200, 50);
+
+        financialbtn.setBackground(new java.awt.Color(255, 220, 169));
+        financialbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        financialbtn.setText("Financial Analytics");
+        dashboardpanel.add(financialbtn);
+        financialbtn.setBounds(0, 280, 200, 50);
+
+        getContentPane().add(dashboardpanel);
+        dashboardpanel.setBounds(10, 90, 200, 800);
+
+        centerpanel.setBackground(new java.awt.Color(205, 231, 217));
+        centerpanel.setLayout(null);
+
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        jLabel7.setText("Your Assets");
+        centerpanel.add(jLabel7);
+        jLabel7.setBounds(30, 210, 150, 35);
 
         searchbar.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         searchbar.setText("Search by name or category");
@@ -141,14 +154,20 @@ public class inventory extends javax.swing.JFrame {
                 searchbarActionPerformed(evt);
             }
         });
-        japnel3.add(searchbar);
-        searchbar.setBounds(40, 60, 400, 40);
+        centerpanel.add(searchbar);
+        searchbar.setBounds(30, 30, 400, 40);
         searchbar.getAccessibleContext().setAccessibleDescription("");
 
-        additem.setBackground(new java.awt.Color(93, 177, 132));
-        additem.setText("Add item");
-        japnel3.add(additem);
-        additem.setBounds(880, 70, 140, 40);
+        additembtn.setBackground(new java.awt.Color(93, 177, 132));
+        additembtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        additembtn.setText("+      Add item");
+        additembtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                additembtnActionPerformed(evt);
+            }
+        });
+        centerpanel.add(additembtn);
+        additembtn.setBounds(1090, 50, 140, 40);
 
         onloan.setLayout(null);
 
@@ -163,8 +182,8 @@ public class inventory extends javax.swing.JFrame {
         onloan.add(jLabel3);
         jLabel3.setBounds(20, 40, 270, 40);
 
-        japnel3.add(onloan);
-        onloan.setBounds(740, 140, 280, 90);
+        centerpanel.add(onloan);
+        onloan.setBounds(720, 100, 280, 90);
 
         totalitems.setLayout(null);
 
@@ -179,8 +198,8 @@ public class inventory extends javax.swing.JFrame {
         totalitems.add(jLabel4);
         jLabel4.setBounds(20, 40, 270, 40);
 
-        japnel3.add(totalitems);
-        totalitems.setBounds(20, 140, 280, 90);
+        centerpanel.add(totalitems);
+        totalitems.setBounds(30, 100, 280, 90);
 
         totalvalue.setLayout(null);
 
@@ -195,66 +214,17 @@ public class inventory extends javax.swing.JFrame {
         totalvalue.add(jLabel6);
         jLabel6.setBounds(10, 40, 270, 40);
 
-        japnel3.add(totalvalue);
-        totalvalue.setBounds(380, 140, 280, 90);
+        centerpanel.add(totalvalue);
+        totalvalue.setBounds(370, 100, 280, 90);
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setViewportView(null);
+        centerpanel.add(jScrollPane2);
+        jScrollPane2.setBounds(30, 260, 980, 520);
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setLayout(null);
-
-        image.setText("jTextField2");
-        image.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                imageActionPerformed(evt);
-            }
-        });
-        jPanel3.add(image);
-        image.setBounds(40, 40, 210, 110);
-
-        jLabel8.setText("name");
-        jPanel3.add(jLabel8);
-        jLabel8.setBounds(50, 190, 120, 20);
-
-        jLabel9.setText("category");
-        jPanel3.add(jLabel9);
-        jLabel9.setBounds(50, 220, 120, 16);
-
-        jLabel10.setText("value");
-        jPanel3.add(jLabel10);
-        jLabel10.setBounds(50, 250, 60, 16);
-
-        jLabel11.setText("price");
-        jPanel3.add(jLabel11);
-        jLabel11.setBounds(180, 250, 70, 16);
-
-        jButton7.setText("edit");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jButton7);
-        jButton7.setBounds(40, 290, 72, 23);
-
-        jButton8.setText("remove");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jButton8);
-        jButton8.setBounds(170, 290, 72, 23);
-
-        jScrollPane2.setViewportView(jPanel3);
-
-        japnel3.add(jScrollPane2);
-        jScrollPane2.setBounds(20, 290, 690, 490);
-
-        getContentPane().add(japnel3);
-        japnel3.setBounds(200, 100, 1240, 800);
+        getContentPane().add(centerpanel);
+        centerpanel.setBounds(200, 70, 1240, 800);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -263,25 +233,21 @@ public class inventory extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchbarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void dashboardbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_dashboardbtnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void inventorybtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventorybtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_inventorybtnActionPerformed
 
-    private void imageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageActionPerformed
+    private void additembtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_additembtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_imageActionPerformed
+    }//GEN-LAST:event_additembtnActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void documentsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentsbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_documentsbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -309,20 +275,17 @@ public class inventory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton additem;
-    private javax.swing.JTextField image;
+    private javax.swing.JButton additembtn;
+    private javax.swing.JPanel centerpanel;
+    private javax.swing.JButton dashboardbtn;
+    private javax.swing.JPanel dashboardpanel;
+    private javax.swing.JButton documentsbtn;
+    private javax.swing.JButton financialbtn;
+    private javax.swing.JButton goalsbtn;
+    private javax.swing.JPanel headerpanel;
+    private javax.swing.JButton inventorybtn;
     private javax.swing.JLabel inventoryheader;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -330,12 +293,9 @@ public class inventory extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JPanel japnel3;
+    private javax.swing.JButton lendingbtn;
     private javax.swing.JPanel onloan;
     private javax.swing.JTextField searchbar;
     private javax.swing.JPanel totalitems;
