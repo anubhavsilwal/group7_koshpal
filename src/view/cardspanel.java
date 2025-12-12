@@ -39,7 +39,7 @@ public class cardspanel extends javax.swing.JPanel {
 
         itemname.setText("item name");
         add(itemname);
-        itemname.setBounds(10, 140, 100, 16);
+        itemname.setBounds(10, 140, 100, 17);
 
         category.setText("category");
         add(category);
@@ -47,7 +47,7 @@ public class cardspanel extends javax.swing.JPanel {
 
         value.setText("value");
         add(value);
-        value.setBounds(10, 190, 28, 20);
+        value.setBounds(10, 190, 40, 20);
 
         editbtn.setText("edit");
         editbtn.addActionListener(this::editbtnActionPerformed);
@@ -56,11 +56,11 @@ public class cardspanel extends javax.swing.JPanel {
 
         removebtn.setText("remove");
         add(removebtn);
-        removebtn.setBounds(150, 230, 72, 23);
+        removebtn.setBounds(150, 230, 73, 23);
 
         price.setText("price");
         add(price);
-        price.setBounds(160, 190, 60, 16);
+        price.setBounds(160, 190, 60, 17);
         add(jLabel5);
         jLabel5.setBounds(30, 20, 180, 100);
     }// </editor-fold>//GEN-END:initComponents
