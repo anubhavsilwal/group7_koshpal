@@ -29,6 +29,7 @@ public class inventory extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
 
@@ -36,6 +37,10 @@ public class inventory extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(254, 251, 238));
+
+        jLabel1.setText("logo");
+        jPanel1.add(jLabel1);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1440, 100);
 
@@ -76,6 +81,7 @@ public class inventory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

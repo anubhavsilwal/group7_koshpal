@@ -28,45 +28,18 @@ public class dashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(0, 0, 0));
-        getContentPane().setLayout(null);
 
-        jPanel2.setBackground(new java.awt.Color(255, 51, 51));
-        jPanel2.setLayout(null);
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 70, 120, 410);
-
-        jPanel1.setBackground(new java.awt.Color(51, 255, 51));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 2560, Short.MAX_VALUE)
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 2560, 70);
-
-        jPanel3.setBackground(new java.awt.Color(255, 51, 51));
-        jPanel3.setLayout(null);
-        getContentPane().add(jPanel3);
-        jPanel3.setBounds(2440, 70, 120, 410);
-
-        jPanel4.setBackground(new java.awt.Color(255, 51, 51));
-        jPanel4.setLayout(null);
-        getContentPane().add(jPanel4);
-        jPanel4.setBounds(1800, 70, 120, 410);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -97,9 +70,5 @@ public class dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
 }
