@@ -11,7 +11,7 @@ package view;
 public class cardspanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form cardspanel
+     * Creates new form
      */
     public cardspanel() {
         initComponents();
@@ -32,7 +32,8 @@ public class cardspanel extends javax.swing.JPanel {
         editbtn = new javax.swing.JButton();
         removebtn = new javax.swing.JButton();
         price = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        imagelabel = new javax.swing.JLabel();
+        status = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(280, 250));
         setLayout(null);
@@ -61,8 +62,12 @@ public class cardspanel extends javax.swing.JPanel {
         price.setText("price");
         add(price);
         price.setBounds(160, 190, 60, 16);
-        add(jLabel5);
-        jLabel5.setBounds(30, 20, 180, 100);
+        add(imagelabel);
+        imagelabel.setBounds(30, 20, 180, 100);
+
+        status.setText("status");
+        add(status);
+        status.setBounds(190, 160, 31, 16);
     }// </editor-fold>//GEN-END:initComponents
 
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
@@ -73,10 +78,11 @@ public class cardspanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel category;
     private javax.swing.JButton editbtn;
+    private javax.swing.JLabel imagelabel;
     private javax.swing.JLabel itemname;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel price;
     private javax.swing.JButton removebtn;
+    private javax.swing.JLabel status;
     private javax.swing.JLabel value;
     // End of variables declaration//GEN-END:variables
 }
