@@ -162,7 +162,8 @@ public class itemservice {
     }
     
     
-    public boolean validateAllItemFields(String itemName, String category, double value, String status) {
+    public boolean validateAllItemFields(String itemName, String category, 
+            double value, String status) {
         if (!validateItemData(itemName, value)) {
             return false;
         }

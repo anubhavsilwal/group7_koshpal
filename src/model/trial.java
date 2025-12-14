@@ -9,12 +9,4 @@ package model;
  * @author anubhavsilwal
  */
 public class trial {
-    
-    ublic class Item {
-    private int itemId;
-    private String itemname;     
-    private String category;     
-    private double value;        
-    private String status;       
-    private String imagepath; 
 }
