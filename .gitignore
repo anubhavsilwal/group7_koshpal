@@ -1,1 +1,4 @@
-/nbproject/private/
+nbproject/private/
+src/database
+
+/build/
