@@ -9,5 +9,4 @@ package model;
  * @author anubhavsilwal
  */
 public class trial {
-    
 }
