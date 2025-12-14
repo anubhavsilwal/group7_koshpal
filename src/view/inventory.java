@@ -62,7 +62,6 @@ public class inventory extends javax.swing.JFrame {
         scrollpane = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1440, 900));
         getContentPane().setLayout(null);
 
         headerpanel.setBackground(new java.awt.Color(254, 251, 238));
