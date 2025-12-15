@@ -17,8 +17,18 @@ public class Item {
     private String imagepath; 
     
     
+    public Item(int itemId, String itemname, String category, 
+                double value, String status) {
+        this.itemId = itemId;
+        this.itemname = itemname;
+        this.category = category;
+        this.value = value;
+        this.status = status;
+        this.imagepath = "";  
+    }
     //constructor naming
-    public Item(int itemId,String itemname,String category,double value,String status,String imagepath){
+    public Item(int itemId,String itemname,String category,
+            double value,String status,String imagepath){
         this.itemId = itemId;
         this.itemname = itemname;
         this.category = category;

@@ -15,10 +15,22 @@ import java.util.List;
  */
 public class itemservice {
     private final itemDAO itemDao;
+    private int currentUserId;
     
     public itemservice(){
         this.itemDao= new itemDAO();
         //QN if itemDAO itemdao = new itemDAO same?
+    }
+    
+        // Add setter for userId
+    public void setCurrentUserId(int userId) {
+        this.currentUserId = userId;
+        itemDao.setUserId(userId); 
+    }
+    
+    // Getter for userId
+    public int getCurrentUserId() {
+        return currentUserId;
     }
     
     public int addItem(String itemName, String category, double value, 
@@ -29,7 +41,7 @@ public class itemservice {
                     value, status, imagePath);
             
             // Call DAO
-            int itemId = itemDao.insertItem(newItem);
+            int itemId = itemDao.insertItem(newItem,currentUserId);
             
             if (itemId > 0) {
                 System.out.println("Item added successfully with ID: " + itemId);
@@ -76,12 +88,12 @@ public class itemservice {
     }
     
     public boolean deleteItem(int itemId) {
-        try {
-            return itemDao.deleteItemById(itemId);
-        } catch (SQLException e) {
-            System.err.println("Error deleting item: " + e.getMessage());
-            return false;
-        }
+       try {
+        return itemDao.deleteItemById(itemId, currentUserId);
+    } catch (SQLException e) {
+        System.err.println("Error deleting item: " + e.getMessage());
+        return false;
+    }
     }
     
     public List<Item> searchItems(int userId, String searchTerm) {
@@ -151,16 +163,6 @@ public class itemservice {
         return String.format("$%.2f", value);
     }
     
-    public Item getItemById(int itemId, int userId) {
-        List<Item> items = getItemsByUser(userId);
-        for (Item item : items) {
-            if (item.getItemId() == itemId) {
-                return item;
-            }
-        }
-        return null;
-    }
-    
     
     public boolean validateAllItemFields(String itemName, String category, 
             double value, String status) {
@@ -178,6 +180,14 @@ public class itemservice {
             return false;
         }
         return true;
+    }
+    public Item getItemById(int itemId) {
+        try {
+            return itemDao.getItemById(itemId, currentUserId);
+        } catch (Exception e) {
+            System.err.println("Error getting item by ID: " + e.getMessage());
+            return null;
+        }
     }
 }
    

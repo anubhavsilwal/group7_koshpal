@@ -21,6 +21,13 @@ public class inventory extends javax.swing.JFrame {
      */
     public inventory() {
         initComponents();
+        setTitle("Inventory Management System");
+        setSize(1300, 900);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true); 
+    
+        System.out.println("DEBUG: Window created, visible=" + isVisible());
        
     }
     
