@@ -21,6 +21,13 @@ public class inventory extends javax.swing.JFrame {
      */
     public inventory() {
         initComponents();
+        setTitle("Inventory Management System");
+        setSize(1300, 900);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true); 
+    
+        System.out.println("DEBUG: Window created, visible=" + isVisible());
        
     }
     
@@ -62,7 +69,6 @@ public class inventory extends javax.swing.JFrame {
         scrollpane = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1440, 900));
         getContentPane().setLayout(null);
 
         headerpanel.setBackground(new java.awt.Color(254, 251, 238));
