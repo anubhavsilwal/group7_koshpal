@@ -29,10 +29,16 @@ public class goals extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        button1 = new java.awt.Button();
+        button2 = new java.awt.Button();
+        button3 = new java.awt.Button();
+        button4 = new java.awt.Button();
+        button5 = new java.awt.Button();
+        button6 = new java.awt.Button();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -92,10 +98,8 @@ public class goals extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(254, 251, 238));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel33.setIcon(new javax.swing.ImageIcon("C:\\Users\\Prajanya\\OneDrive\\Pictures\\Screenshot 2025-12-12 165636.png")); // NOI18N
-        jPanel1.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
         jLabel34.setIcon(new javax.swing.ImageIcon("C:\\Users\\Prajanya\\OneDrive\\Pictures\\Screenshot 2025-12-12 170217.png")); // NOI18N
         jPanel1.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 20, -1, -1));
@@ -103,10 +107,39 @@ public class goals extends javax.swing.JFrame {
         jLabel39.setIcon(new javax.swing.ImageIcon("C:\\Users\\Prajanya\\OneDrive\\Pictures\\profile.png")); // NOI18N
         jPanel1.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 0, -1, -1));
 
+        jLabel38.setIcon(new javax.swing.ImageIcon("C:\\Users\\Prajanya\\OneDrive\\Pictures\\kosh.png")); // NOI18N
+        jPanel1.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1440, 100);
 
         jPanel2.setBackground(new java.awt.Color(224, 236, 229));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        button1.setBackground(new java.awt.Color(254, 251, 238));
+        button1.setLabel("My Inventory");
+        jPanel2.add(button1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 200, 50));
+
+        button2.setBackground(new java.awt.Color(254, 251, 238));
+        button2.setLabel("Lending");
+        jPanel2.add(button2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 200, 50));
+
+        button3.setBackground(new java.awt.Color(254, 251, 238));
+        button3.setLabel("Goals");
+        jPanel2.add(button3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 200, 50));
+
+        button4.setBackground(new java.awt.Color(254, 251, 238));
+        button4.setLabel("Financial Analytics");
+        jPanel2.add(button4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 50));
+
+        button5.setBackground(new java.awt.Color(254, 251, 238));
+        button5.setLabel("Documents");
+        jPanel2.add(button5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 200, 50));
+
+        button6.setBackground(new java.awt.Color(254, 251, 238));
+        button6.setLabel("Dashboard");
+        jPanel2.add(button6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 200, 50));
+
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 100, 200, 800);
 
@@ -413,6 +446,12 @@ public class goals extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Button button1;
+    private java.awt.Button button2;
+    private java.awt.Button button3;
+    private java.awt.Button button4;
+    private java.awt.Button button5;
+    private java.awt.Button button6;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -444,11 +483,11 @@ public class goals extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
