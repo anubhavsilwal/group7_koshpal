@@ -224,7 +224,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="210" y="120" width="1240" height="800"/>
+          <AbsoluteConstraints x="200" y="100" width="1250" height="820"/>
         </Constraint>
       </Constraints>
 
@@ -619,11 +619,11 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel15">
               <Properties>
-                <Property name="text" type="java.lang.String" value="feb 10 2025"/>
+                <Property name="text" type="java.lang.String" value="Feb 10 2025"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="140" y="40" width="90" height="20"/>
+                  <AbsoluteConstraints x="150" y="40" width="90" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -731,7 +731,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel23">
               <Properties>
-                <Property name="text" type="java.lang.String" value="june 30 2025"/>
+                <Property name="text" type="java.lang.String" value="June 30 2025"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

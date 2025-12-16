@@ -368,9 +368,9 @@ public class documents extends javax.swing.JFrame {
         jPanel5.add(jLabel14);
         jLabel14.setBounds(80, 10, 110, 30);
 
-        jLabel15.setText("feb 10 2025");
+        jLabel15.setText("Feb 10 2025");
         jPanel5.add(jLabel15);
-        jLabel15.setBounds(140, 40, 90, 20);
+        jLabel15.setBounds(150, 40, 90, 20);
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("2.3mb");
@@ -412,7 +412,7 @@ public class documents extends javax.swing.JFrame {
         jPanel6.add(jLabel22);
         jLabel22.setBounds(80, 10, 100, 30);
 
-        jLabel23.setText("june 30 2025");
+        jLabel23.setText("June 30 2025");
         jPanel6.add(jLabel23);
         jLabel23.setBounds(130, 40, 90, 16);
 
@@ -538,7 +538,7 @@ public class documents extends javax.swing.JFrame {
         jPanel8.setBounds(10, 560, 1220, 80);
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(210, 120, 1240, 800);
+        jPanel3.setBounds(200, 100, 1250, 820);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
