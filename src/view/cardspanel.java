@@ -39,29 +39,30 @@ public class cardspanel extends javax.swing.JPanel {
         imagelabel = new javax.swing.JLabel();
         status = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(153, 255, 153));
         setPreferredSize(new java.awt.Dimension(280, 250));
         setLayout(null);
 
         itemname.setText("item name");
         add(itemname);
-        itemname.setBounds(10, 140, 100, 16);
+        itemname.setBounds(10, 140, 140, 16);
 
         category.setText("category");
         add(category);
-        category.setBounds(10, 160, 70, 20);
+        category.setBounds(20, 160, 120, 20);
 
         value.setText("value");
         add(value);
-        value.setBounds(10, 190, 28, 20);
+        value.setBounds(10, 190, 80, 20);
 
         editbtn.setText("edit");
         editbtn.addActionListener(this::editbtnActionPerformed);
         add(editbtn);
-        editbtn.setBounds(10, 230, 72, 23);
+        editbtn.setBounds(10, 230, 90, 23);
 
         removebtn.setText("remove");
         add(removebtn);
-        removebtn.setBounds(150, 230, 72, 23);
+        removebtn.setBounds(132, 230, 90, 23);
 
         price.setText("price");
         add(price);
@@ -71,7 +72,7 @@ public class cardspanel extends javax.swing.JPanel {
 
         status.setText("status");
         add(status);
-        status.setBounds(190, 160, 31, 16);
+        status.setBounds(141, 160, 90, 16);
     }// </editor-fold>//GEN-END:initComponents
 
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
