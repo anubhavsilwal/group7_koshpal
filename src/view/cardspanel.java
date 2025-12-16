@@ -39,6 +39,7 @@ public class cardspanel extends javax.swing.JPanel {
         imagelabel = new javax.swing.JLabel();
         status = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(153, 255, 153));
         setPreferredSize(new java.awt.Dimension(280, 250));
         setLayout(null);
 
@@ -65,16 +66,13 @@ public class cardspanel extends javax.swing.JPanel {
 
         price.setText("price");
         add(price);
-        price.setBounds(160, 190, 60, 16);
+        price.setBounds(160, 190, 60, 17);
         add(imagelabel);
         imagelabel.setBounds(30, 20, 180, 100);
 
         status.setText("status");
         add(status);
-        status.setBounds(190, 160, 31, 16);
-        price.setBounds(160, 190, 60, 17);
-        add(jLabel5);
-        jLabel5.setBounds(30, 20, 180, 100);
+        status.setBounds(190, 160, 36, 17);
     }// </editor-fold>//GEN-END:initComponents
 
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
