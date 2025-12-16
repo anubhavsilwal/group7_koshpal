@@ -41,13 +41,13 @@ public class cardspanel extends javax.swing.JPanel {
         imagelabel = new javax.swing.JLabel();
         status = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(153, 255, 153));
+        setBackground(new java.awt.Color(102, 255, 102));
         setPreferredSize(new java.awt.Dimension(280, 250));
         setLayout(null);
 
         itemname.setText("item name");
         add(itemname);
-        itemname.setBounds(10, 140, 100, 17);
+        itemname.setBounds(10, 140, 140, 16);
 
         category.setText("category");
         add(category);
@@ -55,34 +55,26 @@ public class cardspanel extends javax.swing.JPanel {
 
         value.setText("value");
         add(value);
-<<<<<<< HEAD
-        value.setBounds(10, 190, 80, 20);
-=======
         value.setBounds(10, 190, 40, 20);
+
+        editbtn.setText("edit");
         editbtn.addActionListener(this::editbtnActionPerformed);
+        add(editbtn);
         editbtn.setBounds(10, 230, 90, 23);
 
         removebtn.setText("remove");
         add(removebtn);
-<<<<<<< HEAD
         removebtn.setBounds(132, 230, 90, 23);
-=======
-        removebtn.setBounds(150, 230, 73, 23);
->>>>>>> f4f8ef5395cd8ece17a92485fc6b936b448ea99d
 
         price.setText("price");
         add(price);
-        price.setBounds(160, 190, 60, 17);
+        price.setBounds(160, 190, 60, 16);
         add(imagelabel);
         imagelabel.setBounds(30, 20, 180, 100);
 
         status.setText("status");
         add(status);
-<<<<<<< HEAD
         status.setBounds(141, 160, 90, 16);
-=======
-        status.setBounds(190, 160, 36, 17);
->>>>>>> f4f8ef5395cd8ece17a92485fc6b936b448ea99d
     }// </editor-fold>//GEN-END:initComponents
 
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editbtnActionPerformed
