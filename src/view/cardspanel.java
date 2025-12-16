@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package view;
+
 import model.Item;
+
 /**
  *
  * @author samee
@@ -15,10 +17,10 @@ public class cardspanel extends javax.swing.JPanel {
      * Creates new form
      */
     public cardspanel(Item item) {
-        this.item=item;
+        this.item = item;
         initComponents();
         setItemData(item);
-        
+
     }
 
     /**
@@ -45,7 +47,7 @@ public class cardspanel extends javax.swing.JPanel {
 
         itemname.setText("item name");
         add(itemname);
-        itemname.setBounds(10, 140, 140, 16);
+        itemname.setBounds(10, 140, 100, 17);
 
         category.setText("category");
         add(category);
@@ -53,32 +55,39 @@ public class cardspanel extends javax.swing.JPanel {
 
         value.setText("value");
         add(value);
+<<<<<<< HEAD
         value.setBounds(10, 190, 80, 20);
-
-        editbtn.setText("edit");
+=======
+        value.setBounds(10, 190, 40, 20);
         editbtn.addActionListener(this::editbtnActionPerformed);
-        add(editbtn);
         editbtn.setBounds(10, 230, 90, 23);
 
         removebtn.setText("remove");
         add(removebtn);
+<<<<<<< HEAD
         removebtn.setBounds(132, 230, 90, 23);
+=======
+        removebtn.setBounds(150, 230, 73, 23);
+>>>>>>> f4f8ef5395cd8ece17a92485fc6b936b448ea99d
 
         price.setText("price");
         add(price);
-        price.setBounds(160, 190, 60, 16);
+        price.setBounds(160, 190, 60, 17);
         add(imagelabel);
         imagelabel.setBounds(30, 20, 180, 100);
 
         status.setText("status");
         add(status);
+<<<<<<< HEAD
         status.setBounds(141, 160, 90, 16);
+=======
+        status.setBounds(190, 160, 36, 17);
+>>>>>>> f4f8ef5395cd8ece17a92485fc6b936b448ea99d
     }// </editor-fold>//GEN-END:initComponents
 
-    private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
+    private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_editbtnActionPerformed
-
+    }// GEN-LAST:event_editbtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel category;
@@ -91,60 +100,52 @@ public class cardspanel extends javax.swing.JPanel {
     private javax.swing.JLabel value;
     // End of variables declaration//GEN-END:variables
 
-    
-public Item getItem(){
-    return item;
-}
-
-public int getItemId(){
-    return item.getItemId();
-}
-
-public javax.swing.JLabel getCateogyLabel(){
-    return category;
-}
-
-public javax.swing.JButton getEditButton(){
-    return editbtn;
-}
-
-public javax.swing.JLabel getImageLabel(){
-    return imagelabel;
-}
-    
-public javax.swing.JButton getRemoveButton() {
-        return removebtn;
+    public Item getItem() {
+        return item;
     }
-    
-public javax.swing.JLabel getItemNameLabel() {
-        return itemname;
+
+    public int getItemId() {
+        return item.getItemId();
     }
-    
-public javax.swing.JLabel getCategoryLabel() {
+
+    public javax.swing.JLabel getCateogyLabel() {
         return category;
     }
-    
-public javax.swing.JLabel getPriceLabel() {
+
+    public javax.swing.JButton getEditButton() {
+        return editbtn;
+    }
+
+    public javax.swing.JLabel getImageLabel() {
+        return imagelabel;
+    }
+
+    public javax.swing.JButton getRemoveButton() {
+        return removebtn;
+    }
+
+    public javax.swing.JLabel getItemNameLabel() {
+        return itemname;
+    }
+
+    public javax.swing.JLabel getCategoryLabel() {
+        return category;
+    }
+
+    public javax.swing.JLabel getPriceLabel() {
         return price;
     }
-    
-public javax.swing.JLabel getStatusLabel() {
+
+    public javax.swing.JLabel getStatusLabel() {
         return status;
     }
-    
 
- public void setItemData(Item item) {
+    public void setItemData(Item item) {
         this.item = item;
         itemname.setText(item.getItemName());
         category.setText(item.getCategory());
         price.setText("$" + String.format("%.2f", item.getValue()));
         status.setText(item.getStatus());
     }
- 
- 
-    
-  
-
-    
 
 }
