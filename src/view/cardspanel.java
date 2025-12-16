@@ -3,18 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package view;
-
+import model.Item;
 /**
  *
  * @author samee
  */
 public class cardspanel extends javax.swing.JPanel {
+    private Item item;
 
     /**
-     * Creates new form cardspanel
+     * Creates new form
      */
-    public cardspanel() {
+    public cardspanel(Item item) {
+        this.item=item;
         initComponents();
+        setItemData(item);
+        
     }
 
     /**
@@ -32,7 +36,8 @@ public class cardspanel extends javax.swing.JPanel {
         editbtn = new javax.swing.JButton();
         removebtn = new javax.swing.JButton();
         price = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        imagelabel = new javax.swing.JLabel();
+        status = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(280, 250));
         setLayout(null);
@@ -60,6 +65,13 @@ public class cardspanel extends javax.swing.JPanel {
 
         price.setText("price");
         add(price);
+        price.setBounds(160, 190, 60, 16);
+        add(imagelabel);
+        imagelabel.setBounds(30, 20, 180, 100);
+
+        status.setText("status");
+        add(status);
+        status.setBounds(190, 160, 31, 16);
         price.setBounds(160, 190, 60, 17);
         add(jLabel5);
         jLabel5.setBounds(30, 20, 180, 100);
@@ -73,10 +85,68 @@ public class cardspanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel category;
     private javax.swing.JButton editbtn;
+    private javax.swing.JLabel imagelabel;
     private javax.swing.JLabel itemname;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel price;
     private javax.swing.JButton removebtn;
+    private javax.swing.JLabel status;
     private javax.swing.JLabel value;
     // End of variables declaration//GEN-END:variables
+
+    
+public Item getItem(){
+    return item;
+}
+
+public int getItemId(){
+    return item.getItemId();
+}
+
+public javax.swing.JLabel getCateogyLabel(){
+    return category;
+}
+
+public javax.swing.JButton getEditButton(){
+    return editbtn;
+}
+
+public javax.swing.JLabel getImageLabel(){
+    return imagelabel;
+}
+    
+public javax.swing.JButton getRemoveButton() {
+        return removebtn;
+    }
+    
+public javax.swing.JLabel getItemNameLabel() {
+        return itemname;
+    }
+    
+public javax.swing.JLabel getCategoryLabel() {
+        return category;
+    }
+    
+public javax.swing.JLabel getPriceLabel() {
+        return price;
+    }
+    
+public javax.swing.JLabel getStatusLabel() {
+        return status;
+    }
+    
+
+ public void setItemData(Item item) {
+        this.item = item;
+        itemname.setText(item.getItemName());
+        category.setText(item.getCategory());
+        price.setText("$" + String.format("%.2f", item.getValue()));
+        status.setText(item.getStatus());
+    }
+ 
+ 
+    
+  
+
+    
+
 }
