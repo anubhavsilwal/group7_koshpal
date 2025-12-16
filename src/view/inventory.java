@@ -188,7 +188,7 @@ public class inventory extends javax.swing.JFrame {
             }
         });
         centerpanel.add(additembtn);
-        additembtn.setBounds(1090, 50, 140, 40);
+        additembtn.setBounds(820, 40, 140, 40);
 
         onloan.setLayout(null);
 
