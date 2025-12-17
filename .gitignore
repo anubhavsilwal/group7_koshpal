@@ -1,4 +1,51 @@
+# -----------------------------
+# NetBeans Build & Cache Files
+# -----------------------------
 nbproject/private/
-src/database
-
-/build/
+build/
+dist/
+nbbuild/
+nbdist/
+.nb-gradle/
+ 
+# -----------------------------
+# OS-specific files
+# -----------------------------
+ 
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+__MACOSX/
+ 
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+ 
+# -----------------------------
+# Java / Maven / Gradle
+# -----------------------------
+*.class
+*.war
+*.ear
+*.jar
+ 
+# Ignore logs
+*.log
+ 
+# Ignore compiled output
+out/
+ 
+# -----------------------------
+# IDE-specific extra
+# -----------------------------
+# IntelliJ IDEA (if someone opens in IDEA)
+.idea/
+*.iml
+ 
+# VS Code Java
+.vscode/
+ 
+# src/database/
+# nbproject/project.properties
