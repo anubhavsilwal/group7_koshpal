@@ -4,17 +4,23 @@
  */
 package view;
 
+import model.Item;
+
 /**
  *
  * @author samee
  */
 public class cardspanel extends javax.swing.JPanel {
+    private Item item;
 
     /**
-     * Creates new form cardspanel
+     * Creates new form
      */
-    public cardspanel() {
+    public cardspanel(Item item) {
+        this.item = item;
         initComponents();
+        setItemData(item);
+
     }
 
     /**
@@ -32,51 +38,106 @@ public class cardspanel extends javax.swing.JPanel {
         editbtn = new javax.swing.JButton();
         removebtn = new javax.swing.JButton();
         price = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        imagelabel = new javax.swing.JLabel();
+        status = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(102, 255, 102));
         setPreferredSize(new java.awt.Dimension(280, 250));
         setLayout(null);
 
         itemname.setText("item name");
         add(itemname);
-        itemname.setBounds(10, 140, 100, 16);
+        itemname.setBounds(10, 140, 140, 16);
 
         category.setText("category");
         add(category);
-        category.setBounds(10, 160, 70, 20);
+        category.setBounds(20, 160, 120, 20);
 
         value.setText("value");
         add(value);
-        value.setBounds(10, 190, 28, 20);
+        value.setBounds(10, 190, 40, 20);
 
         editbtn.setText("edit");
         editbtn.addActionListener(this::editbtnActionPerformed);
         add(editbtn);
-        editbtn.setBounds(10, 230, 72, 23);
+        editbtn.setBounds(10, 230, 90, 23);
 
         removebtn.setText("remove");
         add(removebtn);
-        removebtn.setBounds(150, 230, 72, 23);
+        removebtn.setBounds(132, 230, 90, 23);
 
         price.setText("price");
         add(price);
         price.setBounds(160, 190, 60, 16);
-        add(jLabel5);
-        jLabel5.setBounds(30, 20, 180, 100);
+        add(imagelabel);
+        imagelabel.setBounds(30, 20, 180, 100);
+
+        status.setText("status");
+        add(status);
+        status.setBounds(141, 160, 90, 16);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
+    private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_editbtnActionPerformed
-
+    }// GEN-LAST:event_editbtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel category;
     private javax.swing.JButton editbtn;
+    private javax.swing.JLabel imagelabel;
     private javax.swing.JLabel itemname;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel price;
     private javax.swing.JButton removebtn;
+    private javax.swing.JLabel status;
     private javax.swing.JLabel value;
     // End of variables declaration//GEN-END:variables
+
+    public Item getItem() {
+        return item;
+    }
+
+    public int getItemId() {
+        return item.getItemId();
+    }
+
+    public javax.swing.JLabel getCateogyLabel() {
+        return category;
+    }
+
+    public javax.swing.JButton getEditButton() {
+        return editbtn;
+    }
+
+    public javax.swing.JLabel getImageLabel() {
+        return imagelabel;
+    }
+
+    public javax.swing.JButton getRemoveButton() {
+        return removebtn;
+    }
+
+    public javax.swing.JLabel getItemNameLabel() {
+        return itemname;
+    }
+
+    public javax.swing.JLabel getCategoryLabel() {
+        return category;
+    }
+
+    public javax.swing.JLabel getPriceLabel() {
+        return price;
+    }
+
+    public javax.swing.JLabel getStatusLabel() {
+        return status;
+    }
+
+    public void setItemData(Item item) {
+        this.item = item;
+        itemname.setText(item.getItemName());
+        category.setText(item.getCategory());
+        price.setText("$" + String.format("%.2f", item.getValue()));
+        status.setText(item.getStatus());
+    }
+
 }
