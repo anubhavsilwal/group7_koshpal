@@ -45,6 +45,9 @@ public class forgotPassword extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         sendButton = new javax.swing.JButton();
+        OTPFILL = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -108,7 +111,7 @@ public class forgotPassword extends javax.swing.JFrame {
         jButton5.setBounds(70, 340, 350, 30);
 
         jPanel3.add(jPanel1);
-        jPanel1.setBounds(730, 170, 480, 580);
+        jPanel1.setBounds(730, 170, 480, 610);
 
         jPanel4.setBackground(new java.awt.Color(167, 230, 195));
         jPanel4.setLayout(null);
@@ -130,13 +133,13 @@ public class forgotPassword extends javax.swing.JFrame {
         jLabel8.setBounds(40, 280, 450, 40);
 
         jLabel9.setFont(new java.awt.Font("Helvetica Neue", 0, 15)); // NOI18N
-        jLabel9.setText("code on your email to reset the password");
+        jLabel9.setText("OTP code on your email to reset the password");
         jPanel4.add(jLabel9);
-        jLabel9.setBounds(40, 300, 310, 30);
+        jLabel9.setBounds(40, 300, 340, 30);
 
-        jLabel10.setText("Email or cell number");
+        jLabel10.setText("Enter OTP code");
         jPanel4.add(jLabel10);
-        jLabel10.setBounds(60, 370, 130, 17);
+        jLabel10.setBounds(60, 480, 130, 17);
 
         jButton3.setText(" ");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -156,10 +159,29 @@ public class forgotPassword extends javax.swing.JFrame {
             }
         });
         jPanel4.add(sendButton);
-        sendButton.setBounds(160, 450, 150, 30);
+        sendButton.setBounds(160, 440, 150, 30);
+
+        OTPFILL.setText(" ");
+        OTPFILL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OTPFILLActionPerformed(evt);
+            }
+        });
+        jPanel4.add(OTPFILL);
+        OTPFILL.setBounds(60, 500, 360, 30);
+
+        jButton2.setBackground(new java.awt.Color(64, 169, 29));
+        jButton2.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        jButton2.setText("ok");
+        jPanel4.add(jButton2);
+        jButton2.setBounds(160, 540, 150, 30);
+
+        jLabel12.setText("Enter email or cell number");
+        jPanel4.add(jLabel12);
+        jLabel12.setBounds(60, 370, 170, 17);
 
         jPanel3.add(jPanel4);
-        jPanel4.setBounds(130, 170, 480, 580);
+        jPanel4.setBounds(130, 170, 480, 610);
 
         getContentPane().add(jPanel3);
         jPanel3.setBounds(0, 0, 1580, 920);
@@ -187,6 +209,10 @@ public class forgotPassword extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void OTPFILLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OTPFILLActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_OTPFILLActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -213,12 +239,15 @@ public class forgotPassword extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField OTPFILL;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
