@@ -113,7 +113,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="java.awt.Button" name="button2">
+        <Component class="java.awt.Button" name="Lending">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ee" green="fb" red="fe" type="rgb"/>
@@ -126,7 +126,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="java.awt.Button" name="button3">
+        <Component class="java.awt.Button" name="Goals">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ee" green="fb" red="fe" type="rgb"/>
@@ -152,7 +152,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="java.awt.Button" name="button5">
+        <Component class="java.awt.Button" name="Documents">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ee" green="fb" red="fe" type="rgb"/>
@@ -165,7 +165,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="java.awt.Button" name="button6">
+        <Component class="java.awt.Button" name="Dashboard">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ee" green="fb" red="fe" type="rgb"/>
@@ -993,6 +993,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="+ Add goals"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton5MouseClicked"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="790" y="30" width="-1" height="-1"/>

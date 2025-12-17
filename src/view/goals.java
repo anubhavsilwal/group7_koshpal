@@ -4,6 +4,15 @@
  */
 package view;
 
+import controller.GoalsController;
+import model.GoalsModel;
+import model.Goal;
+import javax.swing.*;
+import java.awt.Component;
+import java.awt.Font;
+import java.time.LocalDate;
+import java.util.List;
+
 /**
  *
  * @author anubhavsilwal
@@ -11,13 +20,283 @@ package view;
 public class goals extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(goals.class.getName());
+     
+    private GoalsModel goalsModel;
+    private GoalsController goalsController;
+    private List<Goal> currentGoals;
 
     /**
      * Creates new form inventory
      */
     public goals() {
         initComponents();
+         initializeGoalsMVC();
     }
+    private void initializeGoalsMVC() {
+    try {
+        // 1. Initialize the model (this loads sample data)
+        goalsModel = new GoalsModel();
+        
+        // 2. Setup listener for automatic updates
+        setupModelListener();
+        
+        // 3. Initialize controller
+        goalsController = new GoalsController(goalsModel);
+        
+        // 4. Load and display goals
+        refreshGoalsDisplay();
+        
+        logger.info("Goals MVC system initialized successfully!");
+        
+    } catch (Exception e) {
+        logger.severe("Error initializing goals system: " + e.getMessage());
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, 
+            "Error initializing goals system. Please check console.",
+            "Initialization Error", 
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+    
+    /**
+     * Listener for goal updates
+     */
+    private void setupModelListener() {
+        if (goalsModel != null) {
+            // Create a listener that refreshes the display when model changes
+            goalsModel.addListener(() -> {
+                SwingUtilities.invokeLater(() -> {
+                    refreshGoalsDisplay();
+                });
+            });
+        }
+    }
+    
+    /**
+     * Refresh all goals display
+     */
+    private void refreshGoalsDisplay() {
+        try {
+            // Get current goals from model
+            currentGoals = goalsModel.getGoals();
+            // ADD NULL CHECK:
+            if (currentGoals == null){
+                System.out.println("No goals to display");
+                return;
+            }
+            
+            // Update goal cards based on actual data
+            updateGoalCard(jPanel4, 0); // First card
+            updateGoalCard(jPanel5, 1); // Second card  
+            updateGoalCard(jPanel6, 2); // Third card
+            updateGoalCard(jPanel7, 3); // Fourth card
+            
+            // Update summary
+            updateSummary();
+            
+        } catch (Exception e) {
+            logger.warning("Error refreshing goals display: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Update a specific goal card
+     */
+    private void updateGoalCard(JPanel cardPanel, int goalIndex) {
+        if (currentGoals == null) {
+        cardPanel.setVisible(false);
+        return;
+    }
+    
+    if (goalIndex < 0 || goalIndex >= currentGoals.size()) {
+        // Hide card if no goal exists at this index
+        cardPanel.setVisible(false);
+        return;
+    }
+        
+        Goal goal = currentGoals.get(goalIndex);
+        cardPanel.setVisible(true);
+        
+        try {
+            // Update goal name - find the name label in the card
+            JLabel nameLabel = null;
+            for (Component comp : cardPanel.getComponents()) {
+                if (comp instanceof JLabel) {
+                    JLabel label = (JLabel) comp;
+                    String text = label.getText();
+                    if (text != null && (text.contains("Vacation Fund") || text.contains("Fund"))) {
+                        nameLabel = label;
+                        break;
+                    }
+                }
+            }
+            if (nameLabel != null) {
+                nameLabel.setText(goal.getName());
+            }
+            
+            // Update category - find category label (usually smaller font)
+            JLabel categoryLabel = null;
+            for (Component comp : cardPanel.getComponents()) {
+                if (comp instanceof JLabel) {
+                    JLabel label = (JLabel) comp;
+                    if (label.getFont().getStyle() == Font.ITALIC || 
+                        (label.getText() != null && label.getText().equals("Travel"))) {
+                        categoryLabel = label;
+                        break;
+                    }
+                }
+            }
+            if (categoryLabel != null) {
+                categoryLabel.setText(goal.getCategory());
+            }
+            
+            // Update progress text - find the $ amount label
+            JLabel progressText = null;
+            for (Component comp : cardPanel.getComponents()) {
+                if (comp instanceof JLabel) {
+                    JLabel label = (JLabel) comp;
+                    if (label.getText() != null && label.getText().contains("$")) {
+                        progressText = label;
+                        break;
+                    }
+                }
+            }
+            if (progressText != null) {
+                progressText.setText(String.format("$%.2f / $%.2f", goal.getSavedAmount(), goal.getTargetAmount()));
+            }
+            
+            // Update progress bar
+            for (Component comp : cardPanel.getComponents()) {
+                if (comp instanceof JProgressBar) {
+                    JProgressBar progressBar = (JProgressBar) comp;
+                    progressBar.setValue((int) goal.getProgress());
+                    progressBar.setString(String.format("%.0f%%", goal.getProgress()));
+                    break;
+                }
+            }
+            
+            // Update due date - find Due: label
+            JLabel dueDateLabel = null;
+            for (Component comp : cardPanel.getComponents()) {
+                if (comp instanceof JLabel) {
+                    JLabel label = (JLabel) comp;
+                    if (label.getText() != null && label.getText().startsWith("Due:")) {
+                        dueDateLabel = label;
+                        break;
+                    }
+                }
+            }
+            if (dueDateLabel != null) {
+                dueDateLabel.setText("Due: " + goal.getDueDateFormatted());
+            }
+            
+        } catch (Exception e) {
+            logger.warning("Error updating goal card " + goalIndex + ": " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Update the summary panel
+     */
+    private void updateSummary() {
+        try {
+            jLabel25.setText(String.valueOf(goalsModel.getTotalGoals())); // Total Goals
+            jLabel27.setText(String.format("$%.2f", goalsModel.getTotalTarget())); // Total target
+            jLabel31.setText(String.format("$%.2f", goalsModel.getTotalSaved())); // Current saved
+            jLabel32.setText(String.format("%.0f%%", goalsModel.getAverageProgress())); // Avg Progress
+            
+        } catch (Exception e) {
+            logger.warning("Error updating summary: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Show dialog to update goal progress
+     */
+    private void updateGoalProgress(int goalIndex) {
+        if (currentGoals == null) {
+            JOptionPane.showMessageDialog(this, 
+                "No goal at this position. Add a goal first.", 
+                "No Goal", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (goalIndex >= currentGoals.size()){
+            JOptionPane.showMessageDialog(this,
+                    "Goals not loaded yet. Please wait.",
+                    "No Goal",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Goal goal = currentGoals.get(goalIndex);
+        
+        // Show input dialog
+        String input = JOptionPane.showInputDialog(
+            this,
+            "Add money to: " + goal.getName() + "\n" +
+            "Current: $" + goal.getSavedAmount() + " / $" + goal.getTargetAmount() + "\n" +
+            "Enter amount to add:",
+            "Update Goal Progress",
+            JOptionPane.QUESTION_MESSAGE
+        );
+        
+        if (input != null && !input.trim().isEmpty()) {
+            try {
+                double amount = Double.parseDouble(input);
+                if (amount > 0) {
+                    // Add money to goal
+                    goalsModel.addMoneyToGoal(goalIndex, amount);
+                    
+                    // Refresh display (listener will handle this automatically)
+                    
+                    JOptionPane.showMessageDialog(this,
+                        String.format("Successfully added $%.2f to %s!\nNew total: $%.2f / $%.2f", 
+                            amount, goal.getName(), goal.getSavedAmount(), goal.getTargetAmount()),
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                        "Please enter a positive amount.",
+                        "Invalid Amount",
+                        JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this,
+                    "Please enter a valid number.",
+                    "Invalid Input",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
+    /**
+     * Show summary details
+     */
+    private void showSummaryDetails() {
+        if (goalsModel == null) return;
+        
+        String summary = String.format(
+            "<html><div style='font-size:12pt; padding:10px;'>" +
+            "<h3>Financial Goals Summary</h3>" +
+            "<b>Total Goals:</b> %d<br>" +
+            "<b>Total Target Amount:</b> $%.2f<br>" +
+            "<b>Total Saved:</b> $%.2f<br>" +
+            "<b>Remaining Amount:</b> $%.2f<br>" +
+            "<b>Average Progress:</b> %.1f%%<br><br>" +
+            "<i>Keep up the good work!</i>" +
+            "</div></html>",
+            goalsModel.getTotalGoals(),
+            goalsModel.getTotalTarget(),
+            goalsModel.getTotalSaved(),
+            goalsModel.getTotalTarget() - goalsModel.getTotalSaved(),
+            goalsModel.getAverageProgress()
+        );
+        
+        JOptionPane.showMessageDialog(this, summary, "Goals Summary", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,11 +313,11 @@ public class goals extends javax.swing.JFrame {
         jLabel38 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         button1 = new java.awt.Button();
-        button2 = new java.awt.Button();
-        button3 = new java.awt.Button();
+        Lending = new java.awt.Button();
+        Goals = new java.awt.Button();
         button4 = new java.awt.Button();
-        button5 = new java.awt.Button();
-        button6 = new java.awt.Button();
+        Documents = new java.awt.Button();
+        Dashboard = new java.awt.Button();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -120,25 +399,25 @@ public class goals extends javax.swing.JFrame {
         button1.setLabel("My Inventory");
         jPanel2.add(button1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 200, 50));
 
-        button2.setBackground(new java.awt.Color(254, 251, 238));
-        button2.setLabel("Lending");
-        jPanel2.add(button2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 200, 50));
+        Lending.setBackground(new java.awt.Color(254, 251, 238));
+        Lending.setLabel("Lending");
+        jPanel2.add(Lending, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 200, 50));
 
-        button3.setBackground(new java.awt.Color(254, 251, 238));
-        button3.setLabel("Goals");
-        jPanel2.add(button3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 200, 50));
+        Goals.setBackground(new java.awt.Color(254, 251, 238));
+        Goals.setLabel("Goals");
+        jPanel2.add(Goals, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 200, 50));
 
         button4.setBackground(new java.awt.Color(254, 251, 238));
         button4.setLabel("Financial Analytics");
         jPanel2.add(button4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 50));
 
-        button5.setBackground(new java.awt.Color(254, 251, 238));
-        button5.setLabel("Documents");
-        jPanel2.add(button5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 200, 50));
+        Documents.setBackground(new java.awt.Color(254, 251, 238));
+        Documents.setLabel("Documents");
+        jPanel2.add(Documents, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 200, 50));
 
-        button6.setBackground(new java.awt.Color(254, 251, 238));
-        button6.setLabel("Dashboard");
-        jPanel2.add(button6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 200, 50));
+        Dashboard.setBackground(new java.awt.Color(254, 251, 238));
+        Dashboard.setLabel("Dashboard");
+        jPanel2.add(Dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 200, 50));
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 100, 200, 800);
@@ -396,6 +675,11 @@ public class goals extends javax.swing.JFrame {
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("+ Add goals");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
         jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 30, -1, -1));
 
         getContentPane().add(jPanel3);
@@ -405,20 +689,34 @@ public class goals extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        updateGoalProgress(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        updateGoalProgress(1);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+       updateGoalProgress(2);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        updateGoalProgress(3);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        if (goalsController != null) {
+            goalsController.showAddGoalDialog();
+            SwingUtilities.invokeLater(() -> {
+                try {
+                    Thread.sleep(500);
+                    refreshGoalsDisplay();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+    }//GEN-LAST:event_jButton5MouseClicked
 
     /**
      * @param args the command line arguments
@@ -446,12 +744,12 @@ public class goals extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Button Dashboard;
+    private java.awt.Button Documents;
+    private java.awt.Button Goals;
+    private java.awt.Button Lending;
     private java.awt.Button button1;
-    private java.awt.Button button2;
-    private java.awt.Button button3;
     private java.awt.Button button4;
-    private java.awt.Button button5;
-    private java.awt.Button button6;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
