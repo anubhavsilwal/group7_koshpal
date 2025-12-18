@@ -25,7 +25,7 @@ public class GoalsController {
         JTextField targetField = new JTextField();
         JTextField savedField = new JTextField("0");
         JTextField dateField = new JTextField(LocalDate.now().plusMonths(1).toString());
-        JTextField locationField = new JTextField();
+        
         
         Object[] message = {
             "Name:", nameField,
@@ -33,7 +33,7 @@ public class GoalsController {
             "Target Amount:", targetField,
             "Saved Amount:", savedField,
             "Due Date (YYYY-MM-DD):", dateField,
-            "Location:", locationField
+            
         };
         
         int option = JOptionPane.showConfirmDialog(
@@ -50,9 +50,9 @@ public class GoalsController {
                 double targetAmount = Double.parseDouble(targetField.getText());
                 double savedAmount = Double.parseDouble(savedField.getText());
                 LocalDate dueDate = LocalDate.parse(dateField.getText());
-                String location = locationField.getText();
                 
-                Goal goal = new Goal(name, category, targetAmount, savedAmount, dueDate, location);
+                
+                Goal goal = new Goal(name, category, targetAmount, savedAmount, dueDate, "");
                 model.addGoal(goal);
                 
             } catch (Exception e) {
