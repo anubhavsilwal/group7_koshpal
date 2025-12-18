@@ -28,21 +28,99 @@ public class Resetpassword extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        submitButton1 = new javax.swing.JButton();
+        confirmPassword = new javax.swing.JPasswordField();
+        SHOW1 = new java.awt.Checkbox();
+        SHOW2 = new java.awt.Checkbox();
+        newPassword = new javax.swing.JPasswordField();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(760, 480));
+        getContentPane().setLayout(null);
+
+        jPanel1.setBackground(new java.awt.Color(255, 250, 241));
+        jPanel1.setLayout(null);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(120, 130, 140, 170);
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 350, 480);
+
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
+        jLabel1.setText("Reset Password");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(410, 60, 360, 50);
+
+        jLabel3.setText("Confirm Password");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(390, 280, 120, 17);
+
+        jLabel4.setText("New Password");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(390, 200, 110, 17);
+
+        submitButton1.setBackground(new java.awt.Color(123, 169, 139));
+        submitButton1.setFont(new java.awt.Font("Menlo", 1, 13)); // NOI18N
+        submitButton1.setText("Submit");
+        submitButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(submitButton1);
+        submitButton1.setBounds(490, 360, 110, 30);
+
+        confirmPassword.setText("hjgkjhkkkk");
+        confirmPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmPasswordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(confirmPassword);
+        confirmPassword.setBounds(390, 300, 320, 30);
+
+        SHOW1.setFont(new java.awt.Font("Baloo 2", 1, 14)); // NOI18N
+        SHOW1.setForeground(new java.awt.Color(51, 0, 51));
+        SHOW1.setLabel("SHOW");
+        getContentPane().add(SHOW1);
+        SHOW1.setBounds(650, 250, 80, 30);
+
+        SHOW2.setFont(new java.awt.Font("Baloo 2", 1, 14)); // NOI18N
+        SHOW2.setForeground(new java.awt.Color(51, 0, 51));
+        SHOW2.setLabel("SHOW");
+        getContentPane().add(SHOW2);
+        SHOW2.setBounds(650, 330, 80, 30);
+
+        newPassword.setText("hjjfgfhfhjhh");
+        newPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newPasswordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(newPassword);
+        newPassword.setBounds(390, 220, 320, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void submitButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_submitButton1ActionPerformed
+
+    private void confirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_confirmPasswordActionPerformed
+
+    private void newPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +148,15 @@ public class Resetpassword extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Checkbox SHOW1;
+    private java.awt.Checkbox SHOW2;
+    private javax.swing.JPasswordField confirmPassword;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField newPassword;
+    private javax.swing.JButton submitButton1;
     // End of variables declaration//GEN-END:variables
 }

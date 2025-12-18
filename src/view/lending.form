@@ -72,7 +72,7 @@
         <Component class="javax.swing.JButton" name="jButton15">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="a9" green="dc" red="ff" type="rgb"/>
+              <Color blue="84" green="b1" red="5d" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Helvetica Neue" size="14" style="1"/>

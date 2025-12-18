@@ -28,21 +28,115 @@ public class forgotpassword11 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        OTP = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        email1 = new javax.swing.JTextField();
+        okButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        sendButton1 = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(760, 480));
+        getContentPane().setLayout(null);
+
+        jPanel1.setBackground(new java.awt.Color(255, 250, 241));
+        jPanel1.setLayout(null);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(120, 130, 140, 170);
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 350, 480);
+
+        jLabel8.setFont(new java.awt.Font("Helvetica Neue", 0, 15)); // NOI18N
+        jLabel8.setText("Provide us your account email and we'll send OTP code");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(370, 210, 450, 40);
+
+        jLabel9.setFont(new java.awt.Font("Helvetica Neue", 0, 15)); // NOI18N
+        jLabel9.setText("on your email to reset the password");
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(370, 230, 340, 30);
+
+        OTP.setForeground(new java.awt.Color(153, 153, 153));
+        OTP.setText("Enter OPT");
+        OTP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OTPActionPerformed(evt);
+            }
+        });
+        getContentPane().add(OTP);
+        OTP.setBounds(380, 390, 320, 30);
+
+        jLabel3.setText("Enter E-mail");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(380, 270, 90, 17);
+
+        jLabel10.setText("Enter OTP code");
+        getContentPane().add(jLabel10);
+        jLabel10.setBounds(380, 370, 130, 17);
+
+        email1.setForeground(new java.awt.Color(153, 153, 153));
+        email1.setText("Enter your email");
+        email1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                email1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(email1);
+        email1.setBounds(380, 290, 320, 30);
+
+        okButton.setBackground(new java.awt.Color(123, 169, 139));
+        okButton.setFont(new java.awt.Font("Menlo", 1, 13)); // NOI18N
+        okButton.setText("Ok");
+        okButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(okButton);
+        okButton.setBounds(480, 430, 100, 23);
+
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
+        jLabel1.setText("Forgot Password");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(380, 50, 360, 50);
+
+        sendButton1.setBackground(new java.awt.Color(123, 169, 139));
+        sendButton1.setFont(new java.awt.Font("Menlo", 1, 13)); // NOI18N
+        sendButton1.setText("Send");
+        sendButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(sendButton1);
+        sendButton1.setBounds(480, 330, 100, 23);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void OTPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OTPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_OTPActionPerformed
+
+    private void email1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_email1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_email1ActionPerformed
+
+    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_okButtonActionPerformed
+
+    private void sendButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sendButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +164,16 @@ public class forgotpassword11 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField OTP;
+    private javax.swing.JTextField email1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton okButton;
+    private javax.swing.JButton sendButton1;
     // End of variables declaration//GEN-END:variables
 }

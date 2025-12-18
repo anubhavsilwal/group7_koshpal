@@ -72,7 +72,7 @@ public class forgotPassword extends javax.swing.JFrame {
         jLabel2.setBounds(150, 250, 230, 40);
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        jLabel5.setText("Conform New Password");
+        jLabel5.setText("Confirm New Password");
         jPanel1.add(jLabel5);
         jLabel5.setBounds(70, 390, 180, 18);
 

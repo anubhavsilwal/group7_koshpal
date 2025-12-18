@@ -192,7 +192,7 @@ public class lending extends javax.swing.JFrame {
         jPanel1.add(jButton13);
         jButton13.setBounds(0, 80, 200, 50);
 
-        jButton15.setBackground(new java.awt.Color(255, 220, 169));
+        jButton15.setBackground(new java.awt.Color(93, 177, 132));
         jButton15.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jButton15.setText("Lending");
         jButton15.setSize(new java.awt.Dimension(200, 50));
@@ -639,7 +639,7 @@ public class lending extends javax.swing.JFrame {
         );
 
         jPanel3.add(jPanel10);
-        jPanel10.setBounds(45, 799, 0, 0);
+        jPanel10.setBounds(45, 799, 996, 115);
 
         jPanel11.setBackground(new java.awt.Color(224, 243, 235));
         jPanel11.setLayout(null);
@@ -1068,7 +1068,7 @@ public class lending extends javax.swing.JFrame {
         );
 
         jPanel2.add(jPanel4);
-        jPanel4.setBounds(110, 110, 0, 0);
+        jPanel4.setBounds(110, 110, 206, 89);
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         jLabel3.setText("Active loan");
@@ -1100,7 +1100,7 @@ public class lending extends javax.swing.JFrame {
         );
 
         jPanel2.add(jPanel5);
-        jPanel5.setBounds(500, 110, 0, 0);
+        jPanel5.setBounds(500, 110, 228, 89);
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         jLabel5.setText("OverDue");
@@ -1131,7 +1131,7 @@ public class lending extends javax.swing.JFrame {
         );
 
         jPanel2.add(jPanel6);
-        jPanel6.setBounds(930, 110, 0, 0);
+        jPanel6.setBounds(930, 110, 217, 95);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(198, 121, 1250, 800);
