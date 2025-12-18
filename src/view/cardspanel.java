@@ -4,6 +4,7 @@
  */
 package view;
 
+import javax.swing.ImageIcon;
 import model.Item;
 
 /**
@@ -42,7 +43,7 @@ public class cardspanel extends javax.swing.JPanel {
         status = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(102, 255, 102));
-        setPreferredSize(new java.awt.Dimension(280, 250));
+        setPreferredSize(new java.awt.Dimension(300, 350));
         setLayout(null);
 
         itemname.setText("item name");
@@ -132,12 +133,24 @@ public class cardspanel extends javax.swing.JPanel {
         return status;
     }
 
-    public void setItemData(Item item) {
-        this.item = item;
-        itemname.setText(item.getItemName());
-        category.setText(item.getCategory());
-        price.setText("$" + String.format("%.2f", item.getValue()));
-        status.setText(item.getStatus());
+
+public void setItemData(Item item) {
+    this.item = item;
+    itemname.setText(item.getItemName());
+    category.setText(item.getCategory());
+    price.setText("$" + String.format("%.2f", item.getValue()));
+    status.setText(item.getStatus());
+    
+    // FIX 2: Display image if path exists
+    if (item.getImagePath() != null && !item.getImagePath().isEmpty()) {
+        try {
+            ImageIcon icon = new ImageIcon(item.getImagePath());
+            imagelabel.setIcon(icon);
+        } catch (Exception e) {
+            // If image fails, show text
+            imagelabel.setText("[Image]");
+        }
     }
+}
 
 }

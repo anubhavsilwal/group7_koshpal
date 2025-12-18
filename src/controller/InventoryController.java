@@ -12,6 +12,10 @@ import javax.swing.*;
 import view.cardspanel;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
+import java.io.File;
+import javax.swing.JFileChooser;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 /**
  *
  * @author samee
@@ -68,44 +72,36 @@ public InventoryController(inventory inventoryView) {
     }
     
     
-    private void loadAllItems(){
-               // Get or create cards container
-        JPanel cardsContainer;
-        if (inventoryView.getItemsScrollPane().getViewport().getView() instanceof JPanel) {
-            cardsContainer = (JPanel) inventoryView.getItemsScrollPane().getViewport().getView();
-        } else {
-            // Create new container if none exists
-            cardsContainer = new JPanel();
-            cardsContainer.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
-            inventoryView.getItemsScrollPane().setViewportView(cardsContainer);
-        }
+private void loadAllItems(){
+    // Create a panel with GridLayout (3 columns, variable rows)
+    JPanel cardsContainer = new JPanel(new GridLayout(0, 3, 20, 20)); // 0=infinite rows, 3 columns, 20px gaps
     
-       // Clear existing cards
+    // Set the panel as viewport
+    inventoryView.getItemsScrollPane().setViewportView(cardsContainer);
+    
+    // Clear existing cards
     cardsContainer.removeAll();
     
-     List<Item> items = itemService.getItemsByUser(currentUserId);
+    List<Item> items = itemService.getItemsByUser(currentUserId);
     
     if (items.isEmpty()) {
-        // Show message if no items
         JLabel noItemsLabel = new JLabel("No items found. Click 'Add item' to get started!");
         noItemsLabel.setFont(new java.awt.Font("Arial", java.awt.Font.ITALIC, 16));
         noItemsLabel.setHorizontalAlignment(SwingConstants.CENTER);
         cardsContainer.add(noItemsLabel);
     } else {
-        // Create a cardspanel for each item
+        // Create a cardspanel for each item - GridLayout will arrange them
         for (Item item : items) {
             cardspanel card = new cardspanel(item);
             
-   card.getEditButton().addActionListener
-        (e -> handleItemEdit(item.getItemId()));
-            card.getRemoveButton().addActionListener
-        (e -> handleItemRemove(item.getItemId()));
+            card.getEditButton().addActionListener(e -> handleItemEdit(item.getItemId()));
+            card.getRemoveButton().addActionListener(e -> handleItemRemove(item.getItemId()));
             
             cardsContainer.add(card);
-}
+        }
     }
     
- // Refresh the panel
+    // Refresh
     cardsContainer.revalidate();
     cardsContainer.repaint();
 }
@@ -182,16 +178,60 @@ private void openAddItemDialog() {
     String itemName = JOptionPane.showInputDialog(inventoryView, "Enter item name:");
     if (itemName == null || itemName.trim().isEmpty()) return;
     
-    String category = JOptionPane.showInputDialog(inventoryView, "Enter category:");
-    if (category == null || category.trim().isEmpty()) return;
+    // FIX 1: Fixed category dropdown
+    String[] categories = {"Electronics", "Furniture", "Books", "Clothing", "Other"};
+    String category = (String) JOptionPane.showInputDialog(inventoryView, 
+        "Select category:", "Category", 
+        JOptionPane.QUESTION_MESSAGE, null, categories, categories[0]);
+    if (category == null) return;
+    
+    // NEW: Image selection with Browse button
+    JPanel imagePanel = new JPanel(new BorderLayout(5, 5));
+    JTextField imagePathField = new JTextField(20);
+    JButton browseButton = new JButton("Browse...");
+    
+    browseButton.addActionListener(e -> {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Select Item Image");
+        
+        // Filter for image files
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
+            "Image files", "jpg", "jpeg", "png", "gif", "bmp"));
+        
+        int result = fileChooser.showOpenDialog(inventoryView);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            imagePathField.setText(selectedFile.getAbsolutePath());
+        }
+    });
+    
+    JPanel fieldPanel = new JPanel(new BorderLayout(5, 5));
+    fieldPanel.add(new JLabel("Image (optional):"), BorderLayout.WEST);
+    fieldPanel.add(imagePathField, BorderLayout.CENTER);
+    fieldPanel.add(browseButton, BorderLayout.EAST);
+    imagePanel.add(fieldPanel, BorderLayout.NORTH);
+    imagePanel.add(new JLabel("Leave empty for no image"), BorderLayout.SOUTH);
+    
+    int imageResult = JOptionPane.showConfirmDialog(inventoryView, imagePanel,
+        "Select Image", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+    
+    String imagePath = "";
+    if (imageResult == JOptionPane.OK_OPTION) {
+        imagePath = imagePathField.getText().trim();
+    }
     
     String valueStr = JOptionPane.showInputDialog(inventoryView, "Enter value:");
     if (valueStr == null || valueStr.trim().isEmpty()) return;
     
+    // FIX 3: Status dropdown
+    String[] statuses = {"Available", "On Loan", "Sold"};
+    String status = (String) JOptionPane.showInputDialog(inventoryView, 
+        "Select status:", "Status", 
+        JOptionPane.QUESTION_MESSAGE, null, statuses, statuses[0]);
+    if (status == null) return;
+    
     try {
         double value = Double.parseDouble(valueStr);
-        String status = "Available";
-        String imagePath = "";
         
         int itemId = itemService.addItem(itemName, category, value, status, imagePath);
         if (itemId > 0) {
@@ -207,8 +247,8 @@ private void openAddItemDialog() {
 }
 
 private void performSearch(String searchTerm) {
-    JPanel cardsContainer = new JPanel();
-    cardsContainer.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
+    // Create panel with GridLayout for search results too
+    JPanel cardsContainer = new JPanel(new GridLayout(0, 3, 20, 20));
     inventoryView.getItemsScrollPane().setViewportView(cardsContainer);
     
     List<Item> results = itemService.searchItems(currentUserId, searchTerm);
@@ -219,14 +259,10 @@ private void performSearch(String searchTerm) {
         noResultsLabel.setHorizontalAlignment(SwingConstants.CENTER);
         cardsContainer.add(noResultsLabel);
     } else {
-        // ✅ FIXED: Add action listeners to search results
         for (Item item : results) {
             cardspanel card = new cardspanel(item);
             
-            // Attach edit button listener
             card.getEditButton().addActionListener(e -> handleItemEdit(item.getItemId()));
-            
-            // Attach remove button listener  
             card.getRemoveButton().addActionListener(e -> handleItemRemove(item.getItemId()));
             
             cardsContainer.add(card);
@@ -236,50 +272,81 @@ private void performSearch(String searchTerm) {
     cardsContainer.revalidate();
     cardsContainer.repaint();
 }
- public void handleItemEdit(int itemId) {
-        // ✅ FIXED: Direct database lookup instead of loading all items
-        Item itemToEdit = itemService.getItemById(itemId);
+public void handleItemEdit(int itemId) {
+    Item itemToEdit = itemService.getItemById(itemId);
+    
+    if (itemToEdit != null) {
+        String newName = JOptionPane.showInputDialog(inventoryView, 
+            "Edit Item Name:", itemToEdit.getItemName());
+        if (newName == null || newName.trim().isEmpty()) return;
         
-        if (itemToEdit != null) {
-            // Create edit dialog
-            String newName = JOptionPane.showInputDialog(inventoryView, 
-                "Edit Item Name:", itemToEdit.getItemName());
-            if (newName == null || newName.trim().isEmpty()) return;
+        // FIX 1: Category dropdown
+        String[] categories = {"Electronics", "Furniture", "Books", "Clothing", "Other"};
+        String newCategory = (String) JOptionPane.showInputDialog(inventoryView, 
+            "Select category:", "Category", 
+            JOptionPane.QUESTION_MESSAGE, null, categories, itemToEdit.getCategory());
+        if (newCategory == null) return;
+        
+        // NEW: Image selection with Browse button for edit
+        JPanel imagePanel = new JPanel(new BorderLayout(5, 5));
+        JTextField imagePathField = new JTextField(itemToEdit.getImagePath(), 20);
+        JButton browseButton = new JButton("Browse...");
+        
+        browseButton.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Select Item Image");
+            fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
+                "Image files", "jpg", "jpeg", "png", "gif", "bmp"));
             
-            String newCategory = JOptionPane.showInputDialog(inventoryView, 
-                "Edit Category:", itemToEdit.getCategory());
-            if (newCategory == null || newCategory.trim().isEmpty()) return;
-            
-            String newValueStr = JOptionPane.showInputDialog(inventoryView, 
-                "Edit Value:", String.valueOf(itemToEdit.getValue()));
-            if (newValueStr == null || newValueStr.trim().isEmpty()) return;
-            
-            try {
-                double newValue = Double.parseDouble(newValueStr);
-                Item updatedItem = new Item(
-                    itemId, 
-                    newName, 
-                    newCategory, 
-                    newValue, 
-                    itemToEdit.getStatus(), 
-                    itemToEdit.getImagePath()
-                );
-                
-                boolean success = itemService.updateItem(updatedItem);
-                if (success) {
-                    JOptionPane.showMessageDialog(inventoryView, "Item updated successfully!");
-                    loadAllItems();  // Refresh the display
-                    refreshDashboard();
-                } else {
-                    JOptionPane.showMessageDialog(inventoryView, "Failed to update item!");
-                }
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(inventoryView, "Please enter a valid number!");
+            int result = fileChooser.showOpenDialog(inventoryView);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                imagePathField.setText(fileChooser.getSelectedFile().getAbsolutePath());
             }
-        } else {
-            JOptionPane.showMessageDialog(inventoryView, "Item not found!");
+        });
+        
+        JPanel fieldPanel = new JPanel(new BorderLayout(5, 5));
+        fieldPanel.add(new JLabel("Image:"), BorderLayout.WEST);
+        fieldPanel.add(imagePathField, BorderLayout.CENTER);
+        fieldPanel.add(browseButton, BorderLayout.EAST);
+        imagePanel.add(fieldPanel, BorderLayout.NORTH);
+        imagePanel.add(new JLabel("Clear field to remove image"), BorderLayout.SOUTH);
+        
+        int imageResult = JOptionPane.showConfirmDialog(inventoryView, imagePanel,
+            "Select Image", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        
+        String newImagePath = itemToEdit.getImagePath();
+        if (imageResult == JOptionPane.OK_OPTION) {
+            newImagePath = imagePathField.getText().trim();
+        }
+        
+        // FIX 3: Status dropdown
+        String[] statuses = {"Available", "On Loan", "Sold"};
+        String newStatus = (String) JOptionPane.showInputDialog(inventoryView, 
+            "Select status:", "Status", 
+            JOptionPane.QUESTION_MESSAGE, null, statuses, itemToEdit.getStatus());
+        if (newStatus == null) return;
+        
+        String newValueStr = JOptionPane.showInputDialog(inventoryView, 
+            "Edit Value:", String.valueOf(itemToEdit.getValue()));
+        if (newValueStr == null || newValueStr.trim().isEmpty()) return;
+        
+        try {
+            double newValue = Double.parseDouble(newValueStr);
+            Item updatedItem = new Item(
+                itemId, newName, newCategory, newValue, newStatus, newImagePath
+            );
+            
+            boolean success = itemService.updateItem(updatedItem);
+            if (success) {
+                JOptionPane.showMessageDialog(inventoryView, "Item updated successfully!");
+                loadAllItems();
+                refreshDashboard();
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(inventoryView, "Please enter a valid number!");
         }
     }
+}
     
     public void handleItemRemove(int itemId) {
         int confirm = JOptionPane.showConfirmDialog(
