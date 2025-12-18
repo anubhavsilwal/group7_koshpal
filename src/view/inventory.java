@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
-
+import java.awt.GridLayout;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
@@ -26,6 +26,8 @@ public class inventory extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true); 
+        
+        
     
         System.out.println("DEBUG: Window created, visible=" + isVisible());
        
@@ -238,7 +240,7 @@ public class inventory extends javax.swing.JFrame {
         centerpanel.add(totalvalue);
         totalvalue.setBounds(370, 100, 280, 90);
 
-        scrollpane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollpane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollpane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollpane.setViewportView(null);
         centerpanel.add(scrollpane);
@@ -391,5 +393,6 @@ public class inventory extends javax.swing.JFrame {
     public JScrollPane getItemsScrollPane() {
         return scrollpane;
     }
-    
+   
+
 }
