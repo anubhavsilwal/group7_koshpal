@@ -111,7 +111,7 @@ public class forgotPassword extends javax.swing.JFrame {
         jButton5.setBounds(70, 340, 350, 30);
 
         jPanel3.add(jPanel1);
-        jPanel1.setBounds(730, 170, 480, 610);
+        jPanel1.setBounds(840, 170, 480, 610);
 
         jPanel4.setBackground(new java.awt.Color(167, 230, 195));
         jPanel4.setLayout(null);
