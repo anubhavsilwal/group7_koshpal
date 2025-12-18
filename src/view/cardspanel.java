@@ -52,7 +52,7 @@ public class cardspanel extends javax.swing.JPanel {
 
         category.setText("category");
         add(category);
-        category.setBounds(20, 160, 120, 20);
+        category.setBounds(10, 160, 120, 20);
 
         value.setText("value");
         add(value);
@@ -71,7 +71,7 @@ public class cardspanel extends javax.swing.JPanel {
         add(price);
         price.setBounds(160, 190, 60, 16);
         add(imagelabel);
-        imagelabel.setBounds(30, 20, 180, 100);
+        imagelabel.setBounds(30, 20, 200, 100);
 
         status.setText("status");
         add(status);
