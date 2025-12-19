@@ -2,11 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dao;
+ package dao;
 
-import com.sun.jdi.connect.spi.Connection;
-import database.Mysqlconnection;
 import model.Loan;
+import database.Mysqlconnection;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,6 +16,23 @@ import model.Loan;
  */
 public class LoanDAO {
     private Mysqlconnection mysql = new Mysqlconnection();
+    
+    // Inner class for statistics
+    public class LoanStatistics {
+        private double totalAmount;
+        private int activeCount;
+        private int overdueCount;
+        
+        public LoanStatistics(double totalAmount, int activeCount, int overdueCount) {
+            this.totalAmount = totalAmount;
+            this.activeCount = activeCount;
+            this.overdueCount = overdueCount;
+        }
+        
+        public double getTotalAmount() { return totalAmount; }
+        public int getActiveCount() { return activeCount; }
+        public int getOverdueCount() { return overdueCount; }
+    }
     
     // 1. Create Loan (Insert new loan)
     public int createLoan(Loan loan, int userId) throws SQLException {
@@ -332,5 +351,4 @@ public class LoanDAO {
             rs.getInt("item_id")
         );
     }
-    
 }
