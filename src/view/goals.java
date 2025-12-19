@@ -103,99 +103,65 @@ public class goals extends javax.swing.JFrame {
     /**
      * Update a specific goal card
      */
+        /**
+     * Update a specific goal card
+     */
     private void updateGoalCard(JPanel cardPanel, int goalIndex) {
         if (currentGoals == null) {
-        cardPanel.setVisible(false);
-        return;
-    }
-    
-    if (goalIndex < 0 || goalIndex >= currentGoals.size()) {
-        // Hide card if no goal exists at this index
-        cardPanel.setVisible(false);
-        return;
-    }
+            cardPanel.setVisible(false);
+            return;
+        }
         
+        if (goalIndex < 0 || goalIndex >= currentGoals.size()) {
+            // Hide card if no goal exists at this index
+            cardPanel.setVisible(false);
+            return;
+        }
+            
         Goal goal = currentGoals.get(goalIndex);
         cardPanel.setVisible(true);
         
         try {
-            // Update goal name - find the name label in the card
-            JLabel nameLabel = null;
+            // Better approach: Update labels based on font properties
             for (Component comp : cardPanel.getComponents()) {
                 if (comp instanceof JLabel) {
                     JLabel label = (JLabel) comp;
-                    String text = label.getText();
-                    if (text != null && (text.contains("Vacation Fund") || text.contains("Fund"))) {
-                        nameLabel = label;
-                        break;
+                    
+                    // Update goal name (font size 18 and bold)
+                    if (label.getFont().getSize() >= 16 && label.getFont().isBold() && 
+                        !label.getText().contains("Due:")) {
+                        label.setText(goal.getName());
+                    }
+                    
+                    // Update category (italic font)
+                    else if (label.getFont().getStyle() == Font.ITALIC) {
+                        label.setText(goal.getCategory());
+                    }
+                    
+                    // Update amount (contains $ or "Target")
+                    else if (label.getText() != null && 
+                            (label.getText().contains("$") || label.getText().contains("Target"))) {
+                        label.setText(String.format("$%.2f / $%.2f", 
+                            goal.getSavedAmount(), goal.getTargetAmount()));
+                    }
+                    
+                    // Update due date
+                    else if (label.getText() != null && label.getText().startsWith("Due:")) {
+                        label.setText("Due: " + goal.getDueDateFormatted());
                     }
                 }
-            }
-            if (nameLabel != null) {
-                nameLabel.setText(goal.getName());
-            }
-            
-            // Update category - find category label (usually smaller font)
-            JLabel categoryLabel = null;
-            for (Component comp : cardPanel.getComponents()) {
-                if (comp instanceof JLabel) {
-                    JLabel label = (JLabel) comp;
-                    if (label.getFont().getStyle() == Font.ITALIC || 
-                        (label.getText() != null && label.getText().equals("Travel"))) {
-                        categoryLabel = label;
-                        break;
-                    }
-                }
-            }
-            if (categoryLabel != null) {
-                categoryLabel.setText(goal.getCategory());
-            }
-            
-            // Update progress text - find the $ amount label
-            JLabel progressText = null;
-            for (Component comp : cardPanel.getComponents()) {
-                if (comp instanceof JLabel) {
-                    JLabel label = (JLabel) comp;
-                    if (label.getText() != null && label.getText().contains("$")) {
-                        progressText = label;
-                        break;
-                    }
-                }
-            }
-            if (progressText != null) {
-                progressText.setText(String.format("$%.2f / $%.2f", goal.getSavedAmount(), goal.getTargetAmount()));
-            }
-            
-            // Update progress bar
-            for (Component comp : cardPanel.getComponents()) {
-                if (comp instanceof JProgressBar) {
+                else if (comp instanceof JProgressBar) {
                     JProgressBar progressBar = (JProgressBar) comp;
                     progressBar.setValue((int) goal.getProgress());
                     progressBar.setString(String.format("%.0f%%", goal.getProgress()));
-                    break;
                 }
-            }
-            
-            // Update due date - find Due: label
-            JLabel dueDateLabel = null;
-            for (Component comp : cardPanel.getComponents()) {
-                if (comp instanceof JLabel) {
-                    JLabel label = (JLabel) comp;
-                    if (label.getText() != null && label.getText().startsWith("Due:")) {
-                        dueDateLabel = label;
-                        break;
-                    }
-                }
-            }
-            if (dueDateLabel != null) {
-                dueDateLabel.setText("Due: " + goal.getDueDateFormatted());
             }
             
         } catch (Exception e) {
             logger.warning("Error updating goal card " + goalIndex + ": " + e.getMessage());
+            e.printStackTrace();
         }
     }
-    
     /**
      * Update the summary panel
      */
@@ -210,11 +176,11 @@ public class goals extends javax.swing.JFrame {
             logger.warning("Error updating summary: " + e.getMessage());
         }
     }
-    
+     
     /**
      * Show dialog to update goal progress
      */
-    private void updateGoalProgress(int goalIndex) {
+       private void updateGoalProgress(int goalIndex) {
         if (currentGoals == null) {
             JOptionPane.showMessageDialog(this, 
                 "No goal at this position. Add a goal first.", 
@@ -296,6 +262,23 @@ public class goals extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(this, summary, "Goals Summary", JOptionPane.INFORMATION_MESSAGE);
     }
+        private void removeGoal(int goalIndex) {
+        if (goalsModel == null) return;
+        if (currentGoals == null || goalIndex >= currentGoals.size()) {
+            JOptionPane.showMessageDialog(this, "No goal to remove.", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Goal goal = currentGoals.get(goalIndex);
+        int confirm = JOptionPane.showConfirmDialog(this,
+            "Remove goal: " + goal.getName() + "?", 
+            "Confirm", 
+            JOptionPane.YES_NO_OPTION);
+        
+        if (confirm == JOptionPane.YES_OPTION) {
+            goalsModel.removeGoal(goalIndex);
+        }
+    }
     
 
     /**
@@ -326,36 +309,36 @@ public class goals extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
+        jButton8 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jProgressBar2 = new javax.swing.JProgressBar();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
+        jButton6 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jProgressBar3 = new javax.swing.JProgressBar();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
+        jButton7 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jProgressBar4 = new javax.swing.JProgressBar();
         jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JSeparator();
+        jButton9 = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
@@ -364,7 +347,6 @@ public class goals extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
@@ -457,11 +439,8 @@ public class goals extends javax.swing.JFrame {
         jLabel5.setText("Due: 2024-12-31");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
-        jLabel6.setBackground(new java.awt.Color(204, 204, 255));
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/goal.jpg"))); // NOI18N
-        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
-
-        jButton1.setForeground(new java.awt.Color(249, 115, 22));
+        jButton1.setBackground(new java.awt.Color(204, 255, 204));
+        jButton1.setForeground(new java.awt.Color(0, 204, 0));
         jButton1.setText("Update");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -472,6 +451,15 @@ public class goals extends javax.swing.JFrame {
 
         jSeparator4.setForeground(new java.awt.Color(102, 102, 102));
         jPanel4.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 300, -1));
+
+        jButton8.setForeground(new java.awt.Color(255, 0, 0));
+        jButton8.setText("Remove");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 350, 210));
 
@@ -503,11 +491,8 @@ public class goals extends javax.swing.JFrame {
         jLabel10.setText("Due: 2024-12-31");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
-        jLabel11.setBackground(new java.awt.Color(204, 204, 255));
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/goal.jpg"))); // NOI18N
-        jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
-
-        jButton2.setForeground(new java.awt.Color(249, 115, 22));
+        jButton2.setBackground(new java.awt.Color(204, 255, 204));
+        jButton2.setForeground(new java.awt.Color(0, 204, 0));
         jButton2.setText("Update");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -518,6 +503,15 @@ public class goals extends javax.swing.JFrame {
 
         jSeparator2.setForeground(new java.awt.Color(102, 102, 102));
         jPanel5.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 300, -1));
+
+        jButton6.setForeground(new java.awt.Color(255, 0, 0));
+        jButton6.setText("Remove");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
 
         jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 350, 210));
 
@@ -549,11 +543,8 @@ public class goals extends javax.swing.JFrame {
         jLabel15.setText("Due: 2024-12-31");
         jPanel6.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
-        jLabel16.setBackground(new java.awt.Color(204, 204, 255));
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/goal.jpg"))); // NOI18N
-        jPanel6.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
-
-        jButton3.setForeground(new java.awt.Color(249, 115, 22));
+        jButton3.setBackground(new java.awt.Color(204, 255, 204));
+        jButton3.setForeground(new java.awt.Color(0, 204, 0));
         jButton3.setText("Update");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -564,6 +555,15 @@ public class goals extends javax.swing.JFrame {
 
         jSeparator3.setForeground(new java.awt.Color(102, 102, 102));
         jPanel6.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 300, -1));
+
+        jButton7.setForeground(new java.awt.Color(255, 0, 0));
+        jButton7.setText("Remove");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
 
         jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, 350, 210));
 
@@ -595,11 +595,8 @@ public class goals extends javax.swing.JFrame {
         jLabel20.setText("Due: 2024-12-31");
         jPanel7.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
-        jLabel21.setBackground(new java.awt.Color(204, 204, 255));
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/goal.jpg"))); // NOI18N
-        jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
-
-        jButton4.setForeground(new java.awt.Color(249, 115, 22));
+        jButton4.setBackground(new java.awt.Color(204, 255, 204));
+        jButton4.setForeground(new java.awt.Color(0, 204, 0));
         jButton4.setText("Update");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -610,6 +607,15 @@ public class goals extends javax.swing.JFrame {
 
         jSeparator5.setForeground(new java.awt.Color(102, 102, 102));
         jPanel7.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 300, -1));
+
+        jButton9.setForeground(new java.awt.Color(255, 0, 0));
+        jButton9.setText("Remove");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
 
         jPanel3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 360, 350, 210));
 
@@ -644,9 +650,6 @@ public class goals extends javax.swing.JFrame {
         jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel28.setText("Current saved");
         jPanel8.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, -1, -1));
-
-        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/goal.jpg"))); // NOI18N
-        jPanel8.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
         jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel29.setText("Avg Progress");
@@ -718,6 +721,23 @@ public class goals extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton5MouseClicked
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+           removeGoal(0); // Remove first goal
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+         removeGoal(1); // Remove second goal
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+         removeGoal(2); // Remove third goal
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+         removeGoal(3); // Remove fourth goal
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    // ========================================
     /**
      * @param args the command line arguments
      */
@@ -755,20 +775,21 @@ public class goals extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -778,7 +799,6 @@ public class goals extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel34;
@@ -789,7 +809,6 @@ public class goals extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

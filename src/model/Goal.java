@@ -18,7 +18,7 @@ public class Goal {
         this.targetAmount = targetAmount;
         this.savedAmount = savedAmount;
         this.dueDate = dueDate;
-        this.location = location;
+        this.location = location != null ? location :"";
     }
     
     // Getters and Setters

@@ -11,15 +11,19 @@ public class GoalsModel {
     public GoalsModel() {
         goals = new ArrayList<>();
         listeners = new ArrayList<>();
-        // Add sample data for testing
         initializeSampleData();
     }
     
     private void initializeSampleData() {
-        addGoal(new Goal("Vacation Fund", "Vacation", 10000, 7500, 
-                        LocalDate.of(2024, 12, 31), "Location"));
-        addGoal(new Goal("Vacation Fund", "Vacation", 10000, 7500, 
-                        LocalDate.of(2024, 12, 31), "Location"));
+        // Add varied sample data
+        addGoal(new Goal("Vacation to Hawaii", "Travel", 5000, 2500, 
+                        LocalDate.of(2024, 12, 31), "Hawaii"));
+        addGoal(new Goal("New Laptop", "Electronics", 1500, 800, 
+                        LocalDate.of(2024, 6, 30), "Apple Store"));
+        addGoal(new Goal("Emergency Fund", "Savings", 10000, 5000, 
+                        LocalDate.of(2024, 12, 31), "Bank"));
+        addGoal(new Goal("Car Down Payment", "Transportation", 5000, 3000, 
+                        LocalDate.of(2024, 9, 30), "Dealership"));
     }
     
     public void addGoal(Goal goal) {
