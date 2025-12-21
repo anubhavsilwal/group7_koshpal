@@ -80,7 +80,7 @@ public class inventory extends javax.swing.JFrame {
         headerpanel.add(appicon);
         appicon.setBounds(40, -60, 110, 220);
 
-        backgorund.setBackground(new java.awt.Color(205, 231, 217));
+        backgorund.setBackground(new java.awt.Color(254, 251, 238));
         backgorund.setLayout(null);
 
         inventoryheader.setFont(new java.awt.Font("Arial Black", 1, 28)); // NOI18N
@@ -88,10 +88,10 @@ public class inventory extends javax.swing.JFrame {
         inventoryheader.setAlignmentX(0.5F);
         inventoryheader.setPreferredSize(new java.awt.Dimension(300, 50));
         backgorund.add(inventoryheader);
-        inventoryheader.setBounds(10, 0, 250, 40);
+        inventoryheader.setBounds(0, 10, 250, 40);
 
         headerpanel.add(backgorund);
-        backgorund.setBounds(220, 60, 1230, 50);
+        backgorund.setBounds(220, 50, 1230, 50);
 
         getContentPane().add(headerpanel);
         headerpanel.setBounds(-10, -10, 1450, 100);
@@ -159,7 +159,7 @@ public class inventory extends javax.swing.JFrame {
         youasssetstext.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         youasssetstext.setText("Your Assets");
         centerpanel.add(youasssetstext);
-        youasssetstext.setBounds(30, 210, 150, 35);
+        youasssetstext.setBounds(30, 190, 150, 35);
 
         searchbar.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         searchbar.setText("Search by name or category");
@@ -178,7 +178,7 @@ public class inventory extends javax.swing.JFrame {
             }
         });
         centerpanel.add(searchbar);
-        searchbar.setBounds(30, 30, 400, 40);
+        searchbar.setBounds(20, 30, 400, 40);
         searchbar.getAccessibleContext().setAccessibleDescription("");
 
         additembtn.setBackground(new java.awt.Color(93, 177, 132));
@@ -240,14 +240,15 @@ public class inventory extends javax.swing.JFrame {
         centerpanel.add(totalvalue);
         totalvalue.setBounds(370, 100, 280, 90);
 
+        scrollpane.setBackground(new java.awt.Color(255, 255, 255));
         scrollpane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollpane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollpane.setViewportView(null);
         centerpanel.add(scrollpane);
-        scrollpane.setBounds(30, 260, 980, 520);
+        scrollpane.setBounds(30, 230, 970, 340);
 
         getContentPane().add(centerpanel);
-        centerpanel.setBounds(200, 70, 1240, 800);
+        centerpanel.setBounds(210, 90, 1240, 800);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
