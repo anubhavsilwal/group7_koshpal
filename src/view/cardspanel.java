@@ -21,7 +21,6 @@ public class cardspanel extends javax.swing.JPanel {
         this.item = item;
         initComponents();
         setItemData(item);
-        
 
     }
 
@@ -43,8 +42,8 @@ public class cardspanel extends javax.swing.JPanel {
         imagelabel = new javax.swing.JLabel();
         status = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(111, 214, 148));
-        setPreferredSize(new java.awt.Dimension(200, 270));
+        setBackground(new java.awt.Color(102, 255, 102));
+        setPreferredSize(new java.awt.Dimension(300, 350));
         setLayout(null);
 
         itemname.setText("item name");
@@ -71,10 +70,8 @@ public class cardspanel extends javax.swing.JPanel {
         price.setText("price");
         add(price);
         price.setBounds(160, 190, 60, 16);
-
-        imagelabel.setBackground(new java.awt.Color(102, 255, 102));
         add(imagelabel);
-        imagelabel.setBounds(30, 20, 170, 100);
+        imagelabel.setBounds(30, 20, 200, 100);
 
         status.setText("status");
         add(status);
