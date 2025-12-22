@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.DocumentController;
 /**
  *
  * @author anubhavsilwal
@@ -11,7 +12,7 @@ package view;
 public class documents extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(documents.class.getName());
-
+    DocumentController controller = new DocumentController();
     /**
      * Creates new form inventory
      */
@@ -41,7 +42,7 @@ public class documents extends javax.swing.JFrame {
         jButton14 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        txtTitle = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
@@ -102,7 +103,6 @@ public class documents extends javax.swing.JFrame {
         jLabel45 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1400, 900));
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(254, 251, 238));
@@ -213,17 +213,24 @@ public class documents extends javax.swing.JFrame {
         jPanel3.add(jButton1);
         jButton1.setBounds(0, 160, 80, 30);
 
-        jButton3.setBackground(new java.awt.Color(0, 127, 76));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Add Expenses");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+        txtTitle.setBackground(new java.awt.Color(0, 127, 76));
+        txtTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtTitle.setForeground(new java.awt.Color(255, 255, 255));
+        txtTitle.setText("Add Expenses");
+        txtTitle.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                txtTitleInputMethodTextChanged(evt);
             }
         });
-        jPanel3.add(jButton3);
-        jButton3.setBounds(950, 20, 280, 60);
+        txtTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTitleActionPerformed(evt);
+            }
+        });
+        jPanel3.add(txtTitle);
+        txtTitle.setBounds(950, 20, 280, 60);
 
         jButton4.setBackground(new java.awt.Color(176, 220, 198));
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -548,9 +555,18 @@ public class documents extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void txtTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        String title = txtTitle.getText();
+     String category = txtCategory.getText();
+
+     boolean isAdded = controller.addDocument(title, category); 
+    DocumentController1 controller = new DocumentController1();
+
+boolean isAdded = controller.addDocument(title, category);
+
+
+    }//GEN-LAST:event_txtTitleActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
@@ -592,6 +608,10 @@ public class documents extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton14ActionPerformed
 
+    private void txtTitleInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtTitleInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTitleInputMethodTextChanged
+
     /**
      * @param args the command line arguments
      */
@@ -625,7 +645,6 @@ public class documents extends javax.swing.JFrame {
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -690,5 +709,6 @@ public class documents extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JButton txtTitle;
     // End of variables declaration//GEN-END:variables
 }
