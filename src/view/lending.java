@@ -4,6 +4,17 @@
  */
 package view;
 
+import controller.LendingController;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+
+    public void setDashboardListener(LendingController.DashboardListener dashboardListener) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 /**
  *
  * @author anubhavsilwal
@@ -29,12 +40,12 @@ public class lending extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton13 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
-        jButton21 = new javax.swing.JButton();
+        myInventery = new javax.swing.JButton();
+        lending = new javax.swing.JButton();
+        goal = new javax.swing.JButton();
+        financialAnalytics = new javax.swing.JButton();
+        documents = new javax.swing.JButton();
+        dashboard = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -85,8 +96,8 @@ public class lending extends javax.swing.JFrame {
         jLabel67 = new javax.swing.JLabel();
         jButton37 = new javax.swing.JButton();
         jLabel68 = new javax.swing.JLabel();
-        jButton43 = new javax.swing.JButton();
-        jButton42 = new javax.swing.JButton();
+        update3 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
         jPanel10 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -105,9 +116,9 @@ public class lending extends javax.swing.JFrame {
         jLabel47 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
-        jButton31 = new javax.swing.JButton();
+        update1 = new javax.swing.JButton();
         jLabel55 = new javax.swing.JLabel();
-        jButton45 = new javax.swing.JButton();
+        jTextField4 = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
         jLabel43 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
@@ -133,7 +144,7 @@ public class lending extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jLabel34 = new javax.swing.JLabel();
         jButton14 = new javax.swing.JButton();
-        jButton27 = new javax.swing.JButton();
+        update2 = new javax.swing.JButton();
         jLabel56 = new javax.swing.JLabel();
         jPanel22 = new javax.swing.JPanel();
         jLabel69 = new javax.swing.JLabel();
@@ -149,17 +160,17 @@ public class lending extends javax.swing.JFrame {
         jButton40 = new javax.swing.JButton();
         jButton41 = new javax.swing.JButton();
         jLabel76 = new javax.swing.JLabel();
-        jButton26 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
         jPanel24 = new javax.swing.JPanel();
         jLabel77 = new javax.swing.JLabel();
         jLabel78 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
-        jButton44 = new javax.swing.JButton();
-        jButton30 = new javax.swing.JButton();
+        update5 = new javax.swing.JButton();
         jLabel80 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        newLoan = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -180,77 +191,77 @@ public class lending extends javax.swing.JFrame {
         jPanel1.setSize(new java.awt.Dimension(200, 800));
         jPanel1.setLayout(null);
 
-        jButton13.setBackground(new java.awt.Color(255, 220, 169));
-        jButton13.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jButton13.setText("My Inventery");
-        jButton13.setSize(new java.awt.Dimension(200, 50));
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        myInventery.setBackground(new java.awt.Color(255, 220, 169));
+        myInventery.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        myInventery.setText("My Inventery");
+        myInventery.setSize(new java.awt.Dimension(200, 50));
+        myInventery.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                myInventeryActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton13);
-        jButton13.setBounds(0, 80, 200, 50);
+        jPanel1.add(myInventery);
+        myInventery.setBounds(0, 80, 200, 50);
 
-        jButton15.setBackground(new java.awt.Color(93, 177, 132));
-        jButton15.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jButton15.setText("Lending");
-        jButton15.setSize(new java.awt.Dimension(200, 50));
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
+        lending.setBackground(new java.awt.Color(93, 177, 132));
+        lending.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        lending.setText("Lending");
+        lending.setSize(new java.awt.Dimension(200, 50));
+        lending.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15ActionPerformed(evt);
+                lendingActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton15);
-        jButton15.setBounds(0, 150, 200, 50);
+        jPanel1.add(lending);
+        lending.setBounds(0, 150, 200, 50);
 
-        jButton18.setBackground(new java.awt.Color(255, 220, 169));
-        jButton18.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jButton18.setText("Goal");
-        jButton18.setSize(new java.awt.Dimension(200, 50));
-        jButton18.addActionListener(new java.awt.event.ActionListener() {
+        goal.setBackground(new java.awt.Color(255, 220, 169));
+        goal.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        goal.setText("Goal");
+        goal.setSize(new java.awt.Dimension(200, 50));
+        goal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton18ActionPerformed(evt);
+                goalActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton18);
-        jButton18.setBounds(0, 220, 200, 50);
+        jPanel1.add(goal);
+        goal.setBounds(0, 220, 200, 50);
 
-        jButton19.setBackground(new java.awt.Color(255, 220, 169));
-        jButton19.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jButton19.setText("Financial Analytics");
-        jButton19.setSize(new java.awt.Dimension(200, 50));
-        jButton19.addActionListener(new java.awt.event.ActionListener() {
+        financialAnalytics.setBackground(new java.awt.Color(255, 220, 169));
+        financialAnalytics.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        financialAnalytics.setText("Financial Analytics");
+        financialAnalytics.setSize(new java.awt.Dimension(200, 50));
+        financialAnalytics.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton19ActionPerformed(evt);
+                financialAnalyticsActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton19);
-        jButton19.setBounds(0, 290, 200, 50);
+        jPanel1.add(financialAnalytics);
+        financialAnalytics.setBounds(0, 290, 200, 50);
 
-        jButton20.setBackground(new java.awt.Color(255, 220, 169));
-        jButton20.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jButton20.setText("Documents");
-        jButton20.setSize(new java.awt.Dimension(200, 50));
-        jButton20.addActionListener(new java.awt.event.ActionListener() {
+        documents.setBackground(new java.awt.Color(255, 220, 169));
+        documents.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        documents.setText("Documents");
+        documents.setSize(new java.awt.Dimension(200, 50));
+        documents.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton20ActionPerformed(evt);
+                documentsActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton20);
-        jButton20.setBounds(0, 360, 200, 50);
+        jPanel1.add(documents);
+        documents.setBounds(0, 360, 200, 50);
 
-        jButton21.setBackground(new java.awt.Color(255, 220, 169));
-        jButton21.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jButton21.setText("Dashboard");
-        jButton21.setSize(new java.awt.Dimension(200, 50));
-        jButton21.addActionListener(new java.awt.event.ActionListener() {
+        dashboard.setBackground(new java.awt.Color(255, 220, 169));
+        dashboard.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        dashboard.setText("Dashboard");
+        dashboard.setSize(new java.awt.Dimension(200, 50));
+        dashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton21ActionPerformed(evt);
+                dashboardActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton21);
-        jButton21.setBounds(0, 10, 200, 50);
+        jPanel1.add(dashboard);
+        dashboard.setBounds(0, 10, 200, 50);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 120, 200, 800);
@@ -315,7 +326,7 @@ public class lending extends javax.swing.JFrame {
         jPanel9.add(jLabel15);
         jLabel15.setBounds(21, 8, 68, 23);
 
-        jLabel20.setText("Iteam: Designing Material ");
+        jLabel20.setText("Item: Designing Material ");
         jPanel9.add(jLabel20);
         jLabel20.setBounds(21, 39, 161, 17);
 
@@ -558,22 +569,24 @@ public class lending extends javax.swing.JFrame {
         jPanel9.add(jPanel19);
         jPanel19.setBounds(60, 330, 1041, 109);
 
-        jButton43.setBackground(new java.awt.Color(255, 255, 0));
-        jButton43.setForeground(new java.awt.Color(51, 0, 51));
-        jButton43.setText("Return");
-        jPanel9.add(jButton43);
-        jButton43.setBounds(270, 10, 90, 30);
-
-        jButton42.setBackground(new java.awt.Color(30, 142, 97));
-        jButton42.setForeground(new java.awt.Color(242, 242, 242));
-        jButton42.setText("Update");
-        jButton42.addActionListener(new java.awt.event.ActionListener() {
+        update3.setBackground(new java.awt.Color(30, 142, 97));
+        update3.setForeground(new java.awt.Color(242, 242, 242));
+        update3.setText("Update");
+        update3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton42ActionPerformed(evt);
+                update3ActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton42);
-        jButton42.setBounds(870, 60, 129, 48);
+        jPanel9.add(update3);
+        update3.setBounds(870, 60, 129, 48);
+
+        jTextField2.setBackground(new java.awt.Color(255, 255, 51));
+        jTextField2.setText("     Active");
+        jTextField2.setMaximumSize(new java.awt.Dimension(72, 23));
+        jTextField2.setMinimumSize(new java.awt.Dimension(72, 23));
+        jTextField2.setPreferredSize(new java.awt.Dimension(72, 23));
+        jPanel9.add(jTextField2);
+        jTextField2.setBounds(270, 10, 90, 30);
 
         jPanel3.add(jPanel9);
         jPanel9.setBounds(60, 330, 1041, 109);
@@ -695,7 +708,7 @@ public class lending extends javax.swing.JFrame {
         jPanel17.add(jLabel47);
         jLabel47.setBounds(22, 8, 61, 23);
 
-        jLabel48.setText("Iteam: Macbook Air");
+        jLabel48.setText("Item: Macbook Air");
         jPanel17.add(jLabel48);
         jLabel48.setBounds(22, 45, 124, 17);
 
@@ -703,27 +716,29 @@ public class lending extends javax.swing.JFrame {
         jPanel17.add(jLabel49);
         jLabel49.setBounds(22, 68, 97, 17);
 
-        jButton31.setBackground(new java.awt.Color(30, 142, 97));
-        jButton31.setForeground(new java.awt.Color(242, 242, 242));
-        jButton31.setText("Update");
-        jButton31.addActionListener(new java.awt.event.ActionListener() {
+        update1.setBackground(new java.awt.Color(30, 142, 97));
+        update1.setForeground(new java.awt.Color(242, 242, 242));
+        update1.setText("Update");
+        update1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton31ActionPerformed(evt);
+                update1ActionPerformed(evt);
             }
         });
-        jPanel17.add(jButton31);
-        jButton31.setBounds(870, 60, 129, 48);
+        jPanel17.add(update1);
+        update1.setBounds(870, 60, 129, 48);
 
         jLabel55.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
         jLabel55.setText("$ 5,000");
         jPanel17.add(jLabel55);
         jLabel55.setBounds(870, 30, 102, 25);
 
-        jButton45.setBackground(new java.awt.Color(0, 255, 0));
-        jButton45.setForeground(new java.awt.Color(51, 0, 51));
-        jButton45.setText("Active");
-        jPanel17.add(jButton45);
-        jButton45.setBounds(270, 10, 90, 30);
+        jTextField4.setBackground(new java.awt.Color(0, 255, 0));
+        jTextField4.setText("     Active");
+        jTextField4.setMaximumSize(new java.awt.Dimension(72, 23));
+        jTextField4.setMinimumSize(new java.awt.Dimension(72, 23));
+        jTextField4.setPreferredSize(new java.awt.Dimension(72, 23));
+        jPanel17.add(jTextField4);
+        jTextField4.setBounds(270, 10, 90, 30);
 
         jPanel3.add(jPanel17);
         jPanel17.setBounds(60, 70, 1040, 110);
@@ -828,7 +843,7 @@ public class lending extends javax.swing.JFrame {
         jPanel8.add(jLabel14);
         jLabel14.setBounds(23, 14, 72, 23);
 
-        jLabel17.setText("Iteam: Photography Equipment");
+        jLabel17.setText("Item: Photography Equipment");
         jPanel8.add(jLabel17);
         jLabel17.setBounds(23, 48, 190, 17);
 
@@ -872,16 +887,16 @@ public class lending extends javax.swing.JFrame {
         jPanel8.add(jPanel13);
         jPanel13.setBounds(10, 200, 988, 95);
 
-        jButton27.setBackground(new java.awt.Color(30, 142, 97));
-        jButton27.setForeground(new java.awt.Color(242, 242, 242));
-        jButton27.setText("Update");
-        jButton27.addActionListener(new java.awt.event.ActionListener() {
+        update2.setBackground(new java.awt.Color(30, 142, 97));
+        update2.setForeground(new java.awt.Color(242, 242, 242));
+        update2.setText("Update");
+        update2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton27ActionPerformed(evt);
+                update2ActionPerformed(evt);
             }
         });
-        jPanel8.add(jButton27);
-        jButton27.setBounds(870, 60, 129, 48);
+        jPanel8.add(update2);
+        update2.setBounds(870, 60, 129, 48);
 
         jLabel56.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
         jLabel56.setText("$ 7,000");
@@ -965,11 +980,13 @@ public class lending extends javax.swing.JFrame {
         jPanel8.add(jPanel22);
         jPanel22.setBounds(60, 200, 1040, 110);
 
-        jButton26.setBackground(new java.awt.Color(255, 0, 0));
-        jButton26.setForeground(new java.awt.Color(51, 0, 51));
-        jButton26.setText("OverDue");
-        jPanel8.add(jButton26);
-        jButton26.setBounds(270, 10, 90, 30);
+        jTextField1.setBackground(new java.awt.Color(255, 0, 0));
+        jTextField1.setText("   OverDue");
+        jTextField1.setMaximumSize(new java.awt.Dimension(72, 23));
+        jTextField1.setMinimumSize(new java.awt.Dimension(72, 23));
+        jTextField1.setPreferredSize(new java.awt.Dimension(72, 23));
+        jPanel8.add(jTextField1);
+        jTextField1.setBounds(270, 10, 90, 30);
 
         jPanel3.add(jPanel8);
         jPanel8.setBounds(60, 200, 1040, 110);
@@ -983,7 +1000,7 @@ public class lending extends javax.swing.JFrame {
         jPanel24.add(jLabel77);
         jLabel77.setBounds(21, 8, 90, 23);
 
-        jLabel78.setText("Iteam: Mountain Bike");
+        jLabel78.setText("Item: Mountain Bike");
         jPanel24.add(jLabel78);
         jLabel78.setBounds(21, 39, 161, 17);
 
@@ -991,27 +1008,29 @@ public class lending extends javax.swing.JFrame {
         jPanel24.add(jLabel79);
         jLabel79.setBounds(20, 60, 97, 17);
 
-        jButton44.setBackground(new java.awt.Color(0, 255, 0));
-        jButton44.setForeground(new java.awt.Color(51, 0, 51));
-        jButton44.setText("Active");
-        jPanel24.add(jButton44);
-        jButton44.setBounds(270, 10, 90, 30);
-
-        jButton30.setBackground(new java.awt.Color(30, 142, 97));
-        jButton30.setForeground(new java.awt.Color(242, 242, 242));
-        jButton30.setText("Update");
-        jButton30.addActionListener(new java.awt.event.ActionListener() {
+        update5.setBackground(new java.awt.Color(30, 142, 97));
+        update5.setForeground(new java.awt.Color(242, 242, 242));
+        update5.setText("Update");
+        update5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton30ActionPerformed(evt);
+                update5ActionPerformed(evt);
             }
         });
-        jPanel24.add(jButton30);
-        jButton30.setBounds(870, 60, 129, 48);
+        jPanel24.add(update5);
+        update5.setBounds(870, 60, 129, 48);
 
         jLabel80.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
         jLabel80.setText("$ 17,000");
         jPanel24.add(jLabel80);
         jLabel80.setBounds(870, 30, 102, 25);
+
+        jTextField3.setBackground(new java.awt.Color(0, 255, 0));
+        jTextField3.setText("     Active");
+        jTextField3.setMaximumSize(new java.awt.Dimension(72, 23));
+        jTextField3.setMinimumSize(new java.awt.Dimension(72, 23));
+        jTextField3.setPreferredSize(new java.awt.Dimension(72, 23));
+        jPanel24.add(jTextField3);
+        jTextField3.setBounds(270, 10, 90, 30);
 
         jPanel3.add(jPanel24);
         jPanel24.setBounds(60, 460, 1041, 109);
@@ -1029,16 +1048,16 @@ public class lending extends javax.swing.JFrame {
         jPanel2.add(jLabel2);
         jLabel2.setBounds(51, 68, 387, 20);
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 51));
-        jButton1.setForeground(new java.awt.Color(242, 242, 242));
-        jButton1.setText("  New Loan");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        newLoan.setBackground(new java.awt.Color(0, 102, 51));
+        newLoan.setForeground(new java.awt.Color(242, 242, 242));
+        newLoan.setText("  New Loan");
+        newLoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                newLoanActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1);
-        jButton1.setBounds(1085, 30, 96, 40);
+        jPanel2.add(newLoan);
+        newLoan.setBounds(1085, 30, 96, 40);
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         jLabel4.setText("Total Loaned out");
@@ -1162,29 +1181,29 @@ public class lending extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton11ActionPerformed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+    private void myInventeryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myInventeryActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton13ActionPerformed
+    }//GEN-LAST:event_myInventeryActionPerformed
 
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+    private void lendingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lendingActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton15ActionPerformed
+    }//GEN-LAST:event_lendingActionPerformed
 
-    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+    private void goalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton18ActionPerformed
+    }//GEN-LAST:event_goalActionPerformed
 
-    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+    private void financialAnalyticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_financialAnalyticsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton19ActionPerformed
+    }//GEN-LAST:event_financialAnalyticsActionPerformed
 
-    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+    private void documentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton20ActionPerformed
+    }//GEN-LAST:event_documentsActionPerformed
 
-    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+    private void dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton21ActionPerformed
+    }//GEN-LAST:event_dashboardActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         // TODO add your handling code here:
@@ -1202,9 +1221,9 @@ public class lending extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton23ActionPerformed
 
-    private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
+    private void update2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton27ActionPerformed
+    }//GEN-LAST:event_update2ActionPerformed
 
     private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
         // TODO add your handling code here:
@@ -1222,13 +1241,13 @@ public class lending extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton29ActionPerformed
 
-    private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
+    private void update5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton30ActionPerformed
+    }//GEN-LAST:event_update5ActionPerformed
 
-    private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
+    private void update1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton31ActionPerformed
+    }//GEN-LAST:event_update1ActionPerformed
 
     private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
         // TODO add your handling code here:
@@ -1258,13 +1277,13 @@ public class lending extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton41ActionPerformed
 
-    private void jButton42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton42ActionPerformed
+    private void update3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton42ActionPerformed
+    }//GEN-LAST:event_update3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void newLoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newLoanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_newLoanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1292,28 +1311,21 @@ public class lending extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton dashboard;
+    private javax.swing.JButton documents;
+    private javax.swing.JButton financialAnalytics;
+    private javax.swing.JButton goal;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton21;
     private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton23;
     private javax.swing.JButton jButton24;
     private javax.swing.JButton jButton25;
-    private javax.swing.JButton jButton26;
-    private javax.swing.JButton jButton27;
     private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton29;
-    private javax.swing.JButton jButton30;
-    private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton32;
     private javax.swing.JButton jButton33;
     private javax.swing.JButton jButton34;
@@ -1325,10 +1337,6 @@ public class lending extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton40;
     private javax.swing.JButton jButton41;
-    private javax.swing.JButton jButton42;
-    private javax.swing.JButton jButton43;
-    private javax.swing.JButton jButton44;
-    private javax.swing.JButton jButton45;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -1435,5 +1443,17 @@ public class lending extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JButton lending;
+    private javax.swing.JButton myInventery;
+    private javax.swing.JButton newLoan;
+    private javax.swing.JButton update1;
+    private javax.swing.JButton update2;
+    private javax.swing.JButton update3;
+    private javax.swing.JButton update5;
     // End of variables declaration//GEN-END:variables
 }
+
