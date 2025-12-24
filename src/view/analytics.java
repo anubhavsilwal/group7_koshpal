@@ -29,26 +29,304 @@ public class analytics extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        myInventery = new javax.swing.JButton();
+        myInventery1 = new javax.swing.JButton();
+        myInventery2 = new javax.swing.JButton();
+        myInventery3 = new javax.swing.JButton();
+        myInventery4 = new javax.swing.JButton();
+        myInventery5 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(254, 251, 238));
+        jPanel1.setLayout(null);
+
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        jLabel25.setText("jLabel25");
+        jPanel1.add(jLabel25);
+        jLabel25.setBounds(10, 10, 100, 84);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1440, 100);
 
         jPanel2.setBackground(new java.awt.Color(224, 236, 229));
+        jPanel2.setLayout(null);
+
+        myInventery.setBackground(new java.awt.Color(255, 220, 169));
+        myInventery.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        myInventery.setText("Goal");
+        myInventery.setSize(new java.awt.Dimension(200, 50));
+        myInventery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myInventeryActionPerformed(evt);
+            }
+        });
+        jPanel2.add(myInventery);
+        myInventery.setBounds(0, 220, 200, 50);
+
+        myInventery1.setBackground(new java.awt.Color(255, 220, 169));
+        myInventery1.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        myInventery1.setText("DashBoard");
+        myInventery1.setSize(new java.awt.Dimension(200, 50));
+        myInventery1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myInventery1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(myInventery1);
+        myInventery1.setBounds(0, 10, 200, 50);
+
+        myInventery2.setBackground(new java.awt.Color(255, 220, 169));
+        myInventery2.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        myInventery2.setText("Lending");
+        myInventery2.setSize(new java.awt.Dimension(200, 50));
+        myInventery2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myInventery2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(myInventery2);
+        myInventery2.setBounds(0, 150, 200, 50);
+
+        myInventery3.setBackground(new java.awt.Color(93, 177, 132));
+        myInventery3.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        myInventery3.setText("Finance Analytics");
+        myInventery3.setSize(new java.awt.Dimension(200, 50));
+        myInventery3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myInventery3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(myInventery3);
+        myInventery3.setBounds(0, 290, 200, 50);
+
+        myInventery4.setBackground(new java.awt.Color(255, 220, 169));
+        myInventery4.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        myInventery4.setText("Document");
+        myInventery4.setSize(new java.awt.Dimension(200, 50));
+        myInventery4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myInventery4ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(myInventery4);
+        myInventery4.setBounds(0, 360, 200, 50);
+
+        myInventery5.setBackground(new java.awt.Color(255, 220, 169));
+        myInventery5.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        myInventery5.setText("My Inventery");
+        myInventery5.setSize(new java.awt.Dimension(200, 50));
+        myInventery5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myInventery5ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(myInventery5);
+        myInventery5.setBounds(0, 80, 200, 50);
+
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 100, 200, 800);
 
         jPanel3.setBackground(new java.awt.Color(205, 231, 217));
+        jPanel3.setLayout(null);
+
+        jPanel4.setLayout(null);
+
+        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jLabel4.setText("Total Income");
+        jPanel4.add(jLabel4);
+        jLabel4.setBounds(40, 10, 105, 23);
+
+        jLabel9.setFont(new java.awt.Font("Hiragino Sans TC", 1, 24)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 204, 51));
+        jLabel9.setText("$ 31,000");
+        jPanel4.add(jLabel9);
+        jLabel9.setBounds(40, 40, 126, 48);
+
+        jPanel3.add(jPanel4);
+        jPanel4.setBounds(40, 60, 206, 89);
+
+        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jLabel3.setText("Total Expense");
+
+        jLabel7.setFont(new java.awt.Font("Hiragino Sans TC", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel7.setText("$ 19,000");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(57, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(45, 45, 45))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel3.add(jPanel6);
+        jPanel6.setBounds(490, 60, 228, 89);
+
+        jLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jLabel6.setText("Net cashflow");
+
+        jLabel10.setFont(new java.awt.Font("Hiragino Sans TC", 1, 24)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 204, 51));
+        jLabel10.setText("$ 12,000");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
+        );
+
+        jPanel3.add(jPanel7);
+        jPanel7.setBounds(950, 60, 228, 89);
+
+        jPanel8.setLayout(null);
+
+        jLabel12.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
+        jLabel12.setText("Income vs Expenses");
+        jPanel8.add(jLabel12);
+        jLabel12.setBounds(10, 10, 180, 30);
+
+        jLabel13.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        jLabel13.setText("Monthly comparison over the last 6 months ");
+        jPanel8.add(jLabel13);
+        jLabel13.setBounds(10, 30, 290, 30);
+
+        jPanel3.add(jPanel8);
+        jPanel8.setBounds(50, 170, 540, 300);
+
+        jPanel9.setSize(new java.awt.Dimension(550, 300));
+        jPanel9.setLayout(null);
+
+        jLabel11.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
+        jLabel11.setText("Income Source ");
+        jPanel9.add(jLabel11);
+        jLabel11.setBounds(30, 20, 180, 30);
+
+        jLabel5.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        jLabel5.setText("Distributed By Source ");
+        jPanel9.add(jLabel5);
+        jLabel5.setBounds(30, 40, 290, 30);
+
+        jPanel3.add(jPanel9);
+        jPanel9.setBounds(640, 490, 550, 300);
+
+        jPanel10.setLayout(null);
+
+        jLabel8.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
+        jLabel8.setText("Expense Breakdown");
+        jPanel10.add(jLabel8);
+        jLabel8.setBounds(30, 30, 180, 30);
+
+        jLabel14.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        jLabel14.setText("Distributed By Cateogory");
+        jPanel10.add(jLabel14);
+        jLabel14.setBounds(30, 50, 290, 30);
+
+        jPanel3.add(jPanel10);
+        jPanel10.setBounds(50, 490, 540, 300);
+
+        jPanel11.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
+        jLabel1.setText("CashFlow Trend");
+        jPanel11.add(jLabel1);
+        jLabel1.setBounds(20, 10, 180, 30);
+
+        jLabel15.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        jLabel15.setText("Net Cashflow Growth Over Time");
+        jPanel11.add(jLabel15);
+        jLabel15.setBounds(20, 30, 290, 30);
+
+        jPanel3.add(jPanel11);
+        jPanel11.setBounds(640, 170, 550, 300);
+
+        jLabel2.setFont(new java.awt.Font("Georgia", 0, 36)); // NOI18N
+        jLabel2.setText("Finance Analytics");
+        jPanel3.add(jLabel2);
+        jLabel2.setBounds(20, 10, 281, 41);
+
         getContentPane().add(jPanel3);
         jPanel3.setBounds(200, 100, 1240, 800);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void myInventeryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myInventeryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_myInventeryActionPerformed
+
+    private void myInventery1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myInventery1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_myInventery1ActionPerformed
+
+    private void myInventery2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myInventery2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_myInventery2ActionPerformed
+
+    private void myInventery3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myInventery3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_myInventery3ActionPerformed
+
+    private void myInventery4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myInventery4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_myInventery4ActionPerformed
+
+    private void myInventery5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myInventery5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_myInventery5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -76,8 +354,37 @@ public class analytics extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JButton myInventery;
+    private javax.swing.JButton myInventery1;
+    private javax.swing.JButton myInventery2;
+    private javax.swing.JButton myInventery3;
+    private javax.swing.JButton myInventery4;
+    private javax.swing.JButton myInventery5;
     // End of variables declaration//GEN-END:variables
 }
