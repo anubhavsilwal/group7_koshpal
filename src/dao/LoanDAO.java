@@ -1,26 +1,38 @@
 package dao;
 
-import model.Loan;
 import database.Mysqlconnection;
+import model.Loan;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LoanDAO {
+    private Connection connection;
+    private database.Database db;   
+    
+    public LoanDAO(Connection connection) {
+        this.connection = connection;
+        this.db = new Mysqlconnection();   
+    }
+    
+        // If connection is null, open a new one
+        private Connection getConnection() throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            connection = db.openConnection();
+        }
+        return connection;
+    }
+    
 
-    private Mysqlconnection mysql = new Mysqlconnection();
-    public int getOverdue;
-
-    // Insert a new loan
-    public int insertLoan(Loan loan, int userId) {
-        int generatedId = -1;
+    // Insert new loan
+    public int insertLoan(Loan loan) throws SQLException {
         String sql = "INSERT INTO loans (user_id, borrower_name, item_name, due_date, loan_amount, status, loan_date, item_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-        try (Connection conn = mysql.openConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
-            stmt.setInt(1, userId);
+        
+        try (Connection conn = getConnection();
+           PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            
+            stmt.setInt(1, loan.getUserId());
             stmt.setString(2, loan.getBorrowerName());
             stmt.setString(3, loan.getItemName());
             stmt.setDate(4, Date.valueOf(loan.getDueDate()));
@@ -28,120 +40,152 @@ public class LoanDAO {
             stmt.setString(6, loan.getStatus());
             stmt.setDate(7, Date.valueOf(loan.getLoanDate()));
             stmt.setInt(8, loan.getItemId());
-
-            int affectedRows = stmt.executeUpdate();
-
-            if (affectedRows > 0) {
-                try (ResultSet rs = stmt.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        generatedId = rs.getInt(1);
-                    }
+            
+            stmt.executeUpdate();
+            
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
                 }
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
-        return generatedId;
+        return -1;
     }
 
-    // Update existing loan
-    public boolean updateLoan(int loanId, double newAmount, LocalDate newDueDate) {
-        String sql = "UPDATE loans SET loan_amount = ?, due_date = ? WHERE loan_id = ?";
-        try (Connection conn = mysql.openConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setDouble(1, newAmount);
-            stmt.setDate(2, Date.valueOf(newDueDate));
-            stmt.setInt(3, loanId);
-
-            return stmt.executeUpdate() > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+    // Get all loans for user
+    public List<Loan> getAllLoans(int userId) throws SQLException {
+        List<Loan> loans = new ArrayList<>();
+        String sql = "SELECT * FROM loans WHERE user_id = ? ORDER BY due_date";
+        
+        try (Connection conn = getConnection();
+     PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                Loan loan = new Loan(
+                    rs.getInt("loan_id"),
+                    rs.getString("borrower_name"),
+                    rs.getString("item_name"),
+                    rs.getDate("due_date").toLocalDate(),
+                    rs.getDouble("loan_amount"),
+                    rs.getString("status"),
+                    rs.getDate("loan_date").toLocalDate(),
+                    rs.getInt("item_id"),
+                    rs.getInt("user_id")
+                );
+                loans.add(loan);
+            }
         }
+        return loans;
     }
 
-    // Mark loan as returned
-    public boolean markLoanAsReturned(int loanId) {
-        String sql = "UPDATE loans SET status = 'Returned' WHERE loan_id = ?";
-        try (Connection conn = mysql.openConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, loanId);
+    // Update loan
+    public boolean updateLoan(Loan loan) throws SQLException {
+        String sql = "UPDATE loans SET borrower_name=?, item_name=?, due_date=?, loan_amount=?, status=? WHERE loan_id=?";
+        
+        try (Connection conn = getConnection();
+     PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, loan.getBorrowerName());
+            stmt.setString(2, loan.getItemName());
+            stmt.setDate(3, Date.valueOf(loan.getDueDate()));
+            stmt.setDouble(4, loan.getAmount());
+            stmt.setString(5, loan.getStatus());
+            stmt.setInt(6, loan.getLoanId());
+            
             return stmt.executeUpdate() > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
         }
     }
 
     // Delete loan
-    public boolean deleteLoan(int loanId) {
-        String sql = "DELETE FROM loans WHERE loan_id = ?";
-        try (Connection conn = mysql.openConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
+    public boolean deleteLoan(int loanId) throws SQLException {
+        String sql = "DELETE FROM loans WHERE loan_id=?";
+        
+        try (Connection conn = getConnection();
+     PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, loanId);
             return stmt.executeUpdate() > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
         }
     }
 
-    // Get loan by ID
-    public Loan getLoanById(int loanId) {
-        String sql = "SELECT * FROM loans WHERE loan_id = ?";
-        try (Connection conn = mysql.openConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
+    // Mark as returned
+    public boolean markAsReturned(int loanId) throws SQLException {
+        String sql = "UPDATE loans SET status='Returned' WHERE loan_id=?";
+        
+        try (Connection conn = getConnection();
+     PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, loanId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                return extractLoanFromResultSet(rs);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return stmt.executeUpdate() > 0;
         }
-        return null;
     }
 
-    // Helper method to extract loan from ResultSet
-    private Loan extractLoanFromResultSet(ResultSet rs) throws SQLException {
-        return new Loan(
-                rs.getInt("loan_id"),
-                rs.getString("borrower_name"),
-                rs.getString("item_name"),
-                rs.getDate("due_date").toLocalDate(),
-                rs.getDouble("loan_amount"),
-                rs.getString("status"),
-                rs.getDate("loan_date").toLocalDate(),
-                rs.getInt("item_id")
-        );
+    // Get total loaned amount
+    public double getTotalLoanedAmount(int userId) throws SQLException {
+        String sql = "SELECT SUM(loan_amount) FROM loans WHERE user_id=? AND status='Active'";
+        
+        try (Connection conn = getConnection();
+     PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                return rs.getDouble(1);
+            }
+        }
+        return 0;
     }
 
-    // Other methods (getAllLoans, getTotalLoanedAmount, getActiveLoansCount, getOverdueLoansCount) remain as in your code
-
-    public double getTotalLoanedAmount(int userId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    // Get active loans count
+    public int getActiveLoansCount(int userId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM loans WHERE user_id=? AND status='Active'";
+        
+        try (Connection conn = getConnection();
+     PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        }
+        return 0;
     }
 
-    public List<Loan> getAllLoans(int userId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    // Get overdue loans count
+    public int getOverdueLoansCount(int userId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM loans WHERE user_id=? AND status='Active' AND due_date < CURDATE()";
+        
+        try (Connection conn = getConnection();
+     PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        }
+        return 0;
     }
-
-    public int getActiveLoansCount(int userId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
+// Add this method to your LoanDAO.java file:
+    public void createTable() throws SQLException {
+            String sql = "CREATE TABLE IF NOT EXISTS loans (" +
+                 "loan_id INT PRIMARY KEY AUTO_INCREMENT, " +
+                 "user_id INT NOT NULL, " +
+                 "borrower_name VARCHAR(100) NOT NULL, " +
+                 "item_name VARCHAR(200) NOT NULL, " +
+                 "due_date DATE NOT NULL, " +
+                 "loan_amount DECIMAL(10,2) NOT NULL, " +
+                 "status VARCHAR(20) DEFAULT 'Active', " +
+                 "loan_date DATE NOT NULL, " +
+                 "item_id INT DEFAULT 1" +
+                 ")";
+    
+                try (Connection conn = getConnection();
+            Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("✅ Loans table is ready!");
+        }
     }
-
-    public int getOverdueLoansCount(int userId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 }

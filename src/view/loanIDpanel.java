@@ -13,12 +13,14 @@ public class loanIDpanel extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(loanIDpanel.class.getName());
 
     /**
-     * Creates new form loanIDpanel
      */
     public loanIDpanel() {
         initComponents();
     }
 
+    
+     
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,8 +35,10 @@ public class loanIDpanel extends javax.swing.JFrame {
         jLabel48 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
         update1 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
         jLabel55 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        conformButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -49,7 +53,7 @@ public class loanIDpanel extends javax.swing.JFrame {
 
         jLabel48.setText("Item:  ");
         jPanel17.add(jLabel48);
-        jLabel48.setBounds(22, 45, 124, 17);
+        jLabel48.setBounds(22, 45, 50, 17);
 
         jLabel49.setText("Due:  ");
         jPanel17.add(jLabel49);
@@ -66,21 +70,31 @@ public class loanIDpanel extends javax.swing.JFrame {
         jPanel17.add(update1);
         update1.setBounds(870, 60, 129, 48);
 
+        jTextField1.setText(" ");
+        jPanel17.add(jTextField1);
+        jTextField1.setBounds(60, 70, 160, 23);
+
+        jTextField2.setText(" ");
+        jPanel17.add(jTextField2);
+        jTextField2.setBounds(60, 40, 160, 23);
+
         jLabel55.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel55.setText("$  ");
+        jLabel55.setText("$ xxx");
         jPanel17.add(jLabel55);
         jLabel55.setBounds(870, 30, 102, 25);
 
-        jTextField4.setBackground(new java.awt.Color(0, 255, 0));
-        jTextField4.setText("     Active");
-        jTextField4.setMaximumSize(new java.awt.Dimension(72, 23));
-        jTextField4.setMinimumSize(new java.awt.Dimension(72, 23));
-        jTextField4.setPreferredSize(new java.awt.Dimension(72, 23));
-        jPanel17.add(jTextField4);
-        jTextField4.setBounds(270, 10, 90, 30);
+        conformButton1.setBackground(new java.awt.Color(51, 255, 51));
+        conformButton1.setText("Confirn");
+        conformButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                conformButton1ActionPerformed(evt);
+            }
+        });
+        jPanel17.add(conformButton1);
+        conformButton1.setBounds(480, 110, 72, 23);
 
         getContentPane().add(jPanel17);
-        jPanel17.setBounds(0, 30, 1040, 110);
+        jPanel17.setBounds(0, 30, 1040, 140);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -88,6 +102,10 @@ public class loanIDpanel extends javax.swing.JFrame {
     private void update1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_update1ActionPerformed
+
+    private void conformButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conformButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_conformButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -115,12 +133,14 @@ public class loanIDpanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton conformButton1;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JPanel jPanel17;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JButton update1;
     // End of variables declaration//GEN-END:variables
 }
