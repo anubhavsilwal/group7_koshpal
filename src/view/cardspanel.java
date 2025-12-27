@@ -43,7 +43,7 @@ public class cardspanel extends javax.swing.JPanel {
         imagelabel = new javax.swing.JLabel();
         status = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(111, 214, 148));
+        setBackground(new java.awt.Color(205, 231, 217));
         setPreferredSize(new java.awt.Dimension(200, 270));
         setLayout(null);
 

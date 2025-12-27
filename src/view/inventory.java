@@ -48,13 +48,6 @@ public class inventory extends javax.swing.JFrame {
         appicon = new javax.swing.JLabel();
         backgorund = new javax.swing.JPanel();
         inventoryheader = new javax.swing.JLabel();
-        dashboardpanel = new javax.swing.JPanel();
-        documentsbtn = new javax.swing.JButton();
-        dashboardbtn = new javax.swing.JButton();
-        inventorybtn = new javax.swing.JButton();
-        lendingbtn = new javax.swing.JButton();
-        goalsbtn = new javax.swing.JButton();
-        financialbtn = new javax.swing.JButton();
         centerpanel = new javax.swing.JPanel();
         youasssetstext = new javax.swing.JLabel();
         searchbar = new javax.swing.JTextField();
@@ -69,6 +62,13 @@ public class inventory extends javax.swing.JFrame {
         text3 = new javax.swing.JLabel();
         totalvaluelabel = new javax.swing.JLabel();
         scrollpane = new javax.swing.JScrollPane();
+        dashboardpanel = new javax.swing.JPanel();
+        documentsbtn = new javax.swing.JButton();
+        dashboardbtn = new javax.swing.JButton();
+        inventorybtn = new javax.swing.JButton();
+        lendingbtn = new javax.swing.JButton();
+        goalsbtn = new javax.swing.JButton();
+        financialbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -95,63 +95,6 @@ public class inventory extends javax.swing.JFrame {
 
         getContentPane().add(headerpanel);
         headerpanel.setBounds(-10, -10, 1450, 100);
-
-        dashboardpanel.setBackground(new java.awt.Color(224, 236, 229));
-        dashboardpanel.setLayout(null);
-
-        documentsbtn.setBackground(new java.awt.Color(255, 220, 169));
-        documentsbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        documentsbtn.setText("Documents");
-        documentsbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                documentsbtnActionPerformed(evt);
-            }
-        });
-        dashboardpanel.add(documentsbtn);
-        documentsbtn.setBounds(0, 350, 200, 50);
-
-        dashboardbtn.setBackground(new java.awt.Color(255, 220, 169));
-        dashboardbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        dashboardbtn.setText("Dashboard");
-        dashboardbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dashboardbtnActionPerformed(evt);
-            }
-        });
-        dashboardpanel.add(dashboardbtn);
-        dashboardbtn.setBounds(0, 10, 200, 50);
-
-        inventorybtn.setBackground(new java.awt.Color(93, 177, 132));
-        inventorybtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        inventorybtn.setText("My Inventory");
-        inventorybtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inventorybtnActionPerformed(evt);
-            }
-        });
-        dashboardpanel.add(inventorybtn);
-        inventorybtn.setBounds(0, 70, 200, 50);
-
-        lendingbtn.setBackground(new java.awt.Color(255, 220, 169));
-        lendingbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lendingbtn.setText("Lending");
-        dashboardpanel.add(lendingbtn);
-        lendingbtn.setBounds(0, 140, 200, 50);
-
-        goalsbtn.setBackground(new java.awt.Color(255, 220, 169));
-        goalsbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        goalsbtn.setText("Goals");
-        dashboardpanel.add(goalsbtn);
-        goalsbtn.setBounds(0, 210, 200, 50);
-
-        financialbtn.setBackground(new java.awt.Color(255, 220, 169));
-        financialbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        financialbtn.setText("Financial Analytics");
-        dashboardpanel.add(financialbtn);
-        financialbtn.setBounds(0, 280, 200, 50);
-
-        getContentPane().add(dashboardpanel);
-        dashboardpanel.setBounds(10, 90, 200, 800);
 
         centerpanel.setBackground(new java.awt.Color(205, 231, 217));
         centerpanel.setLayout(null);
@@ -249,6 +192,63 @@ public class inventory extends javax.swing.JFrame {
 
         getContentPane().add(centerpanel);
         centerpanel.setBounds(210, 90, 1240, 800);
+
+        dashboardpanel.setBackground(new java.awt.Color(224, 236, 229));
+        dashboardpanel.setLayout(null);
+
+        documentsbtn.setBackground(new java.awt.Color(255, 220, 169));
+        documentsbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        documentsbtn.setText("Documents");
+        documentsbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                documentsbtnActionPerformed(evt);
+            }
+        });
+        dashboardpanel.add(documentsbtn);
+        documentsbtn.setBounds(0, 350, 200, 50);
+
+        dashboardbtn.setBackground(new java.awt.Color(255, 220, 169));
+        dashboardbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        dashboardbtn.setText("Dashboard");
+        dashboardbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboardbtnActionPerformed(evt);
+            }
+        });
+        dashboardpanel.add(dashboardbtn);
+        dashboardbtn.setBounds(0, 10, 200, 50);
+
+        inventorybtn.setBackground(new java.awt.Color(93, 177, 132));
+        inventorybtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        inventorybtn.setText("My Inventory");
+        inventorybtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventorybtnActionPerformed(evt);
+            }
+        });
+        dashboardpanel.add(inventorybtn);
+        inventorybtn.setBounds(0, 70, 200, 50);
+
+        lendingbtn.setBackground(new java.awt.Color(255, 220, 169));
+        lendingbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lendingbtn.setText("Lending");
+        dashboardpanel.add(lendingbtn);
+        lendingbtn.setBounds(0, 140, 200, 50);
+
+        goalsbtn.setBackground(new java.awt.Color(255, 220, 169));
+        goalsbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        goalsbtn.setText("Goals");
+        dashboardpanel.add(goalsbtn);
+        goalsbtn.setBounds(0, 210, 200, 50);
+
+        financialbtn.setBackground(new java.awt.Color(255, 220, 169));
+        financialbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        financialbtn.setText("Financial Analytics");
+        dashboardpanel.add(financialbtn);
+        financialbtn.setBounds(0, 280, 200, 50);
+
+        getContentPane().add(dashboardpanel);
+        dashboardpanel.setBounds(10, 90, 200, 800);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
