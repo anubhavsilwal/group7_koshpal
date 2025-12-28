@@ -2,22 +2,222 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package view;
 
 import controller.DocumentController;
+import view.AddExpenseForm;
+import model.Document;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.List;
+import java.util.logging.Logger;
+
 /**
  *
  * @author anubhavsilwal
  */
 public class documents extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(documents.class.getName());
-    DocumentController controller = new DocumentController();
+    private static final Logger logger = Logger.getLogger(documents.class.getName());
+    private DocumentController controller = new DocumentController();
+    
     /**
      * Creates new form inventory
      */
     public documents() {
         initComponents();
+        addActionListeners();
+        setupIcons();
+    }
+    
+    private void addActionListeners() {
+        // Category filter buttons
+        jButton1.addActionListener(e -> showAllDocuments());
+        jButton7.addActionListener(e -> filterByCategory("Life Style"));
+        jButton6.addActionListener(e -> filterByCategory("Health"));
+        jButton5.addActionListener(e -> filterByCategory("Financial"));
+        jButton8.addActionListener(e -> filterByCategory("Utilities"));
+        jButton2.addActionListener(e -> filterByCategory("Other"));
+        
+        // Add Expense button
+       
+        
+        // Search functionality
+        jTextField1.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (jTextField1.getText().equals("Search Receipts....")) {
+                    jTextField1.setText("");
+                }
+            }
+            
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (jTextField1.getText().isEmpty()) {
+                    jTextField1.setText("Search Receipts....");
+                }
+            }
+        });
+        
+        jTextField1.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                searchDocuments(jTextField1.getText());
+            }
+        });
+        
+        // Navigation buttons
+        jButton14.addActionListener(e -> showMessage("My Inventory clicked"));
+        jButton10.addActionListener(e -> showMessage("Lending clicked"));
+        jButton9.addActionListener(e -> showMessage("Goal clicked"));
+        jButton12.addActionListener(e -> showMessage("Financial Analytics clicked"));
+        jButton11.addActionListener(e -> showMessage("Dashboard clicked"));
+        jButton13.addActionListener(e -> showMessage("Dashboard clicked"));
+        
+    }
+    
+    private void setupIcons() {
+        // Make icons clickable
+        addClickListener(jLabel13, "View document: Rent Paid");
+        addClickListener(jLabel12, "Download: Rent Paid");
+        addClickListener(jLabel11, "Delete: Rent Paid");
+        
+        addClickListener(jLabel21, "View document: Subscription");
+        addClickListener(jLabel20, "Download: Subscription");
+        addClickListener(jLabel19, "Delete: Subscription");
+        
+        addClickListener(jLabel29, "View document: Doctor Visit");
+        addClickListener(jLabel28, "Download: Doctor Visit");
+        addClickListener(jLabel27, "Delete: Doctor Visit");
+        
+        addClickListener(jLabel37, "View document: Saving");
+        addClickListener(jLabel36, "Download: Saving");
+        addClickListener(jLabel35, "Delete: Saving");
+        
+        addClickListener(jLabel45, "View document: Emergency Fund");
+        addClickListener(jLabel44, "Download: Emergency Fund");
+        addClickListener(jLabel43, "Delete: Emergency Fund");
+    }
+    
+    private void addClickListener(JLabel label, String message) {
+        label.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                showMessage(message);
+            }
+        });
+        label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }
+    
+    private void showAllDocuments() {
+        // Show all document panels
+        jPanel4.setVisible(true);
+        jPanel5.setVisible(true);
+        jPanel6.setVisible(true);
+        jPanel7.setVisible(true);
+        jPanel8.setVisible(true);
+        
+        // Highlight "All" button
+        resetCategoryButtons();
+        jButton1.setBackground(new Color(0, 127, 76));
+        jButton1.setForeground(Color.WHITE);
+    }
+    
+    private void filterByCategory(String category) {
+        // Show/hide panels based on category
+        jPanel4.setVisible(category.equals("Utilities") || category.equals("All"));
+        jPanel5.setVisible(category.equals("Life Style") || category.equals("All"));
+        jPanel6.setVisible(category.equals("Health") || category.equals("All"));
+        jPanel7.setVisible(category.equals("Financial") || category.equals("All"));
+        jPanel8.setVisible(category.equals("Other") || category.equals("All"));
+        
+        // Highlight selected category button
+        resetCategoryButtons();
+        switch(category) {
+            case "All": 
+                jButton1.setBackground(new Color(0, 127, 76)); 
+                jButton1.setForeground(Color.WHITE); 
+                break;
+            case "Life Style": 
+                jButton7.setBackground(new Color(0, 127, 76)); 
+                jButton7.setForeground(Color.WHITE); 
+                break;
+            case "Health": 
+                jButton6.setBackground(new Color(0, 127, 76)); 
+                jButton6.setForeground(Color.WHITE); 
+                break;
+            case "Financial": 
+                jButton5.setBackground(new Color(0, 127, 76)); 
+                jButton5.setForeground(Color.WHITE); 
+                break;
+            case "Utilities": 
+                jButton8.setBackground(new Color(0, 127, 76)); 
+                jButton8.setForeground(Color.WHITE); 
+                break;
+            case "Other": 
+                jButton2.setBackground(new Color(0, 127, 76)); 
+                jButton2.setForeground(Color.WHITE); 
+                break;
+        }
+    }
+    
+    private void resetCategoryButtons() {
+        Color defaultBg = new Color(169, 221, 200);
+        Color defaultFg = Color.BLACK;
+        
+        jButton1.setBackground(new Color(0, 127, 76));
+        jButton1.setForeground(Color.WHITE);
+        
+        jButton7.setBackground(defaultBg);
+        jButton7.setForeground(defaultFg);
+        jButton6.setBackground(defaultBg);
+        jButton6.setForeground(defaultFg);
+        jButton5.setBackground(defaultBg);
+        jButton5.setForeground(defaultFg);
+        jButton8.setBackground(defaultBg);
+        jButton8.setForeground(defaultFg);
+        jButton2.setBackground(defaultBg);
+        jButton2.setForeground(defaultFg);
+    }
+    
+    private void searchDocuments(String query) {
+        if (query.equals("Search Receipts....") || query.trim().isEmpty()) {
+            showAllDocuments();
+            return;
+        }
+        
+        query = query.toLowerCase();
+        
+        // Search in document titles
+        jPanel4.setVisible(jLabel2.getText().toLowerCase().contains(query));
+        jPanel5.setVisible(jLabel14.getText().toLowerCase().contains(query));
+        jPanel6.setVisible(jLabel22.getText().toLowerCase().contains(query));
+        jPanel7.setVisible(jLabel30.getText().toLowerCase().contains(query));
+        jPanel8.setVisible(jLabel38.getText().toLowerCase().contains(query));
+    }
+    
+  
+
+    
+    private void showFilterDialog() {
+        JOptionPane.showMessageDialog(this, 
+            "Filter Options:\n\n" +
+            "• By Date Range\n" +
+            "• By Amount\n" +
+            "• By Category\n" +
+            "• By Size\n\n" +
+            "Advanced filter dialog would appear here.",
+            "Filter Documents",
+            JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    private void showMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
     }
 
     /**
@@ -26,6 +226,7 @@ public class documents extends javax.swing.JFrame {
      * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
+   
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -43,7 +244,6 @@ public class documents extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         txtTitle = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
@@ -55,7 +255,6 @@ public class documents extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -68,7 +267,6 @@ public class documents extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -77,7 +275,6 @@ public class documents extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
@@ -86,7 +283,6 @@ public class documents extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
@@ -95,7 +291,6 @@ public class documents extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
@@ -121,7 +316,7 @@ public class documents extends javax.swing.JFrame {
         jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/kosh2.png"))); // NOI18N
         jLabel46.setText("jLabel46");
         jPanel1.add(jLabel46);
-        jLabel46.setBounds(0, 0, 120, 125);
+        jLabel46.setBounds(30, -10, 120, 125);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1440, 100);
@@ -232,17 +427,16 @@ public class documents extends javax.swing.JFrame {
         jPanel3.add(txtTitle);
         txtTitle.setBounds(950, 20, 280, 60);
 
-        jButton4.setBackground(new java.awt.Color(176, 220, 198));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton4.setText("Filter");
-        jPanel3.add(jButton4);
-        jButton4.setBounds(730, 20, 180, 60);
-
         jTextField1.setBackground(new java.awt.Color(220, 220, 220));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextField1.setText("Search Receipts....");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jTextField1);
-        jTextField1.setBounds(430, 20, 230, 40);
+        jTextField1.setBounds(610, 40, 230, 40);
 
         jTextField2.setBackground(new java.awt.Color(205, 231, 217));
         jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
@@ -317,11 +511,6 @@ public class documents extends javax.swing.JFrame {
         jPanel4.add(jLabel3);
         jLabel3.setBounds(140, 40, 90, 16);
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("2.3mb");
-        jPanel4.add(jLabel4);
-        jLabel4.setBounds(210, 20, 50, 50);
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Utilities");
         jPanel4.add(jLabel5);
@@ -380,11 +569,6 @@ public class documents extends javax.swing.JFrame {
         jPanel5.add(jLabel15);
         jLabel15.setBounds(150, 40, 90, 20);
 
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("2.3mb");
-        jPanel5.add(jLabel16);
-        jLabel16.setBounds(220, 30, 50, 50);
-
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel17.setText("Life Style");
         jPanel5.add(jLabel17);
@@ -423,11 +607,6 @@ public class documents extends javax.swing.JFrame {
         jLabel23.setText("June 30 2025");
         jPanel6.add(jLabel23);
         jLabel23.setBounds(130, 40, 90, 16);
-
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setText("2.3mb");
-        jPanel6.add(jLabel24);
-        jLabel24.setBounds(210, 20, 50, 50);
 
         jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel25.setText("Health");
@@ -468,11 +647,6 @@ public class documents extends javax.swing.JFrame {
         jPanel7.add(jLabel31);
         jLabel31.setBounds(140, 40, 90, 16);
 
-        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel32.setText("2.3mb");
-        jPanel7.add(jLabel32);
-        jLabel32.setBounds(210, 20, 50, 50);
-
         jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel33.setText("Financial");
         jPanel7.add(jLabel33);
@@ -512,11 +686,6 @@ public class documents extends javax.swing.JFrame {
         jPanel8.add(jLabel39);
         jLabel39.setBounds(140, 40, 90, 16);
 
-        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel40.setText("2.3mb");
-        jPanel8.add(jLabel40);
-        jLabel40.setBounds(210, 20, 50, 50);
-
         jLabel41.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel41.setText("Other");
         jPanel8.add(jLabel41);
@@ -546,71 +715,77 @@ public class documents extends javax.swing.JFrame {
         jPanel8.setBounds(10, 560, 1220, 80);
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(200, 100, 1250, 820);
+        jPanel3.setBounds(200, 100, 1240, 820);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    showAllDocuments();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitleActionPerformed
-        // TODO add your handling code here:
-        String title = txtTitle.getText();
-     String category = txtCategory.getText();
-
-     boolean isAdded = controller.addDocument(title, category); 
-    DocumentController1 controller = new DocumentController1();
-
-boolean isAdded = controller.addDocument(title, category);
-
+                                        
+    AddExpenseForm addExpense = new AddExpenseForm();
+    addExpense.setVisible(true);
 
     }//GEN-LAST:event_txtTitleActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
+        filterByCategory("Other");
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+filterByCategory("Financial");
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+filterByCategory("Health");
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+         filterByCategory("Life Style");
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
+                showMessage("Goal feature coming soon!");
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
+        showMessage("Lending feature coming soon!");
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
+        showMessage("Dashboard feature coming soon!");
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
+        showMessage("Financial Analytics feature coming soon!");
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
+        showMessage("Dashboard feature coming soon!");
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         // TODO add your handling code here:
+        showMessage("My Inventory feature coming soon!");
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void txtTitleInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtTitleInputMethodTextChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTitleInputMethodTextChanged
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -645,7 +820,6 @@ boolean isAdded = controller.addDocument(title, category);
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -658,7 +832,6 @@ boolean isAdded = controller.addDocument(title, category);
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -667,7 +840,6 @@ boolean isAdded = controller.addDocument(title, category);
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -676,7 +848,6 @@ boolean isAdded = controller.addDocument(title, category);
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
@@ -684,8 +855,6 @@ boolean isAdded = controller.addDocument(title, category);
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
