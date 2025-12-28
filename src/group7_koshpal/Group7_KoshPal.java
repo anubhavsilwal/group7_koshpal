@@ -1,6 +1,6 @@
 package group7_koshpal;
 
-import view.signup;
+import view.dashboard;
 import controller.signupController;
 
 /**

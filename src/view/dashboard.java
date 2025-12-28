@@ -81,11 +81,11 @@ public class dashboard extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(254, 251, 238));
         jPanel2.setPreferredSize(new java.awt.Dimension(1440, 100));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        //jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/uusseerr.png"))); // NOI18N
+       // jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/uusseerr.png"))); // NOI18N
 
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/usericon.png"))); // NOI18N
+        // jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/usericon.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

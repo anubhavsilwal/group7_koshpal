@@ -11,7 +11,7 @@ import controller.dashcontroller;
 
  */
 
-public class Group7_KoshPal {
+public class dashrun {
 
 
 
