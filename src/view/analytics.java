@@ -89,7 +89,7 @@ public class analytics extends javax.swing.JFrame {
         lblcashflow.setBounds(20, 40, 270, 40);
 
         jPanel3.add(pnlcashflow);
-        pnlcashflow.setBounds(630, 10, 280, 90);
+        pnlcashflow.setBounds(630, 20, 280, 90);
 
         pnlexpense.setLayout(null);
 
@@ -105,7 +105,7 @@ public class analytics extends javax.swing.JFrame {
         lblexpensevalue.setBounds(20, 40, 270, 40);
 
         jPanel3.add(pnlexpense);
-        pnlexpense.setBounds(320, 10, 280, 90);
+        pnlexpense.setBounds(320, 20, 280, 90);
 
         pnlincome.setLayout(null);
 
@@ -121,12 +121,12 @@ public class analytics extends javax.swing.JFrame {
         lblincomevalue.setBounds(20, 40, 270, 40);
 
         jPanel3.add(pnlincome);
-        pnlincome.setBounds(10, 10, 280, 90);
+        pnlincome.setBounds(10, 20, 280, 90);
         jPanel3.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 140, 880, 300);
+        jScrollPane1.setBounds(30, 140, 910, 400);
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(200, 80, 1240, 800);
+        jPanel3.setBounds(200, 100, 1240, 780);
 
         dashboardpanel.setBackground(new java.awt.Color(224, 236, 229));
         dashboardpanel.setLayout(null);
