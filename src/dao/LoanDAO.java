@@ -168,24 +168,29 @@ public class LoanDAO {
     }
     
 // Add this method to your LoanDAO.java file:
-    public void createTable() throws SQLException {
-            String sql = "CREATE TABLE IF NOT EXISTS loans (" +
-                 "loan_id INT PRIMARY KEY AUTO_INCREMENT, " +
-                 "user_id INT NOT NULL, " +
-                 "borrower_name VARCHAR(100) NOT NULL, " +
-                 "item_name VARCHAR(200) NOT NULL, " +
-                 "due_date DATE NOT NULL, " +
-                 "loan_amount DECIMAL(10,2) NOT NULL, " +
-                 "status VARCHAR(20) DEFAULT 'Active', " +
-                 "loan_date DATE NOT NULL, " +
-                 "item_id INT DEFAULT 1" +
-                 ")";
+
     
-                try (Connection conn = getConnection();
-            Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-            System.out.println("✅ Loans table is ready!");
-        }
+    public void createTable() throws SQLException {
+    String sql = "CREATE TABLE IF NOT EXISTS loans (" +
+         "loan_id INT PRIMARY KEY AUTO_INCREMENT, " +
+         "user_id INT NOT NULL, " +
+         "borrower_name VARCHAR(100) NOT NULL, " +
+         "item_name VARCHAR(200) NOT NULL, " +
+         "due_date DATE NOT NULL, " +
+         "loan_amount DECIMAL(10,2) NOT NULL, " +
+         "status VARCHAR(20) DEFAULT 'Active', " +
+         "loan_date DATE NOT NULL, " +
+         "item_id INT DEFAULT 1" +
+         ")";
+
+    try (Connection conn = getConnection();
+         Statement stmt = conn.createStatement()) {
+        stmt.execute(sql);
+        System.out.println("✅ Loans table is ready!");
+    } catch (SQLException e) {
+        System.out.println("❌ Error creating table: " + e.getMessage());
+        throw e;
     }
+}
     
 }
