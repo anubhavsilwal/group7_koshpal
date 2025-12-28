@@ -4,6 +4,8 @@
  */
 package view;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author anubhavsilwal
@@ -29,26 +31,174 @@ public class analytics extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        appicon = new javax.swing.JLabel();
+        inventoryheader = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        pnlcashflow = new javax.swing.JPanel();
+        text2 = new javax.swing.JLabel();
+        lblcashflow = new javax.swing.JLabel();
+        pnlexpense = new javax.swing.JPanel();
+        text3 = new javax.swing.JLabel();
+        lblexpensevalue = new javax.swing.JLabel();
+        pnlincome = new javax.swing.JPanel();
+        text4 = new javax.swing.JLabel();
+        lblincomevalue = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        dashboardpanel = new javax.swing.JPanel();
+        documentsbtn = new javax.swing.JButton();
+        dashboardbtn = new javax.swing.JButton();
+        inventorybtn = new javax.swing.JButton();
+        lendingbtn = new javax.swing.JButton();
+        goalsbtn = new javax.swing.JButton();
+        financialbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(254, 251, 238));
+        jPanel1.setLayout(null);
+
+        appicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        jPanel1.add(appicon);
+        appicon.setBounds(50, -60, 110, 220);
+
+        inventoryheader.setFont(new java.awt.Font("Arial Black", 1, 28)); // NOI18N
+        inventoryheader.setText("Financial Analytics");
+        inventoryheader.setAlignmentX(0.5F);
+        inventoryheader.setPreferredSize(new java.awt.Dimension(300, 50));
+        jPanel1.add(inventoryheader);
+        inventoryheader.setBounds(210, 60, 330, 40);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1440, 100);
 
-        jPanel2.setBackground(new java.awt.Color(224, 236, 229));
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 100, 200, 800);
-
         jPanel3.setBackground(new java.awt.Color(205, 231, 217));
+        jPanel3.setLayout(null);
+
+        pnlcashflow.setLayout(null);
+
+        text2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        text2.setText("Total items");
+        pnlcashflow.add(text2);
+        text2.setBounds(20, 10, 200, 25);
+
+        lblcashflow.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
+        lblcashflow.setForeground(new java.awt.Color(17, 151, 31));
+        lblcashflow.setText("6");
+        pnlcashflow.add(lblcashflow);
+        lblcashflow.setBounds(20, 40, 270, 40);
+
+        jPanel3.add(pnlcashflow);
+        pnlcashflow.setBounds(630, 20, 280, 90);
+
+        pnlexpense.setLayout(null);
+
+        text3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        text3.setText("Total expense");
+        pnlexpense.add(text3);
+        text3.setBounds(20, 10, 200, 25);
+
+        lblexpensevalue.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
+        lblexpensevalue.setForeground(new java.awt.Color(17, 151, 31));
+        lblexpensevalue.setText("6");
+        pnlexpense.add(lblexpensevalue);
+        lblexpensevalue.setBounds(20, 40, 270, 40);
+
+        jPanel3.add(pnlexpense);
+        pnlexpense.setBounds(320, 20, 280, 90);
+
+        pnlincome.setLayout(null);
+
+        text4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        text4.setText("Total income");
+        pnlincome.add(text4);
+        text4.setBounds(20, 10, 200, 25);
+
+        lblincomevalue.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
+        lblincomevalue.setForeground(new java.awt.Color(17, 151, 31));
+        lblincomevalue.setText("6");
+        pnlincome.add(lblincomevalue);
+        lblincomevalue.setBounds(20, 40, 270, 40);
+
+        jPanel3.add(pnlincome);
+        pnlincome.setBounds(10, 20, 280, 90);
+        jPanel3.add(jScrollPane1);
+        jScrollPane1.setBounds(30, 140, 910, 400);
+
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(200, 100, 1240, 800);
+        jPanel3.setBounds(200, 100, 1240, 780);
+
+        dashboardpanel.setBackground(new java.awt.Color(224, 236, 229));
+        dashboardpanel.setLayout(null);
+
+        documentsbtn.setBackground(new java.awt.Color(255, 220, 169));
+        documentsbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        documentsbtn.setText("Documents");
+        documentsbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                documentsbtnActionPerformed(evt);
+            }
+        });
+        dashboardpanel.add(documentsbtn);
+        documentsbtn.setBounds(0, 350, 200, 50);
+
+        dashboardbtn.setBackground(new java.awt.Color(255, 220, 169));
+        dashboardbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        dashboardbtn.setText("Dashboard");
+        dashboardbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboardbtnActionPerformed(evt);
+            }
+        });
+        dashboardpanel.add(dashboardbtn);
+        dashboardbtn.setBounds(0, 10, 200, 50);
+
+        inventorybtn.setBackground(new java.awt.Color(255, 220, 169));
+        inventorybtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        inventorybtn.setText("My Inventory");
+        inventorybtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventorybtnActionPerformed(evt);
+            }
+        });
+        dashboardpanel.add(inventorybtn);
+        inventorybtn.setBounds(0, 70, 200, 50);
+
+        lendingbtn.setBackground(new java.awt.Color(255, 220, 169));
+        lendingbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lendingbtn.setText("Lending");
+        dashboardpanel.add(lendingbtn);
+        lendingbtn.setBounds(0, 140, 200, 50);
+
+        goalsbtn.setBackground(new java.awt.Color(255, 220, 169));
+        goalsbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        goalsbtn.setText("Goals");
+        dashboardpanel.add(goalsbtn);
+        goalsbtn.setBounds(0, 210, 200, 50);
+
+        financialbtn.setBackground(new java.awt.Color(93, 177, 132));
+        financialbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        financialbtn.setText("Financial Analytics");
+        dashboardpanel.add(financialbtn);
+        financialbtn.setBounds(0, 280, 200, 50);
+
+        getContentPane().add(dashboardpanel);
+        dashboardpanel.setBounds(0, 100, 200, 800);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void documentsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentsbtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_documentsbtnActionPerformed
+
+    private void dashboardbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardbtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dashboardbtnActionPerformed
+
+    private void inventorybtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventorybtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inventorybtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -76,8 +226,46 @@ public class analytics extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel appicon;
+    private javax.swing.JButton dashboardbtn;
+    private javax.swing.JPanel dashboardpanel;
+    private javax.swing.JButton documentsbtn;
+    private javax.swing.JButton financialbtn;
+    private javax.swing.JButton goalsbtn;
+    private javax.swing.JButton inventorybtn;
+    private javax.swing.JLabel inventoryheader;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblcashflow;
+    private javax.swing.JLabel lblexpensevalue;
+    private javax.swing.JLabel lblincomevalue;
+    private javax.swing.JButton lendingbtn;
+    private javax.swing.JPanel pnlcashflow;
+    private javax.swing.JPanel pnlexpense;
+    private javax.swing.JPanel pnlincome;
+    private javax.swing.JLabel text2;
+    private javax.swing.JLabel text3;
+    private javax.swing.JLabel text4;
     // End of variables declaration//GEN-END:variables
+// GETTER METHODS - Add these to your analytics.java class
+public javax.swing.JLabel getLblCashflow() { return lblcashflow; }
+public javax.swing.JLabel getLblExpenseValue() { return lblexpensevalue; }
+public javax.swing.JLabel getLblIncomeValue() { return lblincomevalue; }
+public javax.swing.JScrollPane getScrollPane() { return jScrollPane1; }
+public javax.swing.JPanel getDashboardPanel() { return dashboardpanel; }
+public javax.swing.JButton getInventoryBtn() { return inventorybtn; }
+public javax.swing.JButton getDashboardBtn() { return dashboardbtn; }
+public javax.swing.JButton getDocumentsBtn() { return documentsbtn; }
+public javax.swing.JButton getLendingBtn() { return lendingbtn; }
+public javax.swing.JButton getGoalsBtn() { return goalsbtn; }
+public javax.swing.JButton getFinancialBtn() { return financialbtn; }
+
+public void setChartsPanel(JPanel panel) {
+    jScrollPane1.getViewport().removeAll();
+    jScrollPane1.setViewportView(panel);
+    jScrollPane1.revalidate();
+    jScrollPane1.repaint();
+}
+
 }
