@@ -37,9 +37,11 @@ public class inventory extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(254, 251, 238));
+        jPanel1.setLayout(null);
 
         jLabel1.setText("logo");
         jPanel1.add(jLabel1);
+        jLabel1.setBounds(708, 5, 24, 17);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1440, 100);
