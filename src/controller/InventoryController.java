@@ -16,6 +16,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import view.analytics;
 /**
  *
  * @author samee
@@ -166,9 +167,12 @@ class GoalsListener implements ActionListener {
 }
 
 class FinancialListener implements ActionListener {
-    @Override
+    @Override 
     public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(inventoryView, "Financial Analytics feature coming soon!");
+        // Open analytics window
+        analytics analyticsView = new analytics();
+        new AnalyticsController(analyticsView);
+        analyticsView.setVisible(true);
     }
 }
 
