@@ -20,6 +20,10 @@ public class Goal {
         this.dueDate = dueDate;
         this.location = location != null ? location :"";
     }
+    public Goal(String name, String category, double targetAmount, 
+            double savedAmount, LocalDate dueDate) {
+    this(name, category, targetAmount, savedAmount, dueDate, "");
+}
     
     // Getters and Setters
     public String getName() { return name; }

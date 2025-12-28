@@ -32,7 +32,7 @@ public class Mysqlconnection implements Database{
 
             String username = "root";
 
-            String password = "Ainubruv@123";
+            String password = "12345";
 
             String database = "koshPal";
 
