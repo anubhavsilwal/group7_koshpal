@@ -13,7 +13,7 @@ public class ExpenseDAO {
 
     public static boolean saveExpense(Expense expense) {
         try {
-            Connection con = Mysqlconnection.getConnection();
+            Connection con = Mysqlconnection.getconnection();
 
            String sql = "INSERT INTO expenses (name, category, amount, image_path) VALUES (?, ?, ?, ?)";
 

@@ -19,7 +19,7 @@ public class OtpDAO {
     // Save OTP
     public static boolean saveOtp(FP fp) {
         try {
-            Connection con = Mysqlconnection.getConnection();
+            Connection con = Mysqlconnection.getconnection();
             String sql = "UPDATE users SET otp = ? WHERE email = ?";
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -37,7 +37,7 @@ public class OtpDAO {
     // Check OTP
     public static boolean checkOtp(FP fp) {
         try {
-            Connection con = Mysqlconnection.getConnection();
+            Connection con = Mysqlconnection.getconnection();
             String sql = "SELECT * FROM users WHERE email = ? AND otp = ?";
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -56,7 +56,7 @@ public class OtpDAO {
     // Reset Password (MISSING BEFORE)
     public static boolean resetPassword(FP fp) {
         try {
-            Connection con = Mysqlconnection.getConnection();
+            Connection con = Mysqlconnection.getconnection();
             String sql = "UPDATE users SET password = ?, otp = NULL WHERE email = ?";
             PreparedStatement ps = con.prepareStatement(sql);
 

@@ -1,36 +1,55 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
+
 import java.io.File;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import controller.ExpenseController;
-import model.Expense;
-
-
-
+import javax.swing.JOptionPane;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
  * @author ACER
  */
 public class AddExpenseForm extends javax.swing.JFrame {
-     private static final java.util.logging.Logger logger =
+    private static final java.util.logging.Logger logger =
             java.util.logging.Logger.getLogger(AddExpenseForm.class.getName());
 
-    // ✅ MOVE THESE HERE
-    private java.io.File frontImageFile;
-    private java.io.File sideImageFile;
+    private File imageFile;
+    private documents parentWindow; // Add this to communicate with parent
     
     /**
-     * Creates new form AddExpenseForm
+     * Creates new form AddExpenseForm for documents
      */
     public AddExpenseForm() {
-    initComponents();
-    loadCategoryItems();
+        initComponents();
+        loadCategoryItems();
+        setupDefaultValues();
+    }
+    
+    /**
+     * Constructor with parent window reference
+     */
+    private documents parent;
+    public AddExpenseForm(documents parent) {
+        initComponents();
+        this.parent = parent;
+       
+    }
+    
+    private void setupDefaultValues() {
+        // Set current date as default
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    jTextField2.setText(dateFormat.format(new Date()));
+    
+    // Clear other fields
+    jTextField1.setText("");
+    txtAmount.setText("");
+    
+    // Change button text to be more clear
+    jButton1.setText("Add Expense");
+    setTitle("Add New Expense");
 }
 
     /**
@@ -52,6 +71,8 @@ public class AddExpenseForm extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtAmount = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -79,9 +100,13 @@ public class AddExpenseForm extends javax.swing.JFrame {
 
         jLabel5.setText("Amount");
 
+        txtAmount.addActionListener(this::txtAmountActionPerformed);
+
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setText("Confirm");
         jButton1.addActionListener(this::jButton1ActionPerformed);
+
+        jLabel6.setText("Date");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -90,47 +115,57 @@ public class AddExpenseForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblImage1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtAmount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(120, 120, 120)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblImage1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField2)))))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(152, 152, 152)
+                .addGap(118, 118, 118)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblImage1)
+                    .addComponent(jLabel3))
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(lblImage1))
-                .addGap(18, 18, 18)
+                    .addComponent(cmbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cmbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(254, 251, 238));
@@ -174,27 +209,51 @@ private void loadCategoryItems() {
 }
 
     private void lblImage1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblImage1ActionPerformed
-        JFileChooser chooser = new JFileChooser();
-    chooser.setDialogTitle("Select Image");
+       JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Select Document/Image");
 
-    chooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
-            "Image Files", "jpg", "png", "jpeg"
-    ));
+        // Allow all files since documents can be PDF, images, etc.
+        chooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
+                "All Files", "jpg", "png", "jpeg", "pdf", "doc", "docx", "txt"
+        ));
 
-    int result = chooser.showOpenDialog(this);
+        int result = chooser.showOpenDialog(this);
 
-    if (result == JFileChooser.APPROVE_OPTION) {
-
-        frontImageFile = chooser.getSelectedFile();
-
-        ImageIcon icon = new ImageIcon(frontImageFile.getAbsolutePath());
-        Image img = icon.getImage().getScaledInstance(
-                lblImage1.getWidth(),
-                lblImage1.getHeight(),
-                Image.SCALE_SMOOTH
-        );
-        lblImage1.setIcon(new ImageIcon(img));
-    }
+        if (result == JFileChooser.APPROVE_OPTION) {
+            imageFile = chooser.getSelectedFile();
+            
+            // Display file name on button
+            lblImage1.setText(imageFile.getName());
+            
+            // If it's an image, show preview
+            String fileName = imageFile.getName().toLowerCase();
+            if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || 
+                fileName.endsWith(".png") || fileName.endsWith(".gif")) {
+                
+                ImageIcon icon = new ImageIcon(imageFile.getAbsolutePath());
+                Image img = icon.getImage().getScaledInstance(
+                        lblImage1.getWidth(),
+                        lblImage1.getHeight(),
+                        Image.SCALE_SMOOTH
+                );
+                lblImage1.setIcon(new ImageIcon(img));
+            } else {
+                // For non-image files, show file icon
+                lblImage1.setIcon(new ImageIcon());
+                lblImage1.setText(imageFile.getName());
+            }
+            
+            // Auto-set size based on file
+            long fileSize = imageFile.length();
+            String sizeText;
+            if (fileSize < 1024) {
+                sizeText = fileSize + " B";
+            } else if (fileSize < 1024 * 1024) {
+                sizeText = String.format("%.1f KB", fileSize / 1024.0);
+            } else {
+                sizeText = String.format("%.1f MB", fileSize / (1024.0 * 1024.0));
+            }
+        }
     }//GEN-LAST:event_lblImage1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -207,54 +266,85 @@ private void loadCategoryItems() {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    // 1️⃣ GET USER INPUT
-    String expenseName = jTextField1.getText().trim();   // expense name
-    String category = cmbCategory.getSelectedItem().toString();
-    String amountText = txtAmount.getText().trim();
+     // GET USER INPUT
+String title = jTextField1.getText().trim();         // Title from jTextField1
+String category = cmbCategory.getSelectedItem().toString();
+String date = jTextField2.getText().trim();          // Date from jTextField2
+String amount = txtAmount.getText().trim();          // Amount from txtAmount
 
-    String imagePath = null;
-    if (frontImageFile != null) {
-        imagePath = frontImageFile.getAbsolutePath();
-    }
-
-    // 2️⃣ VALIDATION
-    if (expenseName.isEmpty() || amountText.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this,
-                "Please fill all fields");
-        return;
-    }
-
-    double amount;
-    try {
-        amount = Double.parseDouble(amountText);
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(this,
-                "Amount must be numeric");
-        return;
-    }
-
-    // 3️⃣ SEND DATA TO CONTROLLER
-   // 1️⃣ Create Expense object
-Expense expense = new Expense();
-expense.setName(expenseName);
-expense.setCategory(category);
-expense.setAmount(amount);
-expense.setImagePath(imagePath);
-
-// 2️⃣ Call controller (STATIC method)
-boolean success = ExpenseController.addExpense(expense);
-
- if (success) {
-    javax.swing.JOptionPane.showMessageDialog(this,
-        "Expense Saved Successfully");
-    this.dispose();
-} else {
-    javax.swing.JOptionPane.showMessageDialog(this,
-        "Failed to save expense");
+        // VALIDATION
+       if (title.isEmpty()) {
+    JOptionPane.showMessageDialog(this,
+        "Please enter expense title",
+        "Validation Error",
+        JOptionPane.WARNING_MESSAGE);
+    jTextField1.requestFocus();  // FIXED: txtTitle → jTextField1
+    return;
 }
 
+        if (date.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                "Please enter a date",
+                "Validation Error",
+                JOptionPane.WARNING_MESSAGE);
+            txtAmount.requestFocus();
+            return;
+        }
+        
+if (amount.isEmpty()) {  // FIXED: Validate amount, not date
+    JOptionPane.showMessageDialog(this,
+        "Please enter amount",
+        "Validation Error",
+        JOptionPane.WARNING_MESSAGE);
+    txtAmount.requestFocus();  // FIXED: txtAmount is correct
+    return;
+}
 
+       if (date.isEmpty()) {
+    JOptionPane.showMessageDialog(this,
+        "Please enter date",
+        "Validation Error",
+        JOptionPane.WARNING_MESSAGE);
+    jTextField2.requestFocus();  // FIXED: txtDate → jTextField2
+    return;
+}
+        
+        // If we have a parent window (documents.java), pass data back
+        if (parentWindow != null) {
+            // Create a new document and add to parent window
+            try {
+                // This assumes your documents class has a method addNewDocument
+                parentWindow.addNewDocument(title, category, date, amount);
+                
+                JOptionPane.showMessageDialog(this,
+                    "Document '" + title + "' added successfully!",
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
+                
+                this.dispose(); // Close the form
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this,
+                    "Error adding document: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            // Fallback if no parent window
+            JOptionPane.showMessageDialog(this,
+        "Expense Details:\n" +
+        "Title: " + title + "\n" +
+        "Category: " + category + "\n" +
+        "Date: " + date + "\n" +
+        "Amount: ₹" + amount,  // FIXED: Show amount, not size
+        "Expense Saved",
+        JOptionPane.INFORMATION_MESSAGE);
+        }
+    
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAmountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAmountActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,7 +355,7 @@ boolean success = ExpenseController.addExpense(expense);
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -288,9 +378,11 @@ boolean success = ExpenseController.addExpense(expense);
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JButton lblImage1;
     private javax.swing.JTextField txtAmount;
     // End of variables declaration//GEN-END:variables

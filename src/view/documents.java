@@ -16,6 +16,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,6 +26,8 @@ public class documents extends javax.swing.JFrame {
     
     private static final Logger logger = Logger.getLogger(documents.class.getName());
     private DocumentController controller = new DocumentController();
+    private List<Document> documentList = new ArrayList<>();
+    private JPanel documentPanelContainer;
     
     /**
      * Creates new form inventory
@@ -33,6 +36,141 @@ public class documents extends javax.swing.JFrame {
         initComponents();
         addActionListeners();
         setupIcons();
+        initializeDocumentPanel();
+        loadSampleDocuments(); // Load initial documents
+        showAllDocuments();
+    }
+    
+    private void initializeDocumentPanel() {
+        documentPanelContainer = new JPanel();
+        documentPanelContainer.setLayout(new BoxLayout(documentPanelContainer, BoxLayout.Y_AXIS));
+        documentPanelContainer.setBackground(Color.WHITE);
+        jScrollPane1.setViewportView(documentPanelContainer);
+    }
+    
+    private void loadSampleDocuments() {
+        // Add sample documents
+        documentList.add(new Document("Rent paid", "Utilities", "May 20 2025", "2.3 MB"));
+        documentList.add(new Document("Doctor visits", "Health", "May 20 2025", "2.3 MB"));
+        documentList.add(new Document("Emergency Fund", "Other", "May 20 2025", "2.3 MB"));
+        documentList.add(new Document("Saving", "Financial", "May 20 2025", "2.3 MB"));
+        documentList.add(new Document("Subscriptions", "Life Style", "May 20 2025", "2.3 MB"));
+        
+        // You can load from database here:
+        // documentList = controller.getAllDocuments();
+    }
+    
+   public void addNewDocument(String title, String category, String date, String size) {
+    // Create Document object
+    Document newDoc = new Document(title, category, date, size);
+    documentList.add(newDoc);
+    
+    // Refresh display
+    refreshDocumentDisplay();
+    
+    // Show success message
+    JOptionPane.showMessageDialog(this,
+        "Document '" + title + "' added successfully!",
+        "Success",
+        JOptionPane.INFORMATION_MESSAGE);
+}
+    
+    private void refreshDocumentDisplay() {
+        documentPanelContainer.removeAll();
+        
+        for (Document doc : documentList) {
+            JPanel docPanel = createDocumentPanel(doc);
+            documentPanelContainer.add(docPanel);
+            documentPanelContainer.add(Box.createRigidArea(new Dimension(0, 10))); // Spacing
+        }
+        
+        documentPanelContainer.revalidate();
+        documentPanelContainer.repaint();
+    }
+    
+    private JPanel createDocumentPanel(Document doc) {
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
+        panel.setPreferredSize(new Dimension(1200, 80));
+        panel.setMaximumSize(new Dimension(1200, 80));
+        
+        // PDF Icon
+        JLabel pdfIcon = new JLabel();
+        try {
+            ImageIcon originalIcon = new ImageIcon(getClass().getResource("/images/pdf.png"));
+            Image scaledImage = originalIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+            pdfIcon.setIcon(new ImageIcon(scaledImage));
+        } catch (Exception e) {
+            pdfIcon.setText("📄");
+            pdfIcon.setFont(new Font("Segoe UI", Font.PLAIN, 24));
+        }
+        pdfIcon.setBounds(20, 15, 50, 50);
+        panel.add(pdfIcon);
+        
+        // Document Title
+        JLabel titleLabel = new JLabel(doc.getTitle());
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        titleLabel.setBounds(90, 10, 300, 30);
+        panel.add(titleLabel);
+        
+        // Category
+        JLabel categoryLabel = new JLabel(doc.getCategory());
+        categoryLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        categoryLabel.setBounds(90, 40, 100, 20);
+        categoryLabel.setForeground(new Color(100, 100, 100));
+        panel.add(categoryLabel);
+        
+        // Date
+        JLabel dateLabel = new JLabel(doc.getDate());
+        dateLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        dateLabel.setBounds(180, 40, 100, 20);
+        dateLabel.setForeground(new Color(150, 150, 150));
+        panel.add(dateLabel);
+        
+        // File Size
+        JLabel sizeLabel = new JLabel(doc.getSize());
+        sizeLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        sizeLabel.setBounds(280, 40, 100, 20);
+        sizeLabel.setForeground(new Color(150, 150, 150));
+        panel.add(sizeLabel);
+        
+        // Make panel clickable
+        panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        panel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                showDocumentDetails(doc);
+            }
+        });
+        
+        return panel;
+    }
+    
+    private void showDocumentDetails(Document doc) {
+        String details = String.format(
+            "Document Details:\n\n" +
+            "Title: %s\n" +
+            "Category: %s\n" +
+            "Date: %s\n" +
+            "Size: %s\n\n" +
+            "Would you like to view or edit this document?",
+            doc.getTitle(), doc.getCategory(), doc.getDate(), doc.getSize()
+        );
+        
+        int option = JOptionPane.showConfirmDialog(
+            this, 
+            details,
+            "Document Details",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.INFORMATION_MESSAGE
+        );
+        
+        if (option == JOptionPane.YES_OPTION) {
+            // Open document viewer or editor
+            showMessage("Opening document: " + doc.getTitle());
+        }
     }
     
     private void addActionListeners() {
@@ -45,7 +183,10 @@ public class documents extends javax.swing.JFrame {
         jButton2.addActionListener(e -> filterByCategory("Other"));
         
         // Add Expense button
-       
+        txtTitle.addActionListener(e -> {
+            AddExpenseForm addExpense = new AddExpenseForm(this);
+            addExpense.setVisible(true);
+        });
         
         // Search functionality
         jTextField1.addFocusListener(new FocusAdapter() {
@@ -53,6 +194,7 @@ public class documents extends javax.swing.JFrame {
             public void focusGained(FocusEvent e) {
                 if (jTextField1.getText().equals("Search Receipts....")) {
                     jTextField1.setText("");
+                    jTextField1.setForeground(Color.BLACK);
                 }
             }
             
@@ -60,6 +202,7 @@ public class documents extends javax.swing.JFrame {
             public void focusLost(FocusEvent e) {
                 if (jTextField1.getText().isEmpty()) {
                     jTextField1.setText("Search Receipts....");
+                    jTextField1.setForeground(Color.GRAY);
                 }
             }
         });
@@ -78,63 +221,28 @@ public class documents extends javax.swing.JFrame {
         jButton12.addActionListener(e -> showMessage("Financial Analytics clicked"));
         jButton11.addActionListener(e -> showMessage("Dashboard clicked"));
         jButton13.addActionListener(e -> showMessage("Dashboard clicked"));
-        
-    }
-    
-    private void setupIcons() {
-        // Make icons clickable
-        addClickListener(jLabel13, "View document: Rent Paid");
-        addClickListener(jLabel12, "Download: Rent Paid");
-        addClickListener(jLabel11, "Delete: Rent Paid");
-        
-        addClickListener(jLabel21, "View document: Subscription");
-        addClickListener(jLabel20, "Download: Subscription");
-        addClickListener(jLabel19, "Delete: Subscription");
-        
-        addClickListener(jLabel29, "View document: Doctor Visit");
-        addClickListener(jLabel28, "Download: Doctor Visit");
-        addClickListener(jLabel27, "Delete: Doctor Visit");
-        
-        addClickListener(jLabel37, "View document: Saving");
-        addClickListener(jLabel36, "Download: Saving");
-        addClickListener(jLabel35, "Delete: Saving");
-        
-        addClickListener(jLabel45, "View document: Emergency Fund");
-        addClickListener(jLabel44, "Download: Emergency Fund");
-        addClickListener(jLabel43, "Delete: Emergency Fund");
-    }
-    
-    private void addClickListener(JLabel label, String message) {
-        label.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                showMessage(message);
-            }
-        });
-        label.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
     
     private void showAllDocuments() {
-        // Show all document panels
-        jPanel4.setVisible(true);
-        jPanel5.setVisible(true);
-        jPanel6.setVisible(true);
-        jPanel7.setVisible(true);
-        jPanel8.setVisible(true);
-        
-        // Highlight "All" button
+        refreshDocumentDisplay();
         resetCategoryButtons();
         jButton1.setBackground(new Color(0, 127, 76));
         jButton1.setForeground(Color.WHITE);
     }
     
     private void filterByCategory(String category) {
-        // Show/hide panels based on category
-        jPanel4.setVisible(category.equals("Utilities") || category.equals("All"));
-        jPanel5.setVisible(category.equals("Life Style") || category.equals("All"));
-        jPanel6.setVisible(category.equals("Health") || category.equals("All"));
-        jPanel7.setVisible(category.equals("Financial") || category.equals("All"));
-        jPanel8.setVisible(category.equals("Other") || category.equals("All"));
+        documentPanelContainer.removeAll();
+        
+        for (Document doc : documentList) {
+            if (category.equals("All") || doc.getCategory().equals(category)) {
+                JPanel docPanel = createDocumentPanel(doc);
+                documentPanelContainer.add(docPanel);
+                documentPanelContainer.add(Box.createRigidArea(new Dimension(0, 10)));
+            }
+        }
+        
+        documentPanelContainer.revalidate();
+        documentPanelContainer.repaint();
         
         // Highlight selected category button
         resetCategoryButtons();
@@ -170,9 +278,8 @@ public class documents extends javax.swing.JFrame {
         Color defaultBg = new Color(169, 221, 200);
         Color defaultFg = Color.BLACK;
         
-        jButton1.setBackground(new Color(0, 127, 76));
-        jButton1.setForeground(Color.WHITE);
-        
+        jButton1.setBackground(defaultBg);
+        jButton1.setForeground(defaultFg);
         jButton7.setBackground(defaultBg);
         jButton7.setForeground(defaultFg);
         jButton6.setBackground(defaultBg);
@@ -192,28 +299,24 @@ public class documents extends javax.swing.JFrame {
         }
         
         query = query.toLowerCase();
+        documentPanelContainer.removeAll();
         
-        // Search in document titles
-        jPanel4.setVisible(jLabel2.getText().toLowerCase().contains(query));
-        jPanel5.setVisible(jLabel14.getText().toLowerCase().contains(query));
-        jPanel6.setVisible(jLabel22.getText().toLowerCase().contains(query));
-        jPanel7.setVisible(jLabel30.getText().toLowerCase().contains(query));
-        jPanel8.setVisible(jLabel38.getText().toLowerCase().contains(query));
+        for (Document doc : documentList) {
+            if (doc.getTitle().toLowerCase().contains(query) || 
+                doc.getCategory().toLowerCase().contains(query)) {
+                JPanel docPanel = createDocumentPanel(doc);
+                documentPanelContainer.add(docPanel);
+                documentPanelContainer.add(Box.createRigidArea(new Dimension(0, 10)));
+            }
+        }
+        
+        documentPanelContainer.revalidate();
+        documentPanelContainer.repaint();
     }
     
-  
-
-    
-    private void showFilterDialog() {
-        JOptionPane.showMessageDialog(this, 
-            "Filter Options:\n\n" +
-            "• By Date Range\n" +
-            "• By Amount\n" +
-            "• By Category\n" +
-            "• By Size\n\n" +
-            "Advanced filter dialog would appear here.",
-            "Filter Documents",
-            JOptionPane.INFORMATION_MESSAGE);
+    private void setupIcons() {
+        // Initial search field styling
+        jTextField1.setForeground(Color.GRAY);
     }
     
     private void showMessage(String message) {
@@ -230,17 +333,33 @@ public class documents extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel10 = new javax.swing.JPanel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        jButton19 = new javax.swing.JButton();
+        jButton20 = new javax.swing.JButton();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
+        jButton21 = new javax.swing.JButton();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel59 = new javax.swing.JLabel();
+        jLabel60 = new javax.swing.JLabel();
+        jLabel61 = new javax.swing.JLabel();
+        jLabel62 = new javax.swing.JLabel();
+        jButton22 = new javax.swing.JButton();
+        jButton23 = new javax.swing.JButton();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel64 = new javax.swing.JLabel();
+        jLabel65 = new javax.swing.JLabel();
+        jLabel66 = new javax.swing.JLabel();
+        jButton24 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         jLabel46 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         txtTitle = new javax.swing.JButton();
@@ -252,50 +371,121 @@ public class documents extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel2 = new javax.swing.JPanel();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+
+        jPanel10.setLayout(null);
+
+        jLabel51.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel51.setText("Rent Paid");
+        jPanel10.add(jLabel51);
+        jLabel51.setBounds(80, 10, 90, 30);
+
+        jLabel52.setText("May 20 2025");
+        jPanel10.add(jLabel52);
+        jLabel52.setBounds(140, 40, 90, 16);
+
+        jLabel53.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel53.setText("Utilities");
+        jPanel10.add(jLabel53);
+        jLabel53.setBounds(80, 40, 50, 20);
+
+        jLabel54.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pdf.png"))); // NOI18N
+        jLabel54.setText("jLabel10");
+        jPanel10.add(jLabel54);
+        jLabel54.setBounds(10, 10, 50, 50);
+
+        jButton19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/de.png"))); // NOI18N
+        jPanel10.add(jButton19);
+        jButton19.setBounds(1170, 20, 29, 30);
+
+        jButton20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Screenshot 2025-12-12 220657.png"))); // NOI18N
+        jPanel10.add(jButton20);
+        jButton20.setBounds(1130, 20, 27, 30);
+
+        jLabel55.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel55.setText("Rent Paid");
+        jPanel10.add(jLabel55);
+        jLabel55.setBounds(80, 10, 90, 30);
+
+        jLabel56.setText("May 20 2025");
+        jPanel10.add(jLabel56);
+        jLabel56.setBounds(140, 40, 90, 16);
+
+        jLabel57.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel57.setText("Utilities");
+        jPanel10.add(jLabel57);
+        jLabel57.setBounds(80, 40, 50, 20);
+
+        jLabel58.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pdf.png"))); // NOI18N
+        jLabel58.setText("jLabel10");
+        jPanel10.add(jLabel58);
+        jLabel58.setBounds(10, 10, 50, 50);
+
+        jButton21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Screenshot 2025-12-12 220657.png"))); // NOI18N
+        jPanel10.add(jButton21);
+        jButton21.setBounds(1130, 20, 27, 30);
+
+        jPanel11.setLayout(null);
+
+        jLabel59.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel59.setText("Rent Paid");
+        jPanel11.add(jLabel59);
+        jLabel59.setBounds(80, 10, 90, 30);
+
+        jLabel60.setText("May 20 2025");
+        jPanel11.add(jLabel60);
+        jLabel60.setBounds(140, 40, 90, 16);
+
+        jLabel61.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel61.setText("Utilities");
+        jPanel11.add(jLabel61);
+        jLabel61.setBounds(80, 40, 50, 20);
+
+        jLabel62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pdf.png"))); // NOI18N
+        jLabel62.setText("jLabel10");
+        jPanel11.add(jLabel62);
+        jLabel62.setBounds(10, 10, 50, 50);
+
+        jButton22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/de.png"))); // NOI18N
+        jPanel11.add(jButton22);
+        jButton22.setBounds(1170, 20, 29, 30);
+
+        jButton23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Screenshot 2025-12-12 220657.png"))); // NOI18N
+        jPanel11.add(jButton23);
+        jButton23.setBounds(1130, 20, 27, 30);
+
+        jLabel63.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel63.setText("Rent Paid");
+        jPanel11.add(jLabel63);
+        jLabel63.setBounds(80, 10, 90, 30);
+
+        jLabel64.setText("May 20 2025");
+        jPanel11.add(jLabel64);
+        jLabel64.setBounds(140, 40, 90, 16);
+
+        jLabel65.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel65.setText("Utilities");
+        jPanel11.add(jLabel65);
+        jLabel65.setBounds(80, 40, 50, 20);
+
+        jLabel66.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pdf.png"))); // NOI18N
+        jLabel66.setText("jLabel10");
+        jPanel11.add(jLabel66);
+        jLabel66.setBounds(10, 10, 50, 50);
+
+        jButton24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Screenshot 2025-12-12 220657.png"))); // NOI18N
+        jPanel11.add(jButton24);
+        jButton24.setBounds(1130, 20, 27, 30);
+
+        jPanel10.add(jPanel11);
+        jPanel11.setBounds(10, 220, 1220, 80);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -307,12 +497,6 @@ public class documents extends javax.swing.JFrame {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(1340, 10, 80, 70);
 
-        jTextField4.setBackground(new java.awt.Color(220, 220, 220));
-        jTextField4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField4.setText("    Search ........");
-        jPanel1.add(jTextField4);
-        jTextField4.setBounds(730, 20, 230, 40);
-
         jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/kosh2.png"))); // NOI18N
         jLabel46.setText("jLabel46");
         jPanel1.add(jLabel46);
@@ -320,78 +504,6 @@ public class documents extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1440, 100);
-
-        jPanel2.setBackground(new java.awt.Color(224, 236, 229));
-        jPanel2.setLayout(null);
-
-        jButton9.setBackground(new java.awt.Color(255, 220, 168));
-        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton9.setText("Goal");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton9);
-        jButton9.setBounds(0, 230, 190, 60);
-
-        jButton10.setBackground(new java.awt.Color(255, 220, 168));
-        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton10.setText("Lending");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton10);
-        jButton10.setBounds(0, 160, 190, 60);
-
-        jButton11.setBackground(new java.awt.Color(255, 220, 168));
-        jButton11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton11.setText("Dashbord");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton11);
-        jButton11.setBounds(0, 20, 190, 60);
-
-        jButton12.setBackground(new java.awt.Color(255, 220, 168));
-        jButton12.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton12.setText("Financial Analytics");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton12);
-        jButton12.setBounds(0, 300, 190, 60);
-
-        jButton13.setBackground(new java.awt.Color(0, 127, 76));
-        jButton13.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton13.setText("Dashbord");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton13);
-        jButton13.setBounds(0, 370, 190, 60);
-
-        jButton14.setBackground(new java.awt.Color(255, 220, 168));
-        jButton14.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton14.setText("My Inventory");
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton14);
-        jButton14.setBounds(0, 90, 190, 60);
-
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 100, 200, 800);
 
         jPanel3.setBackground(new java.awt.Color(205, 231, 217));
         jPanel3.setLayout(null);
@@ -500,254 +612,89 @@ public class documents extends javax.swing.JFrame {
         jPanel3.add(jButton8);
         jButton8.setBounds(440, 160, 90, 30);
 
-        jPanel4.setLayout(null);
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Rent Paid");
-        jPanel4.add(jLabel2);
-        jLabel2.setBounds(80, 10, 90, 30);
-
-        jLabel3.setText("May 20 2025");
-        jPanel4.add(jLabel3);
-        jLabel3.setBounds(140, 40, 90, 16);
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Utilities");
-        jPanel4.add(jLabel5);
-        jLabel5.setBounds(80, 40, 50, 20);
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pdf.png"))); // NOI18N
-        jLabel10.setText("jLabel10");
-        jPanel4.add(jLabel10);
-        jLabel10.setBounds(10, 10, 50, 50);
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/de.png"))); // NOI18N
-        jLabel11.setText("jLabel11");
-        jPanel4.add(jLabel11);
-        jLabel11.setBounds(1090, 20, 29, 30);
-
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/download.png"))); // NOI18N
-        jLabel12.setText("jLabel11");
-        jPanel4.add(jLabel12);
-        jLabel12.setBounds(1140, 20, 38, 33);
-
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Screenshot 2025-12-12 220657.png"))); // NOI18N
-        jLabel13.setText("jLabel11");
-        jPanel4.add(jLabel13);
-        jLabel13.setBounds(1050, 20, 27, 30);
-
-        jPanel3.add(jPanel4);
-        jPanel4.setBounds(10, 210, 1220, 80);
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel6.setText("Rent Paid");
-        jPanel3.add(jLabel6);
-        jLabel6.setBounds(80, 10, 90, 30);
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setText("May 20 2025");
-        jPanel3.add(jLabel7);
-        jLabel7.setBounds(140, 40, 90, 20);
-
-        jLabel8.setText("2.3mb");
-        jPanel3.add(jLabel8);
-        jLabel8.setBounds(230, 40, 50, 16);
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel9.setText("Utilities");
-        jPanel3.add(jLabel9);
-        jLabel9.setBounds(80, 40, 50, 20);
-
-        jPanel5.setLayout(null);
-
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel14.setText("Subscription");
-        jPanel5.add(jLabel14);
-        jLabel14.setBounds(80, 10, 110, 30);
-
-        jLabel15.setText("Feb 10 2025");
-        jPanel5.add(jLabel15);
-        jLabel15.setBounds(150, 40, 90, 20);
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel17.setText("Life Style");
-        jPanel5.add(jLabel17);
-        jLabel17.setBounds(80, 40, 60, 20);
-
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pdf.png"))); // NOI18N
-        jLabel18.setText("jLabel10");
-        jPanel5.add(jLabel18);
-        jLabel18.setBounds(10, 10, 50, 50);
-
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/de.png"))); // NOI18N
-        jLabel19.setText("jLabel11");
-        jPanel5.add(jLabel19);
-        jLabel19.setBounds(1090, 20, 29, 30);
-
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/download.png"))); // NOI18N
-        jLabel20.setText("jLabel11");
-        jPanel5.add(jLabel20);
-        jLabel20.setBounds(1140, 20, 38, 33);
-
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Screenshot 2025-12-12 220657.png"))); // NOI18N
-        jLabel21.setText("jLabel11");
-        jPanel5.add(jLabel21);
-        jLabel21.setBounds(1050, 20, 27, 30);
-
-        jPanel3.add(jPanel5);
-        jPanel5.setBounds(10, 300, 1220, 80);
-
-        jPanel6.setLayout(null);
-
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel22.setText("Docter Visit");
-        jPanel6.add(jLabel22);
-        jLabel22.setBounds(80, 10, 100, 30);
-
-        jLabel23.setText("June 30 2025");
-        jPanel6.add(jLabel23);
-        jLabel23.setBounds(130, 40, 90, 16);
-
-        jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel25.setText("Health");
-        jPanel6.add(jLabel25);
-        jLabel25.setBounds(80, 40, 50, 20);
-
-        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pdf.png"))); // NOI18N
-        jLabel26.setText("jLabel10");
-        jPanel6.add(jLabel26);
-        jLabel26.setBounds(10, 10, 50, 50);
-
-        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/de.png"))); // NOI18N
-        jLabel27.setText("jLabel11");
-        jPanel6.add(jLabel27);
-        jLabel27.setBounds(1090, 20, 29, 30);
-
-        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/download.png"))); // NOI18N
-        jLabel28.setText("jLabel11");
-        jPanel6.add(jLabel28);
-        jLabel28.setBounds(1140, 20, 38, 33);
-
-        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Screenshot 2025-12-12 220657.png"))); // NOI18N
-        jLabel29.setText("jLabel11");
-        jPanel6.add(jLabel29);
-        jLabel29.setBounds(1050, 20, 27, 30);
-
-        jPanel3.add(jPanel6);
-        jPanel6.setBounds(10, 390, 1220, 80);
-
-        jPanel7.setLayout(null);
-
-        jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel30.setText("Saving");
-        jPanel7.add(jLabel30);
-        jLabel30.setBounds(80, 10, 90, 30);
-
-        jLabel31.setText("May 20 2025");
-        jPanel7.add(jLabel31);
-        jLabel31.setBounds(140, 40, 90, 16);
-
-        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel33.setText("Financial");
-        jPanel7.add(jLabel33);
-        jLabel33.setBounds(80, 40, 60, 20);
-
-        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pdf.png"))); // NOI18N
-        jLabel34.setText("jLabel10");
-        jPanel7.add(jLabel34);
-        jLabel34.setBounds(10, 10, 50, 50);
-
-        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/de.png"))); // NOI18N
-        jLabel35.setText("jLabel11");
-        jPanel7.add(jLabel35);
-        jLabel35.setBounds(1090, 20, 29, 30);
-
-        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/download.png"))); // NOI18N
-        jLabel36.setText("jLabel11");
-        jPanel7.add(jLabel36);
-        jLabel36.setBounds(1140, 20, 38, 33);
-
-        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Screenshot 2025-12-12 220657.png"))); // NOI18N
-        jLabel37.setText("jLabel11");
-        jPanel7.add(jLabel37);
-        jLabel37.setBounds(1050, 20, 27, 30);
-
-        jPanel3.add(jPanel7);
-        jPanel7.setBounds(10, 480, 1220, 70);
-
-        jPanel8.setLayout(null);
-
-        jLabel38.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel38.setText("Emergency Fund");
-        jPanel8.add(jLabel38);
-        jLabel38.setBounds(80, 10, 150, 30);
-
-        jLabel39.setText("Jan 21 2025");
-        jPanel8.add(jLabel39);
-        jLabel39.setBounds(140, 40, 90, 16);
-
-        jLabel41.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel41.setText("Other");
-        jPanel8.add(jLabel41);
-        jLabel41.setBounds(80, 40, 50, 20);
-
-        jLabel42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pdf.png"))); // NOI18N
-        jLabel42.setText("jLabel10");
-        jPanel8.add(jLabel42);
-        jLabel42.setBounds(10, 10, 50, 50);
-
-        jLabel43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/de.png"))); // NOI18N
-        jLabel43.setText("jLabel11");
-        jPanel8.add(jLabel43);
-        jLabel43.setBounds(1090, 20, 29, 30);
-
-        jLabel44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/download.png"))); // NOI18N
-        jLabel44.setText("jLabel11");
-        jPanel8.add(jLabel44);
-        jLabel44.setBounds(1140, 20, 38, 33);
-
-        jLabel45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Screenshot 2025-12-12 220657.png"))); // NOI18N
-        jLabel45.setText("jLabel11");
-        jPanel8.add(jLabel45);
-        jLabel45.setBounds(1050, 20, 27, 30);
-
-        jPanel3.add(jPanel8);
-        jPanel8.setBounds(10, 560, 1220, 80);
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jPanel3.add(jScrollPane1);
+        jScrollPane1.setBounds(0, 210, 1240, 590);
 
         getContentPane().add(jPanel3);
         jPanel3.setBounds(200, 100, 1240, 820);
 
+        jPanel2.setBackground(new java.awt.Color(224, 236, 229));
+        jPanel2.setLayout(null);
+
+        jButton9.setBackground(new java.awt.Color(255, 220, 168));
+        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton9.setText("Goal");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton9);
+        jButton9.setBounds(0, 230, 190, 60);
+
+        jButton10.setBackground(new java.awt.Color(255, 220, 168));
+        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton10.setText("Lending");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton10);
+        jButton10.setBounds(0, 160, 190, 60);
+
+        jButton11.setBackground(new java.awt.Color(255, 220, 168));
+        jButton11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton11.setText("Dashbord");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton11);
+        jButton11.setBounds(0, 20, 190, 60);
+
+        jButton12.setBackground(new java.awt.Color(255, 220, 168));
+        jButton12.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton12.setText("Financial Analytics");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton12);
+        jButton12.setBounds(0, 300, 190, 60);
+
+        jButton13.setBackground(new java.awt.Color(0, 127, 76));
+        jButton13.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton13.setText("Document");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton13);
+        jButton13.setBounds(0, 370, 190, 60);
+
+        jButton14.setBackground(new java.awt.Color(255, 220, 168));
+        jButton14.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton14.setText("My Inventory");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton14);
+        jButton14.setBounds(0, 90, 190, 60);
+
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(0, 100, 200, 800);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    showAllDocuments();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void txtTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitleActionPerformed
-                                        
-    AddExpenseForm addExpense = new AddExpenseForm();
-    addExpense.setVisible(true);
-
-    }//GEN-LAST:event_txtTitleActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-        filterByCategory("Other");
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-filterByCategory("Financial");
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-filterByCategory("Health");
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-         filterByCategory("Life Style");
-    }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
@@ -779,13 +726,43 @@ filterByCategory("Health");
         showMessage("My Inventory feature coming soon!");
     }//GEN-LAST:event_jButton14ActionPerformed
 
-    private void txtTitleInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtTitleInputMethodTextChanged
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTitleInputMethodTextChanged
+        filterByCategory("Life Style");
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        filterByCategory("Health");
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        filterByCategory("Financial");
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+        filterByCategory("Other");
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void txtTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitleActionPerformed
+txtTitle.addActionListener(e -> {
+    AddExpenseForm addExpense = new AddExpenseForm(this);
+    addExpense.setVisible(true);
+});
+
+    }//GEN-LAST:event_txtTitleActionPerformed
+
+    private void txtTitleInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtTitleInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTitleInputMethodTextChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        showAllDocuments();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -793,9 +770,6 @@ filterByCategory("Health");
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -819,65 +793,45 @@ filterByCategory("Health");
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton20;
+    private javax.swing.JButton jButton21;
+    private javax.swing.JButton jButton22;
+    private javax.swing.JButton jButton23;
+    private javax.swing.JButton jButton24;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
+    private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
+    private javax.swing.JLabel jLabel66;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JButton txtTitle;
     // End of variables declaration//GEN-END:variables
 }
