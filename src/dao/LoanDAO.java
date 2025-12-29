@@ -16,15 +16,14 @@ public class LoanDAO {
         this.db = new Mysqlconnection();   
     }
     
-        // If connection is null, open a new one
-        private Connection getConnection() throws SQLException {
+    // If connection is null, open a new one
+    private Connection getConnection() throws SQLException {
         if (connection == null || connection.isClosed()) {
             connection = db.openConnection();
         }
         return connection;
     }
     
-
     // Insert new loan
     public int insertLoan(Loan loan) throws SQLException {
         String sql = "INSERT INTO loans (user_id, borrower_name, item_name, due_date, loan_amount, status, loan_date, item_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -35,10 +34,10 @@ public class LoanDAO {
             stmt.setInt(1, loan.getUserId());
             stmt.setString(2, loan.getBorrowerName());
             stmt.setString(3, loan.getItemName());
-            stmt.setDate(4, Date.valueOf(loan.getDueDate()));
+            stmt.setDate(4, java.sql.Date.valueOf(loan.getDueDate()));
             stmt.setDouble(5, loan.getAmount());
             stmt.setString(6, loan.getStatus());
-            stmt.setDate(7, Date.valueOf(loan.getLoanDate()));
+            stmt.setDate(7, java.sql.Date.valueOf(loan.getLoanDate()));
             stmt.setInt(8, loan.getItemId());
             
             stmt.executeUpdate();
@@ -58,7 +57,7 @@ public class LoanDAO {
         String sql = "SELECT * FROM loans WHERE user_id = ? ORDER BY due_date";
         
         try (Connection conn = getConnection();
-     PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
             
@@ -85,10 +84,10 @@ public class LoanDAO {
         String sql = "UPDATE loans SET borrower_name=?, item_name=?, due_date=?, loan_amount=?, status=? WHERE loan_id=?";
         
         try (Connection conn = getConnection();
-     PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, loan.getBorrowerName());
             stmt.setString(2, loan.getItemName());
-            stmt.setDate(3, Date.valueOf(loan.getDueDate()));
+            stmt.setDate(3, java.sql.Date.valueOf(loan.getDueDate()));
             stmt.setDouble(4, loan.getAmount());
             stmt.setString(5, loan.getStatus());
             stmt.setInt(6, loan.getLoanId());
@@ -102,7 +101,7 @@ public class LoanDAO {
         String sql = "DELETE FROM loans WHERE loan_id=?";
         
         try (Connection conn = getConnection();
-     PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, loanId);
             return stmt.executeUpdate() > 0;
         }
@@ -113,7 +112,7 @@ public class LoanDAO {
         String sql = "UPDATE loans SET status='Returned' WHERE loan_id=?";
         
         try (Connection conn = getConnection();
-     PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, loanId);
             return stmt.executeUpdate() > 0;
         }
@@ -124,7 +123,7 @@ public class LoanDAO {
         String sql = "SELECT SUM(loan_amount) FROM loans WHERE user_id=? AND status='Active'";
         
         try (Connection conn = getConnection();
-     PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
             
@@ -140,7 +139,7 @@ public class LoanDAO {
         String sql = "SELECT COUNT(*) FROM loans WHERE user_id=? AND status='Active'";
         
         try (Connection conn = getConnection();
-     PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
             
@@ -156,7 +155,7 @@ public class LoanDAO {
         String sql = "SELECT COUNT(*) FROM loans WHERE user_id=? AND status='Active' AND due_date < CURDATE()";
         
         try (Connection conn = getConnection();
-     PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
             
@@ -167,30 +166,26 @@ public class LoanDAO {
         return 0;
     }
     
-// Add this method to your LoanDAO.java file:
-
-    
     public void createTable() throws SQLException {
-    String sql = "CREATE TABLE IF NOT EXISTS loans (" +
-         "loan_id INT PRIMARY KEY AUTO_INCREMENT, " +
-         "user_id INT NOT NULL, " +
-         "borrower_name VARCHAR(100) NOT NULL, " +
-         "item_name VARCHAR(200) NOT NULL, " +
-         "due_date DATE NOT NULL, " +
-         "loan_amount DECIMAL(10,2) NOT NULL, " +
-         "status VARCHAR(20) DEFAULT 'Active', " +
-         "loan_date DATE NOT NULL, " +
-         "item_id INT DEFAULT 1" +
-         ")";
+        String sql = "CREATE TABLE IF NOT EXISTS loans (" +
+             "loan_id INT PRIMARY KEY AUTO_INCREMENT, " +
+             "user_id INT NOT NULL, " +
+             "borrower_name VARCHAR(100) NOT NULL, " +
+             "item_name VARCHAR(200) NOT NULL, " +
+             "due_date DATE NOT NULL, " +
+             "loan_amount DECIMAL(10,2) NOT NULL, " +
+             "status VARCHAR(20) DEFAULT 'Active', " +
+             "loan_date DATE NOT NULL, " +
+             "item_id INT DEFAULT 1" +
+             ")";
 
-    try (Connection conn = getConnection();
-         Statement stmt = conn.createStatement()) {
-        stmt.execute(sql);
-        System.out.println("✅ Loans table is ready!");
-    } catch (SQLException e) {
-        System.out.println("❌ Error creating table: " + e.getMessage());
-        throw e;
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("✅ Loans table is ready!");
+        } catch (SQLException e) {
+            System.out.println("❌ Error creating table: " + e.getMessage());
+            throw e;
+        }
     }
-}
-    
 }

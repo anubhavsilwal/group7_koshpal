@@ -4,6 +4,7 @@ import view.lending;
 import model.Loan;
 import dao.LoanDAO;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -12,30 +13,26 @@ import java.util.List;
 public class LendingController {
     private lending view;
     private LoanDAO loanDAO;
-    private int currentUserId = 1; // Change this based on your login system
+    private int currentUserId = 1;
     
     public LendingController(lending view, Connection connection) {
         this.view = view;
         this.loanDAO = new LoanDAO(connection);
         
         try {
-            // ADD THIS: Create table if it doesn't exist
             loanDAO.createTable();
-            
-            // ADD THIS: Add sample data if empty
             addSampleDataIfEmpty();
-            
             loadLoanData();
         } catch (SQLException e) {
             showError("Database error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
     
-    // ADD THIS METHOD
     private void addSampleDataIfEmpty() throws SQLException {
         List<Loan> loans = loanDAO.getAllLoans(currentUserId);
         if (loans.isEmpty()) {
-            // Add sample loans
+            System.out.println("Adding sample data...");
             addSampleLoan("Salman", "Macbook Air", "2026-11-17", 5000.00);
             addSampleLoan("Sandesh", "Photography Equipment", "2025-09-22", 7000.00);
             addSampleLoan("Sameep", "Designing Material", "2025-12-27", 11000.00);
@@ -43,41 +40,25 @@ public class LendingController {
         }
     }
     
-    // ADD THIS METHOD        
     private void addSampleLoan(String borrower, String item, String dueDate, double amount) throws SQLException {
-        Loan loan = new Loan(
-            borrower, 
-            item, 
-            java.time.LocalDate.parse(dueDate), 
-            amount, 
-            1,  // item_id
-            currentUserId  // user_id
-        );
+        LocalDate parsedDate = LocalDate.parse(dueDate);
+        Loan loan = new Loan(borrower, item, amount, parsedDate, "Active");
+        loan.setUserId(currentUserId);
+        loan.setItemId(1);
         loanDAO.insertLoan(loan);
+        System.out.println("Added sample loan: " + borrower + " - " + item);
     }
     
     private void loadLoanData() {
         try {
-            // Load and display loan data
+            System.out.println("Loading loan data for user: " + currentUserId);
             List<Loan> loans = loanDAO.getAllLoans(currentUserId);
-            
-            // Update UI with loan data
-            updateUIWithLoans(loans);
-            
-            // Update summary stats
+            System.out.println("Loaded " + loans.size() + " loans");
             updateSummaryStats();
             
         } catch (SQLException e) {
             showError("Error loading loan data: " + e.getMessage());
-        }
-    }
-    
-    private void updateUIWithLoans(List<Loan> loans) {
-        // Here you would update your UI components with loan data
-        // This depends on how you want to display the loans
-        // For now, just show a message
-        if (!loans.isEmpty()) {
-            JOptionPane.showMessageDialog(view, "Loaded " + loans.size() + " loans");
+            e.printStackTrace();
         }
     }
     
@@ -86,10 +67,16 @@ public class LendingController {
         int activeLoans = loanDAO.getActiveLoansCount(currentUserId);
         int overdueLoans = loanDAO.getOverdueLoansCount(currentUserId);
         
-        // Update your UI labels here
-        // view.jLabel7.setText("$ " + totalAmount);
-        // view.jLabel8.setText(String.valueOf(activeLoans));
-        // view.jLabel6.setText(String.valueOf(overdueLoans));
+        System.out.println("Summary Stats:");
+        System.out.println("Total Amount: $" + totalAmount);
+        System.out.println("Active Loans: " + activeLoans);
+        System.out.println("Overdue Loans: " + overdueLoans);
+        
+        // TEMPORARY: Print to console instead of updating UI
+        // Remove or modify this once your view is fixed
+        System.out.println("UI would show: Total=$" + totalAmount + 
+                         ", Active=" + activeLoans + 
+                         ", Overdue=" + overdueLoans);
     }
     
     // New Loan functionality
@@ -110,14 +97,15 @@ public class LendingController {
             double amount = Double.parseDouble(amountStr);
             LocalDate dueDate = LocalDate.parse(dateStr);
             
-            // Create new loan (itemId needs to be fetched from your inventory)
-            Loan newLoan = new Loan(borrower, item, dueDate, amount, 1, currentUserId);
+            Loan newLoan = new Loan(borrower, item, amount, dueDate, "Active");
+            newLoan.setUserId(currentUserId);
+            newLoan.setItemId(1);
             
             int loanId = loanDAO.insertLoan(newLoan);
             
             if (loanId > 0) {
                 JOptionPane.showMessageDialog(view, "Loan created successfully!");
-                loadLoanData(); // Refresh data
+                loadLoanData();
             }
             
         } catch (Exception e) {
@@ -128,7 +116,6 @@ public class LendingController {
     // Update loan
     public void updateLoan(String borrower, String item) {
         try {
-            // Get current loan details
             List<Loan> loans = loanDAO.getAllLoans(currentUserId);
             Loan selectedLoan = null;
             
@@ -221,7 +208,7 @@ public class LendingController {
         }
     }
     
-    // Update status (Active/Overdue)
+    // Update status
     public void updateLoanStatus(String borrower, String item, String status) {
         try {
             List<Loan> loans = loanDAO.getAllLoans(currentUserId);
@@ -246,7 +233,7 @@ public class LendingController {
         JOptionPane.showMessageDialog(view, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
     
-    // Navigation methods (simplified)
+    // Navigation methods
     public void navigateToMyInventory() {
         JOptionPane.showMessageDialog(view, "My Inventory - Coming Soon");
     }
@@ -268,6 +255,6 @@ public class LendingController {
     }
     
     public void navigateToLending() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        loadLoanData();
     }
 }
