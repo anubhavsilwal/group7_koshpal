@@ -4,6 +4,8 @@
  */
 package view;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author anubhavsilwal
@@ -17,8 +19,101 @@ public class Maindash extends javax.swing.JFrame {
      */
     public Maindash() {
         initComponents();
+        addChartToDashboard();
     }
 
+    private void addChartToDashboard() {
+    try {
+        // 1. Add Net Worth Chart to jPanel4
+        NetWorthChartFrame netWorthChart = new NetWorthChartFrame();
+        JPanel netWorthPanel = netWorthChart.getChartPanel();
+        
+        jPanel4.removeAll();
+        jPanel4.setLayout(new java.awt.BorderLayout());
+        jPanel4.add(netWorthPanel, java.awt.BorderLayout.CENTER);
+        jPanel4.revalidate();
+        jPanel4.repaint();
+        
+        // 2. Add Income vs Expense Chart to jPanel6
+        IncomeExpenseChartFrame incomeExpenseChart = new IncomeExpenseChartFrame();
+        JPanel incomeExpensePanel = incomeExpenseChart.getChartPanel();
+        
+        jPanel6.removeAll();
+        jLabel4.setVisible(false);
+        jPanel6.setLayout(new java.awt.BorderLayout());
+        jPanel6.add(incomeExpensePanel, java.awt.BorderLayout.CENTER);
+        jPanel6.revalidate();
+        jPanel6.repaint();
+        
+        // 3. Add Asset Distribution Chart to jPanel5
+        AssetDistributionChartFrame assetChart = new AssetDistributionChartFrame();
+        JPanel assetPanel = assetChart.getChartPanel();
+        
+        jPanel5.removeAll();
+        jLabel3.setVisible(false);
+        jPanel5.setLayout(new java.awt.BorderLayout());
+        jPanel5.add(assetPanel, java.awt.BorderLayout.CENTER);
+        jPanel5.revalidate();
+        jPanel5.repaint();
+        
+        System.out.println("All three charts added successfully!");
+        
+    } catch (Exception e) {
+        System.out.println("Error adding charts: " + e.getMessage());
+        showChartErrors();
+    }
+}
+    
+    // ============ ERROR HANDLING METHOD (OUTSIDE addChartToDashboard) ============
+    private void showChartErrors() {
+        // Error message for jPanel4 (Net Worth)
+        javax.swing.JLabel errorLabel1 = new javax.swing.JLabel(
+            "Net Worth Chart - Data will appear here",
+            javax.swing.SwingConstants.CENTER
+        );
+        errorLabel1.setFont(new java.awt.Font("Helvetica Neue", java.awt.Font.PLAIN, 14));
+        errorLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        
+        jPanel4.removeAll();
+        jPanel4.setLayout(new java.awt.BorderLayout());
+        jPanel4.add(errorLabel1, java.awt.BorderLayout.CENTER);
+        jPanel4.revalidate();
+        jPanel4.repaint();
+        
+        // Error message for jPanel6 (Income vs Expense)
+        javax.swing.JLabel errorLabel2 = new javax.swing.JLabel(
+            "Income vs Expense Chart - Data will appear here",
+            javax.swing.SwingConstants.CENTER
+        );
+        errorLabel2.setFont(new java.awt.Font("Helvetica Neue", java.awt.Font.PLAIN, 14));
+        errorLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        
+        jPanel6.removeAll();
+        jLabel4.setVisible(false);
+        jPanel6.setLayout(new java.awt.BorderLayout());
+        jPanel6.add(errorLabel2, java.awt.BorderLayout.CENTER);
+        jPanel6.revalidate();
+        jPanel6.repaint();
+    }
+    
+    // ============ METHOD TO REFRESH CHARTS ============
+    public void refreshAllCharts() {
+        addChartToDashboard();  // Simple refresh by recreating charts
+        System.out.println("Charts refreshed!");
+    }
+    
+    // ============ ADD DASHBOARD BUTTON ACTION ============
+    // Add this action listener to your dashboard button
+    // You need to modify the dashboard button in GUI Designer
+    // OR add this code manually:
+    
+    /*
+    private void dashboardActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        refreshAllCharts();  // Refresh charts when dashboard button is clicked
+    }
+    */
+    
+    // ============ REST OF YOUR CODE STAYS THE SAME ============
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,9 +131,15 @@ public class Maindash extends javax.swing.JFrame {
         lending = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1440, 900));
         setMinimumSize(new java.awt.Dimension(1440, 900));
         setSize(new java.awt.Dimension(1440, 900));
 
@@ -55,16 +156,21 @@ public class Maindash extends javax.swing.JFrame {
         jPanel3.setLayout(null);
 
         dashboard.setText("Dashboard");
+        dashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboardActionPerformed(evt);
+            }
+        });
         jPanel3.add(dashboard);
-        dashboard.setBounds(20, 20, 140, 23);
+        dashboard.setBounds(10, 10, 180, 50);
 
         myinventory.setText("My Inventory");
         jPanel3.add(myinventory);
-        myinventory.setBounds(20, 60, 140, 23);
+        myinventory.setBounds(10, 70, 180, 50);
 
         lending.setText("Lending");
         jPanel3.add(lending);
-        lending.setBounds(20, 100, 140, 23);
+        lending.setBounds(10, 130, 180, 50);
 
         jButton1.setText("Financial Analytics");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -73,7 +179,7 @@ public class Maindash extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jButton1);
-        jButton1.setBounds(20, 140, 140, 23);
+        jButton1.setBounds(10, 190, 180, 50);
 
         jButton2.setText("Documents");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -82,10 +188,48 @@ public class Maindash extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jButton2);
-        jButton2.setBounds(20, 180, 140, 23);
+        jButton2.setBounds(10, 250, 180, 50);
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(0, 100, 200, 650);
+        jPanel3.setBounds(0, 100, 200, 800);
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 2, 18)); // NOI18N
+        jLabel1.setText("Networth");
+        jPanel4.add(jLabel1);
+        jLabel1.setBounds(10, 10, 80, 23);
+
+        jPanel1.add(jPanel4);
+        jPanel4.setBounds(230, 150, 700, 410);
+
+        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        jLabel2.setText("Welcome back, Anubhav");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(230, 110, 380, 30);
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setLayout(null);
+
+        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        jLabel3.setText("Asset Distribution");
+        jPanel5.add(jLabel3);
+        jLabel3.setBounds(10, 10, 140, 20);
+
+        jPanel1.add(jPanel5);
+        jPanel5.setBounds(230, 580, 440, 310);
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setLayout(null);
+
+        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        jLabel4.setText("Income vs Expense");
+        jPanel6.add(jLabel4);
+        jLabel4.setBounds(14, 6, 150, 20);
+
+        jPanel1.add(jPanel6);
+        jPanel6.setBounds(950, 150, 470, 410);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,9 +239,7 @@ public class Maindash extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
         );
 
         pack();
@@ -110,6 +252,10 @@ public class Maindash extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dashboardActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,9 +286,16 @@ public class Maindash extends javax.swing.JFrame {
     private javax.swing.JButton dashboard;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JButton lending;
     private javax.swing.JButton myinventory;
     // End of variables declaration//GEN-END:variables
