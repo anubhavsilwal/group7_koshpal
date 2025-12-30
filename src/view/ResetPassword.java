@@ -4,21 +4,34 @@
  */
 package view;
 
+import dao.UserDAO;
+import javax.swing.JOptionPane;
+import java.util.logging.Logger;
+
 /**
  *
  * @author ACER
  */
 public class ResetPassword extends javax.swing.JFrame {
+    private String identifier; // Email or username
+    private static final Logger logger = Logger.getLogger(ResetPassword.class.getName());
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ResetPassword.class.getName());
+    public ResetPassword(String identifier) {
+        initComponents();
+        txtNewPassword.setEchoChar('*');
+txtConfirmPassword.setEchoChar('*');
 
+        this.identifier = identifier;
+        setLocationRelativeTo(null); // Center window
+    }
+    
     /**
      * Creates new form ResetPassword
      */
     public ResetPassword() {
         initComponents();
+        setLocationRelativeTo(null); // Center window
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,21 +41,144 @@ public class ResetPassword extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        txtConfirmPassword = new javax.swing.JPasswordField();
+        txtNewPassword = new javax.swing.JPasswordField();
+        chkShowPassword = new javax.swing.JCheckBox();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
+
+        jPanel1.setBackground(new java.awt.Color(254, 251, 238));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 730, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 861, Short.MAX_VALUE)
         );
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 730, 861);
+
+        jPanel3.setLayout(null);
+
+        jLabel2.setFont(new java.awt.Font("Mongolian Baiti", 1, 48)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Reset password");
+        jPanel3.add(jLabel2);
+        jLabel2.setBounds(154, 64, 430, 101);
+
+        jLabel4.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
+        jLabel4.setText("Confirm Password :");
+        jLabel4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel3.add(jLabel4);
+        jLabel4.setBounds(190, 380, 180, 22);
+
+        jLabel6.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
+        jLabel6.setText("New Password :");
+        jLabel6.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel3.add(jLabel6);
+        jLabel6.setBounds(190, 280, 180, 22);
+
+        jButton1.setBackground(new java.awt.Color(92, 151, 125));
+        jButton1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        jButton1.setText("Confirm ");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+        jPanel3.add(jButton1);
+        jButton1.setBounds(320, 480, 110, 30);
+
+        txtConfirmPassword.setText("jPasswordField1");
+        txtConfirmPassword.addActionListener(this::txtConfirmPasswordActionPerformed);
+        jPanel3.add(txtConfirmPassword);
+        txtConfirmPassword.setBounds(190, 410, 360, 50);
+
+        txtNewPassword.setText("jPasswordField1");
+        jPanel3.add(txtNewPassword);
+        txtNewPassword.setBounds(190, 310, 360, 50);
+
+        chkShowPassword.setText("Show password");
+        chkShowPassword.addActionListener(this::chkShowPasswordActionPerformed);
+        jPanel3.add(chkShowPassword);
+        chkShowPassword.setBounds(440, 360, 110, 20);
+
+        getContentPane().add(jPanel3);
+        jPanel3.setBounds(720, 0, 760, 860);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    // Get passwords from JPasswordField
+   String newPass = new String(txtNewPassword.getPassword());
+        String confirmPass = new String(txtConfirmPassword.getPassword());
+        
+        if (newPass.isEmpty() || confirmPass.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter both password fields");
+            return;
+        }
+        
+        if (!newPass.equals(confirmPass)) {
+            JOptionPane.showMessageDialog(this, "Passwords do not match!");
+            txtNewPassword.setText("");
+            txtConfirmPassword.setText("");
+            txtNewPassword.requestFocus();
+            return;
+        }
+        
+        if (newPass.length() < 6) {
+            JOptionPane.showMessageDialog(this, "Password must be at least 6 characters");
+            txtNewPassword.setText("");
+            txtConfirmPassword.setText("");
+            txtNewPassword.requestFocus();
+            return;
+        }
+        
+        boolean updated = UserDAO.resetPassword(identifier, newPass);
+        
+        if (updated) {
+            JOptionPane.showMessageDialog(this, 
+                "Password reset successful! You can now login with your new password.",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            // Optional: Open login form
+            // new LoginForm().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "Error resetting password. Please try again.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+                              
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtConfirmPasswordActionPerformed
+
+    private void chkShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShowPasswordActionPerformed
+        // TODO add your handling code here:
+        if (chkShowPassword.isSelected()) {
+    txtNewPassword.setEchoChar((char) 0);
+    txtConfirmPassword.setEchoChar((char) 0);
+} else {
+    txtNewPassword.setEchoChar('*');
+    txtConfirmPassword.setEchoChar('*');
+}
+
+    }//GEN-LAST:event_chkShowPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -53,14 +189,14 @@ public class ResetPassword extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+               try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -69,6 +205,16 @@ public class ResetPassword extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new ResetPassword().setVisible(true));
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox chkShowPassword;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPasswordField txtConfirmPassword;
+    private javax.swing.JPasswordField txtNewPassword;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,7 +4,7 @@
  */
 package dao;
 
-import database.Mysqlconnection;
+import database.MysqlConnection;
 import model.Expense;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +13,7 @@ public class ExpenseDAO {
 
     public static boolean saveExpense(Expense expense) {
         try {
-            Connection con = Mysqlconnection.getconnection();
+            Connection con = MysqlConnection.getConnection();
 
            String sql = "INSERT INTO expenses (name, category, amount, image_path) VALUES (?, ?, ?, ?)";
 
