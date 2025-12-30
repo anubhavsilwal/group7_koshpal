@@ -1,6 +1,6 @@
 package group7_koshpal;
 
-
+import view.signup;
 import controller.signupController;
 
 /**
@@ -8,7 +8,7 @@ import controller.signupController;
  *
 
  * @author User
-
+ * 
  */
 
 public class Group7_KoshPal {
