@@ -219,4 +219,24 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JTextField password;
     private javax.swing.JButton signupButton;
     // End of variables declaration//GEN-END:variables
+
+    // Method to get email field value
+    public javax.swing.JTextField getEmailField() {
+        return email;
+    }
+    
+    // Method to get password field value
+    public javax.swing.JTextField getPasswordField() {
+        return password;
+    }
+    
+    // Method to add action listener to Login button
+    public void addLoginListener(java.awt.event.ActionListener listener) {
+        loginButton.addActionListener(listener);
+    }
+    
+    // Method to add action listener to Signup button
+    public void addSignupListener(java.awt.event.ActionListener listener) {
+        signupButton.addActionListener(listener);
+    }
 }

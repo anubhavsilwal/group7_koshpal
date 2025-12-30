@@ -17,19 +17,23 @@ public class signup extends javax.swing.JFrame {
      * Creates new form Signup
      */
     public signup() {
-        initComponents();
-        setLocationRelativeTo(null);
-        
-        signupButton.setOpaque(true);
-        loginButton.setOpaque(true);
-        signupButton.setContentAreaFilled(true);
-        loginButton.setContentAreaFilled(true);
-        signupButton.setBorderPainted(false);
-        loginButton.setBorderPainted(false);
-        signupButton.setFocusPainted(false);
-        loginButton.setFocusPainted(false);
-        
-    }
+    System.out.println("DEBUG: signup constructor called");
+    initComponents();
+    setLocationRelativeTo(null);
+    
+    System.out.println("DEBUG: signup window initialized");
+    
+    signupButton.setOpaque(true);
+    loginButton.setOpaque(true);
+    signupButton.setContentAreaFilled(true);
+    loginButton.setContentAreaFilled(true);
+    signupButton.setBorderPainted(false);
+    loginButton.setBorderPainted(false);
+    signupButton.setFocusPainted(false);
+    loginButton.setFocusPainted(false);
+    
+    System.out.println("DEBUG: signup window setup complete");
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,7 +66,7 @@ public class signup extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 250, 241));
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/Screenshot 2025-12-16 at 20.58.04.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/KoshPal.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -84,7 +88,7 @@ public class signup extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(80, 80, 80)
-                        .addComponent(jLabel7)))
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

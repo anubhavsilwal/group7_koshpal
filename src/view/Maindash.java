@@ -14,6 +14,9 @@ public class Maindash extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Maindash.class.getName());
 
+    private int userId = -1;  // -1 means no user logged in
+    private String username = "Guest";
+    
     /**
      * Creates new form Maindash
      */
@@ -21,7 +24,25 @@ public class Maindash extends javax.swing.JFrame {
         initComponents();
         addChartToDashboard();
     }
+    
+    public void setUserId(int userId) {
+        this.userId = userId;
+        System.out.println("User ID set to: " + userId);
+    }
+    public void setUsername(String username) {
+        this.username = username;
+        // Update welcome label if it exists
+        if (jLabel2 != null) {
+            jLabel2.setText("Welcome back, " + username + "!");
+        }
+        System.out.println("Username set to: " + username);
+    }
 
+    // Optional: Add a method to check if user is logged in
+    public boolean isUserLoggedIn() {
+        return userId > 0;
+    }
+    
     private void addChartToDashboard() {
     try {
         // 1. Add Net Worth Chart to jPanel4
@@ -254,7 +275,7 @@ public class Maindash extends javax.swing.JFrame {
         jPanel4.setBounds(230, 150, 700, 410);
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
-        jLabel2.setText("Welcome back, Anubhav!");
+        jLabel2.setText("Welcome back!");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(230, 110, 380, 30);
 
@@ -324,12 +345,10 @@ public class Maindash extends javax.swing.JFrame {
         jLabel5.setBounds(40, 20, 200, 23);
 
         jLabel10.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel10.setText("Real Estate");
         jPanel7.add(jLabel10);
         jLabel10.setBounds(320, 0, 130, 30);
 
         jLabel11.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
-        jLabel11.setText("$120,000");
         jPanel7.add(jLabel11);
         jLabel11.setBounds(320, 30, 100, 20);
 
@@ -361,9 +380,8 @@ public class Maindash extends javax.swing.JFrame {
         jLabel6.setBounds(40, 20, 170, 20);
 
         jLabel12.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
-        jLabel12.setText("$735,450");
         jPanel9.add(jLabel12);
-        jLabel12.setBounds(330, 20, 110, 25);
+        jLabel12.setBounds(330, 20, 110, 0);
 
         jPanel1.add(jPanel9);
         jPanel9.setBounds(950, 660, 470, 60);
@@ -393,7 +411,6 @@ public class Maindash extends javax.swing.JFrame {
         jLabel9.setBounds(40, 20, 210, 20);
 
         jLabel13.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
-        jLabel13.setText("$48,667");
         jPanel11.add(jLabel13);
         jLabel13.setBounds(330, 20, 110, 30);
 
@@ -409,7 +426,6 @@ public class Maindash extends javax.swing.JFrame {
         jLabel14.setBounds(20, 10, 70, 20);
 
         jLabel17.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel17.setText("12");
         jPanel13.add(jLabel17);
         jLabel17.setBounds(170, 10, 30, 20);
 

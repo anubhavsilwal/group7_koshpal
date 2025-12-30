@@ -46,4 +46,30 @@ public boolean check(userModel user){
         }
         return false;
     }
+    // ============ ADD THIS LOGIN METHOD ============
+    public userModel login(String email, String password) {
+        Connection conn = mysql.openConnection();
+        String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+        try (PreparedStatement pstm = conn.prepareStatement(sql)) {
+            pstm.setString(1, email);
+            pstm.setString(2, password);
+            ResultSet result = pstm.executeQuery();
+            
+            if (result.next()) {
+                userModel user = new userModel(
+                    result.getString("username"),
+                    result.getString("password"),
+                    result.getString("email")
+                );
+                user.setId(result.getInt("user_id"));
+                return user;
+            }
+        } catch (Exception ex) {
+            System.out.println("Login error: " + ex);
+        } finally {
+            mysql.closeConnection(conn);
+        }
+        return null;
+    }
+    // ============ END OF ADDED METHOD ============
 }

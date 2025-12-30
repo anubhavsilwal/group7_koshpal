@@ -1,8 +1,5 @@
 package group7_koshpal;
 
-import view.signup;
-import controller.signupController;
-
 /**
 
  *
@@ -11,20 +8,22 @@ import controller.signupController;
  * 
  */
 
-public class Group7_KoshPal {
 
+import view.login;
+import controller.loginController;
 
-
-    /**
+ /**
 
      * @param args the command line arguments
 
      */
 
+
+public class Group7_KoshPal {
     public static void main(String[] args) {
-        signup signup = new signup();
-        signupController uc = new signupController(signup);
-        uc.open();
-   } 
-    
+        // Start with login page
+        login loginView = new login();
+        loginController lc = new loginController(loginView);
+        lc.open();
+    } 
 }

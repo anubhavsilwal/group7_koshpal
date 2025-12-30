@@ -7,11 +7,12 @@ public class userModel {
     private String password;
     private String email;
     
-    public userModel (String username, String password, String email){
+    public userModel (String username, String email, String password){
         this.username = username;
-        this.password = password;
         this.email = email;
-    }
+        this.password = password;
+}
+    
     public void setId(int user_id){
         this.user_id = user_id;
     }
