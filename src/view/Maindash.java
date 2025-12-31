@@ -22,8 +22,73 @@ public class Maindash extends javax.swing.JFrame {
      */
     public Maindash() {
         initComponents();
+        fixButtonColors();
         addChartToDashboard();
+        
     }
+    
+    private void fixButtonColors() {
+    System.out.println("Fixing button colors...");
+    
+    // 1. Fix Dashboard button (green)
+    dashboard.setContentAreaFilled(true);  // THIS IS IMPORTANT
+    dashboard.setOpaque(true);
+    dashboard.setBorderPainted(false);
+    dashboard.setBackground(new java.awt.Color(93, 177, 132));
+    dashboard.setForeground(java.awt.Color.WHITE);
+    
+    // 2. Fix orange buttons
+    java.awt.Color orange = new java.awt.Color(255, 220, 169);
+    
+    myinventory.setContentAreaFilled(true);
+    myinventory.setOpaque(true);
+    myinventory.setBorderPainted(false);
+    myinventory.setBackground(orange);
+    myinventory.setForeground(java.awt.Color.BLACK);
+    
+    lending.setContentAreaFilled(true);
+    lending.setOpaque(true);
+    lending.setBorderPainted(false);
+    lending.setBackground(orange);
+    lending.setForeground(java.awt.Color.BLACK);
+    
+    jButton1.setContentAreaFilled(true);
+    jButton1.setOpaque(true);
+    jButton1.setBorderPainted(false);
+    jButton1.setBackground(orange);
+    jButton1.setForeground(java.awt.Color.BLACK);
+    
+    jButton2.setContentAreaFilled(true);
+    jButton2.setOpaque(true);
+    jButton2.setBorderPainted(false);
+    jButton2.setBackground(orange);
+    jButton2.setForeground(java.awt.Color.BLACK);
+    
+    // 3. Fix + Income button (green)
+    jButton3.setContentAreaFilled(true);
+    jButton3.setOpaque(true);
+    jButton3.setBorderPainted(false);
+    jButton3.setBackground(new java.awt.Color(0, 153, 0));
+    jButton3.setForeground(java.awt.Color.WHITE);
+    
+    // 4. Fix + Expense button (red)
+    jButton4.setContentAreaFilled(true);
+    jButton4.setOpaque(true);
+    jButton4.setBorderPainted(false);
+    jButton4.setBackground(new java.awt.Color(204, 0, 0));
+    jButton4.setForeground(java.awt.Color.WHITE);
+    
+    // Force repaint
+    dashboard.repaint();
+    myinventory.repaint();
+    lending.repaint();
+    jButton1.repaint();
+    jButton2.repaint();
+    jButton3.repaint();
+    jButton4.repaint();
+    
+    System.out.println("Button colors should be fixed now");
+}
     
     public void setUserId(int userId) {
         this.userId = userId;
@@ -527,6 +592,8 @@ public class Maindash extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
