@@ -1,7 +1,4 @@
-
 nbproject/private/
-build/
-dist/
 src/database
 
 
@@ -12,8 +9,6 @@ src/database
  
 
 
-*.log
- 
 
  
 
