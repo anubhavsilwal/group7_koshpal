@@ -1,7 +1,33 @@
 nbproject/private/
 src/database
 
+# Compiled class files
+*.class
+*.jar
 
+# Build directories
+build/
+dist/
+target/
+
+# NetBeans project files
+/nbproject/
+/build.xml
+/manifest.mf
+
+# IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+EOF
 
  
 
