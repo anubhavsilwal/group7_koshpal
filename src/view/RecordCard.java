@@ -5,18 +5,28 @@
 package view;
 
 import model.Record;
+import javax.swing.JOptionPane;
+import model.Loan;
 
 /**
  *
  * @author salmanansari.81
  */
 public class RecordCard extends javax.swing.JPanel {
+     
+    private lending parentFrame;
+    private final Loan loan;
 
     /**
      * Creates new form RecordCard
      */
-    public RecordCard() {
+    public RecordCard(Loan loan, lending parentFrame) {
+        this.loan = loan;
+        this.parentFrame = parentFrame;
         initComponents();
+        updateDisplay();
+        
+        updatebtn.addActionListener(evt -> updatebtnActionPerformed(evt));
     }
 
     /**
@@ -32,6 +42,7 @@ public class RecordCard extends javax.swing.JPanel {
         item = new javax.swing.JLabel();
         duedate = new javax.swing.JLabel();
         amount = new javax.swing.JLabel();
+        updatebtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(205, 231, 217));
         setLayout(null);
@@ -50,75 +61,42 @@ public class RecordCard extends javax.swing.JPanel {
 
         amount.setText("Amount");
         add(amount);
-        amount.setBounds(850, 90, 60, 20);
-    }// </editor-fold>//GEN-END:initComponents
-                                            
+        amount.setBounds(850, 70, 60, 20);
 
-    // Method to set record data using Record object
-    public void setRecord(Record record) {
-        if (record != null) {
-            usernameTextField.setText(record.getRecordUserName());
-            itemTextField.setText(record.getRecordItem());
-            duedateTextField.setText(record.getRecordDueDate());
-            amountTextField.setText(String.format("$%.2f", record.getRecordAmount()));
-            
-            // Update labels
-            username.setText("User: " + record.getRecordUserName());
-            item.setText("Item: " + record.getRecordItem());
-            duedate.setText("Due: " + record.getRecordDueDate());
-            amount.setText("$" + String.format("%.2f", record.getRecordAmount()));
+        updatebtn.setBackground(new java.awt.Color(93, 177, 132));
+        updatebtn.setText("Update");
+        add(updatebtn);
+        updatebtn.setBounds(840, 90, 73, 23);
+    }// </editor-fold>//GEN-END:initComponents
+    
+    
+
+    private void updatebtnActionPerformed(java.awt.event.ActionEvent evt) {
+        // Open update dialog
+        if (parentFrame != null && parentFrame.getController() != null) {
+            parentFrame.getController().updateLoan(loan.getBorrowerName(), loan.getItemName());
         }
     }
-    
-    // Method to set record data using individual parameters
-    public void setRecordData(String userName, String itemName, String dueDate, double amountValue) {
-        usernameTextField.setText(userName);
-        itemTextField.setText(itemName);
-        duedateTextField.setText(dueDate);
-        amountTextField.setText(String.format("$%.2f", amountValue));
-        
-        // Update labels
-        username.setText("User: " + userName);
-        item.setText("Item: " + itemName);
-        duedate.setText("Due: " + dueDate);
-        amount.setText("$" + String.format("%.2f", amountValue));
-    }
-    
-    // Getters for the text fields (optional, if you need to retrieve data)
-    public String getBorrowerName() {
-        return usernameTextField.getText();
-    }
-    
-    public String getItemName() {
-        return itemTextField.getText();
-    }
-    
-    public String getDueDate() {
-        return duedateTextField.getText();
-    }
-    
-    public String getAmount() {
-        return amountTextField.getText();
-    }
-    
-    // Clear all fields
-    public void clearFields() {
-        usernameTextField.setText("");
-        itemTextField.setText("");
-        duedateTextField.setText("");
-        amountTextField.setText("");
-        
-        username.setText("UserName:");
-        item.setText("Item:");
-        duedate.setText("DueDate:");
-        amount.setText("Amount:");
-    }
 
+    private void updateDisplay() {
+        username.setText("Borrower: " + loan.getBorrowerName());
+        item.setText("Item: " + loan.getItemName());
+        duedate.setText("Due: " + loan.getDueDate());
+        amount.setText("$" + String.format("%.2f", loan.getAmount()));
+    }
+    
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel amount;
     private javax.swing.JLabel duedate;
     private javax.swing.JLabel item;
+    private javax.swing.JButton updatebtn;
     private javax.swing.JLabel username;
     // End of variables declaration//GEN-END:variables
 
-}
+}   
+
+    
+    
+    
+   

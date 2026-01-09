@@ -73,6 +73,10 @@ public class LendingController {
         }
     }
     
+    public LoanDAO getLoanDAO() {
+    return loanDAO;
+}
+    
     // Add this method to get loans for the view
     
     public List<Loan> getLoans() {
