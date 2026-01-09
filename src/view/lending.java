@@ -283,7 +283,7 @@ public class lending extends javax.swing.JFrame {
         jScrollPane1.setViewportView(recordpanalreal);
 
         jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(70, 250, 1100, 520);
+        jScrollPane1.setBounds(70, 250, 1100, 550);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(198, 121, 1250, 800);
