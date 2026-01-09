@@ -173,8 +173,8 @@ public class lending extends javax.swing.JFrame {
         jPanel2.add(jLabel2);
         jLabel2.setBounds(51, 68, 387, 20);
 
-        newLoan.setBackground(new java.awt.Color(0, 102, 51));
-        newLoan.setForeground(new java.awt.Color(242, 242, 242));
+        newLoan.setBackground(new java.awt.Color(28, 163, 96));
+        newLoan.setForeground(new java.awt.Color(51, 51, 0));
         newLoan.setText("  New Loan");
         newLoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,7 +182,7 @@ public class lending extends javax.swing.JFrame {
             }
         });
         jPanel2.add(newLoan);
-        newLoan.setBounds(1085, 30, 96, 40);
+        newLoan.setBounds(1090, 30, 96, 40);
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         jLabel4.setText("Total Loaned out");
@@ -441,27 +441,64 @@ public class lending extends javax.swing.JFrame {
     
     
     private void myInventerybtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myInventerybtnActionPerformed
-         
+         // Navigate to My Inventory
+    System.out.println("My Inventory button clicked");
+    if (controller != null) {
+        controller.navigateToMyInventory();
+    } else {
+        JOptionPane.showMessageDialog(this, "My Inventory\n\nTrack your items and belongings", 
+            "My Inventory", JOptionPane.INFORMATION_MESSAGE);
+    }
     }//GEN-LAST:event_myInventerybtnActionPerformed
 
     private void lendingbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lendingbtnActionPerformed
-         
+         // Already on Lending page - just refresh
+    System.out.println("Lending button clicked - refreshing");
+    refreshView();
     }//GEN-LAST:event_lendingbtnActionPerformed
 
     private void goalbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goalbtnActionPerformed
-         
+         // Navigate to Goal
+    System.out.println("Goal button clicked");
+    if (controller != null) {
+        controller.navigateToGoal();
+    } else {
+        JOptionPane.showMessageDialog(this, "Goals\n\nSet and track your financial goals", 
+            "Goals", JOptionPane.INFORMATION_MESSAGE);
+    }
     }//GEN-LAST:event_goalbtnActionPerformed
 
     private void financialAnalyticsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_financialAnalyticsbtnActionPerformed
-         
+         // Navigate to Financial Analytics
+    System.out.println("Financial Analytics button clicked");
+    if (controller != null) {
+        controller.navigateToFinancialAnalytics();
+    } else {
+        JOptionPane.showMessageDialog(this, "Financial Analytics\n\nView charts and reports", 
+            "Financial Analytics", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_financialAnalyticsbtnActionPerformed
 
     private void documentsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentsbtnActionPerformed
-        
+        // Navigate to Documents
+    System.out.println("Documents button clicked");
+    if (controller != null) {
+        controller.navigateToDocuments();
+    } else {
+        JOptionPane.showMessageDialog(this, "Documents\n\nManage your loan agreements and receipts", 
+            "Documents", JOptionPane.INFORMATION_MESSAGE);
+    }
     }//GEN-LAST:event_documentsbtnActionPerformed
 
     private void dashboardbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardbtnActionPerformed
-         
+         // Navigate to Dashboard
+    System.out.println("Dashboard button clicked");
+    if (controller != null) {
+        controller.navigateToDashboard();
+    } else {
+        JOptionPane.showMessageDialog(this, "Dashboard\n\nOverview of your financial activities", 
+            "Dashboard", JOptionPane.INFORMATION_MESSAGE);
+    }
     }//GEN-LAST:event_dashboardbtnActionPerformed
 
     

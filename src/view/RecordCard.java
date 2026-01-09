@@ -7,6 +7,7 @@ package view;
 import model.Record;
 import javax.swing.JOptionPane;
 import model.Loan;
+import java.awt.*;
 
 /**
  *
@@ -49,34 +50,43 @@ public class RecordCard extends javax.swing.JPanel {
 
         username.setText("UserName:");
         add(username);
-        username.setBounds(20, 10, 70, 20);
+        username.setBounds(20, 10, 390, 40);
 
         item.setText("Item:");
         add(item);
-        item.setBounds(20, 50, 29, 17);
+        item.setBounds(20, 50, 360, 30);
 
         duedate.setText("DueDate:");
         add(duedate);
-        duedate.setBounds(20, 90, 70, 17);
+        duedate.setBounds(20, 90, 360, 30);
 
         amount.setText("Amount");
         add(amount);
-        amount.setBounds(850, 70, 60, 20);
+        amount.setBounds(980, 60, 60, 20);
 
         updatebtn.setBackground(new java.awt.Color(93, 177, 132));
         updatebtn.setText("Update");
+        updatebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatebtnActionPerformed(evt);
+            }
+        });
         add(updatebtn);
-        updatebtn.setBounds(840, 90, 73, 23);
+        updatebtn.setBounds(960, 80, 80, 30);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void updatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatebtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updatebtnActionPerformed
     
     
 
-    private void updatebtnActionPerformed(java.awt.event.ActionEvent evt) {
-        // Open update dialog
-        if (parentFrame != null && parentFrame.getController() != null) {
-            parentFrame.getController().updateLoan(loan.getBorrowerName(), loan.getItemName());
-        }
-    }
+//    private void updatebtnActionPerformed(java.awt.event.ActionEvent evt) {
+//        // Open update dialog
+//        if (parentFrame != null && parentFrame.getController() != null) {
+//            parentFrame.getController().updateLoan(loan.getBorrowerName(), loan.getItemName());
+//        }
+//    }
 
     private void updateDisplay() {
         username.setText("Borrower: " + loan.getBorrowerName());
