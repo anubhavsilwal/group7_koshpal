@@ -13,30 +13,29 @@ import java.util.Date;
  * @author ACER
  */
 public class AddExpenseForm extends javax.swing.JFrame {
+   private documents parent;
+
+
     private static final java.util.logging.Logger logger =
             java.util.logging.Logger.getLogger(AddExpenseForm.class.getName());
 
-    private File imageFile;
-    private documents parentWindow; // Add this to communicate with parent
-    
+    private File imageFile;    
     /**
      * Creates new form AddExpenseForm for documents
      */
-    public AddExpenseForm() {
+ public AddExpenseForm(documents parent) {
         initComponents();
-        loadCategoryItems();
-        setupDefaultValues();
-    }
+    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+    this.parent = parent;
+    loadCategoryItems();
+    setupDefaultValues();
+}
     
     /**
      * Constructor with parent window reference
      */
-    private documents parent;
-    public AddExpenseForm(documents parent) {
-        initComponents();
-        this.parent = parent;
-       
-    }
+  
+
     
     private void setupDefaultValues() {
         // Set current date as default
@@ -266,80 +265,51 @@ private void loadCategoryItems() {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-     // GET USER INPUT
-String title = jTextField1.getText().trim();         // Title from jTextField1
-String category = cmbCategory.getSelectedItem().toString();
-String date = jTextField2.getText().trim();          // Date from jTextField2
-String amount = txtAmount.getText().trim();          // Amount from txtAmount
 
-        // VALIDATION
-       if (title.isEmpty()) {
-    JOptionPane.showMessageDialog(this,
-        "Please enter expense title",
-        "Validation Error",
-        JOptionPane.WARNING_MESSAGE);
-    jTextField1.requestFocus();  // FIXED: txtTitle → jTextField1
-    return;
-}
 
-        if (date.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                "Please enter a date",
-                "Validation Error",
-                JOptionPane.WARNING_MESSAGE);
-            txtAmount.requestFocus();
+    String title = jTextField1.getText().trim();
+    String category = cmbCategory.getSelectedItem().toString();
+    String date = jTextField2.getText().trim();
+    String amount = txtAmount.getText().trim();
+    String imagePath = imageFile != null ? imageFile.getAbsolutePath() : "";
+
+    // VALIDATION
+    if (title.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Enter title");
+        return;
+    }
+
+    if (date.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Enter date");
+        return;
+    }
+
+    if (amount.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Enter amount");
+        return;
+    }
+
+    // AMOUNT NUMBER VALIDATION
+    double amountValue;
+    try {
+        amountValue = Double.parseDouble(amount);
+        if (amountValue <= 0) {
+            JOptionPane.showMessageDialog(this, "Amount must be greater than 0");
             return;
         }
-        
-if (amount.isEmpty()) {  // FIXED: Validate amount, not date
-    JOptionPane.showMessageDialog(this,
-        "Please enter amount",
-        "Validation Error",
-        JOptionPane.WARNING_MESSAGE);
-    txtAmount.requestFocus();  // FIXED: txtAmount is correct
-    return;
-}
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Amount must be a number");
+        return;
+    }
 
-       if (date.isEmpty()) {
-    JOptionPane.showMessageDialog(this,
-        "Please enter date",
-        "Validation Error",
-        JOptionPane.WARNING_MESSAGE);
-    jTextField2.requestFocus();  // FIXED: txtDate → jTextField2
-    return;
-}
-        
-        // If we have a parent window (documents.java), pass data back
-        if (parentWindow != null) {
-            // Create a new document and add to parent window
-            try {
-                // This assumes your documents class has a method addNewDocument
-                parentWindow.addNewDocument(title, category, date, amount);
-                
-                JOptionPane.showMessageDialog(this,
-                    "Document '" + title + "' added successfully!",
-                    "Success",
-                    JOptionPane.INFORMATION_MESSAGE);
-                
-                this.dispose(); // Close the form
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this,
-                    "Error adding document: " + e.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            // Fallback if no parent window
-            JOptionPane.showMessageDialog(this,
-        "Expense Details:\n" +
-        "Title: " + title + "\n" +
-        "Category: " + category + "\n" +
-        "Date: " + date + "\n" +
-        "Amount: ₹" + amount,  // FIXED: Show amount, not size
-        "Expense Saved",
-        JOptionPane.INFORMATION_MESSAGE);
-        }
-    
+    // ✅ SAVE DATA (ONLY IF ALL VALID)
+    parent.addNewDocument(title, category, date, amount, imagePath);
+
+    JOptionPane.showMessageDialog(this, "Document added successfully!");
+    parent.setVisible(true);
+    dispose();
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAmountActionPerformed
@@ -367,10 +337,7 @@ if (amount.isEmpty()) {  // FIXED: Validate amount, not date
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AddExpenseForm().setVisible(true));
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cmbCategory;
     private javax.swing.JButton jButton1;

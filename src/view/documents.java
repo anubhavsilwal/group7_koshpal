@@ -1,15 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+import java.io.File;
 
 import controller.DocumentController;
-import view.AddExpenseForm;
 import model.Document;
 import javax.swing.*;
 import java.awt.*;
@@ -17,18 +14,20 @@ import java.awt.event.*;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author anubhavsilwal
  */
 public class documents extends javax.swing.JFrame {
-    
+  
     private static final Logger logger = Logger.getLogger(documents.class.getName());
     private DocumentController controller = new DocumentController();
     private List<Document> documentList = new ArrayList<>();
-    private JPanel documentPanelContainer;
+    private JPanel documentPanelContainer;   
     
+    private String imagePath = "";
     /**
      * Creates new form inventory
      */
@@ -37,8 +36,9 @@ public class documents extends javax.swing.JFrame {
         addActionListeners();
         setupIcons();
         initializeDocumentPanel();
-        loadSampleDocuments(); // Load initial documents
-        showAllDocuments();
+       
+            documentList = controller.getAllDocuments();
+        refreshDocumentDisplay();
     }
     
     private void initializeDocumentPanel() {
@@ -46,33 +46,12 @@ public class documents extends javax.swing.JFrame {
         documentPanelContainer.setLayout(new BoxLayout(documentPanelContainer, BoxLayout.Y_AXIS));
         documentPanelContainer.setBackground(Color.WHITE);
         jScrollPane1.setViewportView(documentPanelContainer);
+   
     }
-    
-    private void loadSampleDocuments() {
-        // Add sample documents
-        documentList.add(new Document("Rent paid", "Utilities", "May 20 2025", "2.3 MB"));
-        documentList.add(new Document("Doctor visits", "Health", "May 20 2025", "2.3 MB"));
-        documentList.add(new Document("Emergency Fund", "Other", "May 20 2025", "2.3 MB"));
-        documentList.add(new Document("Saving", "Financial", "May 20 2025", "2.3 MB"));
-        documentList.add(new Document("Subscriptions", "Life Style", "May 20 2025", "2.3 MB"));
-        
-        // You can load from database here:
-        // documentList = controller.getAllDocuments();
-    }
-    
-   public void addNewDocument(String title, String category, String date, String size) {
-    // Create Document object
-    Document newDoc = new Document(title, category, date, size);
-    documentList.add(newDoc);
-    
-    // Refresh display
-    refreshDocumentDisplay();
-    
-    // Show success message
-    JOptionPane.showMessageDialog(this,
-        "Document '" + title + "' added successfully!",
-        "Success",
-        JOptionPane.INFORMATION_MESSAGE);
+public void addNewDocument(String title, String category, String date, String amount, String imagePath) {
+ controller.addDocument(title, category, date, amount, imagePath);
+    documentList = controller.getAllDocuments();
+    refreshDocumentDisplay();  
 }
     
     private void refreshDocumentDisplay() {
@@ -84,95 +63,121 @@ public class documents extends javax.swing.JFrame {
             documentPanelContainer.add(Box.createRigidArea(new Dimension(0, 10))); // Spacing
         }
         
+        
         documentPanelContainer.revalidate();
         documentPanelContainer.repaint();
     }
     
-    private JPanel createDocumentPanel(Document doc) {
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
-        panel.setBackground(Color.WHITE);
-        panel.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
-        panel.setPreferredSize(new Dimension(1200, 80));
-        panel.setMaximumSize(new Dimension(1200, 80));
-        
-        // PDF Icon
-        JLabel pdfIcon = new JLabel();
-        try {
-            ImageIcon originalIcon = new ImageIcon(getClass().getResource("/images/pdf.png"));
-            Image scaledImage = originalIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-            pdfIcon.setIcon(new ImageIcon(scaledImage));
-        } catch (Exception e) {
-            pdfIcon.setText("📄");
-            pdfIcon.setFont(new Font("Segoe UI", Font.PLAIN, 24));
-        }
-        pdfIcon.setBounds(20, 15, 50, 50);
-        panel.add(pdfIcon);
-        
-        // Document Title
-        JLabel titleLabel = new JLabel(doc.getTitle());
-        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        titleLabel.setBounds(90, 10, 300, 30);
-        panel.add(titleLabel);
-        
-        // Category
-        JLabel categoryLabel = new JLabel(doc.getCategory());
-        categoryLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        categoryLabel.setBounds(90, 40, 100, 20);
-        categoryLabel.setForeground(new Color(100, 100, 100));
-        panel.add(categoryLabel);
-        
-        // Date
-        JLabel dateLabel = new JLabel(doc.getDate());
-        dateLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        dateLabel.setBounds(180, 40, 100, 20);
-        dateLabel.setForeground(new Color(150, 150, 150));
-        panel.add(dateLabel);
-        
-        // File Size
-        JLabel sizeLabel = new JLabel(doc.getSize());
-        sizeLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        sizeLabel.setBounds(280, 40, 100, 20);
-        sizeLabel.setForeground(new Color(150, 150, 150));
-        panel.add(sizeLabel);
-        
-        // Make panel clickable
-        panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        panel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                showDocumentDetails(doc);
-            }
-        });
-        
-        return panel;
+  private JPanel createDocumentPanel(Document doc) {
+
+
+    JPanel panel = new JPanel(new BorderLayout(10, 0));
+    panel.setBackground(Color.WHITE);
+    panel.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
+    panel.setPreferredSize(new Dimension(1200, 80));
+    panel.setMaximumSize(new Dimension(1200, 80));
+
+    // Icon
+    JLabel pdfIcon = new JLabel();
+    try {
+        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/images/pdf.png"));
+        Image scaledImage = originalIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        pdfIcon.setIcon(new ImageIcon(scaledImage));
+    } catch (Exception e) {
+        pdfIcon.setText("📄");
+        pdfIcon.setFont(new Font("Segoe UI", Font.PLAIN, 24));
     }
-    
-    private void showDocumentDetails(Document doc) {
-        String details = String.format(
-            "Document Details:\n\n" +
-            "Title: %s\n" +
-            "Category: %s\n" +
-            "Date: %s\n" +
-            "Size: %s\n\n" +
-            "Would you like to view or edit this document?",
-            doc.getTitle(), doc.getCategory(), doc.getDate(), doc.getSize()
+
+    // Text
+    JLabel titleLabel = new JLabel(doc.getTitle());
+    titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
+
+    JLabel categoryLabel = new JLabel(doc.getCategory());
+    categoryLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+    categoryLabel.setForeground(Color.GRAY);
+
+    JLabel dateLabel = new JLabel(doc.getDate());
+    dateLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+    dateLabel.setForeground(Color.LIGHT_GRAY);
+
+    JPanel leftPanel = new JPanel();
+    leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+    leftPanel.setOpaque(false);
+    leftPanel.add(titleLabel);
+    leftPanel.add(categoryLabel);
+    leftPanel.add(dateLabel);
+
+    // ================= RIGHT SIDE =================
+    JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 20));
+    rightPanel.setOpaque(false);
+
+    JLabel lblAmount = new JLabel("Rs " + doc.getAmount());
+    lblAmount.setFont(new Font("Segoe UI", Font.BOLD, 20));
+    lblAmount.setForeground(new Color(0, 128, 0));
+
+    JButton btnView = new JButton("View");
+    btnView.addActionListener(e -> showDocumentDetails(doc));
+
+    JButton btnDelete = new JButton("Delete");
+    btnDelete.setBackground(new Color(200, 50, 50));
+    btnDelete.setForeground(Color.WHITE);
+
+    btnDelete.addActionListener(e -> {
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Delete this document?",
+                "Confirm",
+                JOptionPane.YES_NO_OPTION
         );
-        
-        int option = JOptionPane.showConfirmDialog(
-            this, 
-            details,
-            "Document Details",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.INFORMATION_MESSAGE
-        );
-        
-        if (option == JOptionPane.YES_OPTION) {
-            // Open document viewer or editor
-            showMessage("Opening document: " + doc.getTitle());
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            controller.deleteDocument(doc.getId()); // DB delete
+            documentList = controller.getAllDocuments();
+            refreshDocumentDisplay();
         }
-    }
+    });
+
+    rightPanel.add(lblAmount);
+    rightPanel.add(btnView);
+    rightPanel.add(btnDelete);
+
+    panel.add(pdfIcon, BorderLayout.WEST);
+    panel.add(leftPanel, BorderLayout.CENTER);
+    panel.add(rightPanel, BorderLayout.EAST);
+
+    // 🔥 THIS LINE WAS MISSING
+    return panel;
+
+ }
+private void showDocumentDetails(Document doc) {
+    // Main panel
+    JPanel panel = new JPanel();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     
+    // Document info
+    panel.add(new JLabel("Title: " + doc.getTitle()));
+    panel.add(new JLabel("Category: " + doc.getCategory()));
+    panel.add(new JLabel("Date: " + doc.getDate()));
+    panel.add(new JLabel("Amount: Rs " + doc.getAmount()));
+
+    panel.add(Box.createRigidArea(new Dimension(0, 10))); // spacing
+    
+    // Image
+    if (doc.getImagePath() != null && !doc.getImagePath().isEmpty() 
+        && new File(doc.getImagePath()).exists()) {
+        ImageIcon icon = new ImageIcon(doc.getImagePath());
+        Image img = icon.getImage();
+        Image scaledImg = img.getScaledInstance(300, 300, Image.SCALE_SMOOTH); // simple scaling
+        JLabel imageLabel = new JLabel(new ImageIcon(scaledImg));
+        panel.add(imageLabel);
+    } else {
+        panel.add(new JLabel("No image available"));
+    }
+
+    // Show dialog
+    JOptionPane.showMessageDialog(this, panel, "Document Details", JOptionPane.PLAIN_MESSAGE);
+}
+
     private void addActionListeners() {
         // Category filter buttons
         jButton1.addActionListener(e -> showAllDocuments());
@@ -180,10 +185,10 @@ public class documents extends javax.swing.JFrame {
         jButton6.addActionListener(e -> filterByCategory("Health"));
         jButton5.addActionListener(e -> filterByCategory("Financial"));
         jButton8.addActionListener(e -> filterByCategory("Utilities"));
-        jButton2.addActionListener(e -> filterByCategory("Other"));
+        jButton2.addActionListener(e -> filterByCategory("Others"));
         
         // Add Expense button
-        txtTitle.addActionListener(e -> {
+        btnAddExpense.addActionListener(e -> {
             AddExpenseForm addExpense = new AddExpenseForm(this);
             addExpense.setVisible(true);
         });
@@ -224,54 +229,45 @@ public class documents extends javax.swing.JFrame {
     }
     
     private void showAllDocuments() {
-        refreshDocumentDisplay();
-        resetCategoryButtons();
-        jButton1.setBackground(new Color(0, 127, 76));
-        jButton1.setForeground(Color.WHITE);
+    documentList = controller.getAllDocuments(); // reload DB
+    refreshDocumentDisplay();
+
+    resetCategoryButtons();
+    jButton1.setBackground(new Color(0, 127, 76));
+    jButton1.setForeground(Color.WHITE);
     }
     
     private void filterByCategory(String category) {
-        documentPanelContainer.removeAll();
         
-        for (Document doc : documentList) {
-            if (category.equals("All") || doc.getCategory().equals(category)) {
-                JPanel docPanel = createDocumentPanel(doc);
-                documentPanelContainer.add(docPanel);
-                documentPanelContainer.add(Box.createRigidArea(new Dimension(0, 10)));
-            }
-        }
-        
-        documentPanelContainer.revalidate();
-        documentPanelContainer.repaint();
-        
-        // Highlight selected category button
-        resetCategoryButtons();
-        switch(category) {
-            case "All": 
-                jButton1.setBackground(new Color(0, 127, 76)); 
-                jButton1.setForeground(Color.WHITE); 
-                break;
-            case "Life Style": 
-                jButton7.setBackground(new Color(0, 127, 76)); 
-                jButton7.setForeground(Color.WHITE); 
-                break;
-            case "Health": 
-                jButton6.setBackground(new Color(0, 127, 76)); 
-                jButton6.setForeground(Color.WHITE); 
-                break;
-            case "Financial": 
-                jButton5.setBackground(new Color(0, 127, 76)); 
-                jButton5.setForeground(Color.WHITE); 
-                break;
-            case "Utilities": 
-                jButton8.setBackground(new Color(0, 127, 76)); 
-                jButton8.setForeground(Color.WHITE); 
-                break;
-            case "Other": 
-                jButton2.setBackground(new Color(0, 127, 76)); 
-                jButton2.setForeground(Color.WHITE); 
-                break;
-        }
+    // 1️⃣ Get fresh data from DB
+    List<Document> filtered =
+            category.equals("All")
+            ? controller.getAllDocuments()
+            : controller.getDocumentsByCategory(category);
+
+    // 2️⃣ Render
+    documentPanelContainer.removeAll();
+
+    for (Document doc : filtered) {
+        documentPanelContainer.add(createDocumentPanel(doc));
+        documentPanelContainer.add(Box.createRigidArea(new Dimension(0, 10)));
+    }
+
+    documentPanelContainer.revalidate();
+    documentPanelContainer.repaint();
+
+    // 3️⃣ Button highlight
+    resetCategoryButtons();
+    Color activeBg = new Color(0, 127, 76);
+
+    switch (category) {
+        case "Life Style" -> jButton7.setBackground(activeBg);
+        case "Health" -> jButton6.setBackground(activeBg);
+        case "Financial" -> jButton5.setBackground(activeBg);
+        case "Utilities" -> jButton8.setBackground(activeBg);
+        case "Other" -> jButton2.setBackground(activeBg);
+        default -> jButton1.setBackground(activeBg);
+    }
     }
     
     private void resetCategoryButtons() {
@@ -293,25 +289,23 @@ public class documents extends javax.swing.JFrame {
     }
     
     private void searchDocuments(String query) {
-        if (query.equals("Search Receipts....") || query.trim().isEmpty()) {
-            showAllDocuments();
-            return;
-        }
         
-        query = query.toLowerCase();
-        documentPanelContainer.removeAll();
-        
-        for (Document doc : documentList) {
-            if (doc.getTitle().toLowerCase().contains(query) || 
-                doc.getCategory().toLowerCase().contains(query)) {
-                JPanel docPanel = createDocumentPanel(doc);
-                documentPanelContainer.add(docPanel);
-                documentPanelContainer.add(Box.createRigidArea(new Dimension(0, 10)));
-            }
-        }
-        
-        documentPanelContainer.revalidate();
-        documentPanelContainer.repaint();
+    if (query.equals("Search Receipts....") || query.trim().isEmpty()) {
+        showAllDocuments();
+        return;
+    }
+
+    List<Document> results = controller.searchDocuments(query);
+
+    documentPanelContainer.removeAll();
+
+    for (Document doc : results) {
+        documentPanelContainer.add(createDocumentPanel(doc));
+        documentPanelContainer.add(Box.createRigidArea(new Dimension(0, 10)));
+    }
+
+    documentPanelContainer.revalidate();
+    documentPanelContainer.repaint();
     }
     
     private void setupIcons() {
@@ -362,7 +356,7 @@ public class documents extends javax.swing.JFrame {
         jLabel46 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        txtTitle = new javax.swing.JButton();
+        btnAddExpense = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
@@ -520,24 +514,24 @@ public class documents extends javax.swing.JFrame {
         jPanel3.add(jButton1);
         jButton1.setBounds(0, 160, 80, 30);
 
-        txtTitle.setBackground(new java.awt.Color(0, 127, 76));
-        txtTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        txtTitle.setForeground(new java.awt.Color(255, 255, 255));
-        txtTitle.setText("Add Expenses");
-        txtTitle.addInputMethodListener(new java.awt.event.InputMethodListener() {
+        btnAddExpense.setBackground(new java.awt.Color(0, 127, 76));
+        btnAddExpense.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnAddExpense.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddExpense.setText("Add Expenses");
+        btnAddExpense.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                txtTitleInputMethodTextChanged(evt);
+                btnAddExpenseInputMethodTextChanged(evt);
             }
         });
-        txtTitle.addActionListener(new java.awt.event.ActionListener() {
+        btnAddExpense.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTitleActionPerformed(evt);
+                btnAddExpenseActionPerformed(evt);
             }
         });
-        jPanel3.add(txtTitle);
-        txtTitle.setBounds(950, 20, 280, 60);
+        jPanel3.add(btnAddExpense);
+        btnAddExpense.setBounds(950, 20, 280, 60);
 
         jTextField1.setBackground(new java.awt.Color(220, 220, 220));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -570,6 +564,11 @@ public class documents extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(169, 221, 200));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton2.setText("Other");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton2);
         jButton2.setBounds(550, 160, 90, 30);
 
@@ -741,28 +740,27 @@ public class documents extends javax.swing.JFrame {
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
-        filterByCategory("Other");
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void txtTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitleActionPerformed
-txtTitle.addActionListener(e -> {
-    AddExpenseForm addExpense = new AddExpenseForm(this);
-    addExpense.setVisible(true);
-});
+    private void btnAddExpenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddExpenseActionPerformed
+    }//GEN-LAST:event_btnAddExpenseActionPerformed
 
-    }//GEN-LAST:event_txtTitleActionPerformed
-
-    private void txtTitleInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtTitleInputMethodTextChanged
+    private void btnAddExpenseInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_btnAddExpenseInputMethodTextChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTitleInputMethodTextChanged
+    }//GEN-LAST:event_btnAddExpenseInputMethodTextChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         showAllDocuments();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+            filterByCategory("Others");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -783,10 +781,17 @@ txtTitle.addActionListener(e -> {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new documents().setVisible(true));
+        java.awt.EventQueue.invokeLater(new Runnable() {
+    @Override
+    public void run() {
+        new documents().setVisible(true);
+    }
+});
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddExpense;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -832,6 +837,5 @@ txtTitle.addActionListener(e -> {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JButton txtTitle;
     // End of variables declaration//GEN-END:variables
 }
