@@ -5,18 +5,23 @@
 package view;
 
 // Add this import with your other imports
+
 import view.newloan;
-import view.UpdateUI;
-import javax.swing.*;
 import controller.LendingController;
-import java.sql.Connection;  // ADD THIS IMPORT
+import model.Loan;
+import javax.swing.*;
+import java.sql.Connection;
+import java.util.List;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.JOptionPane;  // ADD THIS IMPORT
-   
+import javax.swing.JOptionPane;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+
 /**
  *
  * @author anubhavsilwal
@@ -25,49 +30,17 @@ import javax.swing.JOptionPane;  // ADD THIS IMPORT
 public class lending extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(lending.class.getName());
-    private LendingController controller;  // ADD THIS LINE
+    private LendingController controller;   
     
-   
-    /**
-     * Creates new form lending
-     */
-    // Keep the default constructor for compatibility
     
-public lending() {
-    initComponents();  // This now calls setupActionListeners() at the end
-    setupSearchFunctionality();
-    
-    // Initialize database connection
-    try {
-        // Use your existing Database class
-        database.Database db = new database.Mysqlconnection();
-        Connection connection = db.openConnection();
-        
-        if (connection != null && !connection.isClosed()) {
-            System.out.println("Database connection successful!");
-            controller = new LendingController(this, connection);
-            
-            // Make sure UI is visible
-            this.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, 
-                "Database connection failed. Running in offline mode.");
-            controller = new LendingController(this, null);
-        }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, 
-            "Database error: " + e.getMessage());
-        e.printStackTrace();
-        controller = new LendingController(this, null);
+    public lending() {
+        initComponents();
+        // Set layout for record panel
+        recordpanalreal.setLayout(null);
     }
-    
-    // This is still needed for safety
-    setupActionListeners();
-}
+   
     
     
-  
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -80,123 +53,6 @@ public lending() {
         documents = new javax.swing.JButton();
         dashboard = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jLabel19 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jPanel14 = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        jButton16 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jLabel38 = new javax.swing.JLabel();
-        jPanel15 = new javax.swing.JPanel();
-        jLabel39 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jButton22 = new javax.swing.JButton();
-        jButton23 = new javax.swing.JButton();
-        jLabel42 = new javax.swing.JLabel();
-        jLabel50 = new javax.swing.JLabel();
-        jPanel19 = new javax.swing.JPanel();
-        jLabel57 = new javax.swing.JLabel();
-        jLabel58 = new javax.swing.JLabel();
-        jLabel59 = new javax.swing.JLabel();
-        jButton32 = new javax.swing.JButton();
-        jPanel20 = new javax.swing.JPanel();
-        jLabel60 = new javax.swing.JLabel();
-        jLabel61 = new javax.swing.JLabel();
-        jLabel62 = new javax.swing.JLabel();
-        jButton33 = new javax.swing.JButton();
-        jButton34 = new javax.swing.JButton();
-        jLabel63 = new javax.swing.JLabel();
-        jPanel21 = new javax.swing.JPanel();
-        jLabel64 = new javax.swing.JLabel();
-        jLabel65 = new javax.swing.JLabel();
-        jLabel66 = new javax.swing.JLabel();
-        jButton35 = new javax.swing.JButton();
-        jButton36 = new javax.swing.JButton();
-        jLabel67 = new javax.swing.JLabel();
-        jButton37 = new javax.swing.JButton();
-        jLabel68 = new javax.swing.JLabel();
-        update3Button = new javax.swing.JButton();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jLabel26 = new javax.swing.JLabel();
-        jPanel17 = new javax.swing.JPanel();
-        jLabel47 = new javax.swing.JLabel();
-        jLabel48 = new javax.swing.JLabel();
-        jLabel49 = new javax.swing.JLabel();
-        update1Button = new javax.swing.JButton();
-        jLabel55 = new javax.swing.JLabel();
-        jPanel16 = new javax.swing.JPanel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
-        jButton24 = new javax.swing.JButton();
-        jButton25 = new javax.swing.JButton();
-        jLabel46 = new javax.swing.JLabel();
-        jPanel18 = new javax.swing.JPanel();
-        jLabel51 = new javax.swing.JLabel();
-        jLabel52 = new javax.swing.JLabel();
-        jLabel53 = new javax.swing.JLabel();
-        jButton28 = new javax.swing.JButton();
-        jButton29 = new javax.swing.JButton();
-        jLabel54 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jButton9 = new javax.swing.JButton();
-        jLabel34 = new javax.swing.JLabel();
-        jButton14 = new javax.swing.JButton();
-        update2Button = new javax.swing.JButton();
-        jLabel56 = new javax.swing.JLabel();
-        jPanel22 = new javax.swing.JPanel();
-        jLabel69 = new javax.swing.JLabel();
-        jLabel70 = new javax.swing.JLabel();
-        jLabel71 = new javax.swing.JLabel();
-        jButton38 = new javax.swing.JButton();
-        jPanel23 = new javax.swing.JPanel();
-        jLabel72 = new javax.swing.JLabel();
-        jLabel73 = new javax.swing.JLabel();
-        jLabel74 = new javax.swing.JLabel();
-        jButton39 = new javax.swing.JButton();
-        jLabel75 = new javax.swing.JLabel();
-        jButton40 = new javax.swing.JButton();
-        jButton41 = new javax.swing.JButton();
-        jLabel76 = new javax.swing.JLabel();
-        jPanel24 = new javax.swing.JPanel();
-        jLabel77 = new javax.swing.JLabel();
-        jLabel78 = new javax.swing.JLabel();
-        jLabel79 = new javax.swing.JLabel();
-        update4Button = new javax.swing.JButton();
-        jLabel80 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         newLoan = new javax.swing.JButton();
@@ -210,6 +66,8 @@ public lending() {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         search = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        recordpanalreal = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
 
@@ -299,743 +157,6 @@ public lending() {
         jPanel2.setBackground(new java.awt.Color(205, 231, 217));
         jPanel2.setLayout(null);
 
-        jPanel3.setBackground(new java.awt.Color(205, 231, 217));
-        jPanel3.setLayout(null);
-
-        jLabel9.setFont(new java.awt.Font("Kannada Sangam MN", 0, 36)); // NOI18N
-        jLabel9.setText("Loan Records");
-        jPanel3.add(jLabel9);
-        jLabel9.setBounds(53, 12, 219, 59);
-
-        jPanel7.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel7.setLayout(null);
-
-        jLabel10.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel10.setText("Salman");
-        jPanel7.add(jLabel10);
-        jLabel10.setBounds(22, 8, 61, 23);
-
-        jLabel11.setText("Iteam: Macbook Air");
-        jPanel7.add(jLabel11);
-        jLabel11.setBounds(22, 45, 124, 17);
-
-        jLabel12.setText("Due: 2026-11-17");
-        jPanel7.add(jLabel12);
-        jLabel12.setBounds(22, 68, 97, 17);
-
-        jButton4.setBackground(new java.awt.Color(51, 0, 51));
-        jButton4.setForeground(new java.awt.Color(242, 242, 242));
-        jButton4.setText("Active");
-        jPanel7.add(jButton4);
-        jButton4.setBounds(251, 10, 72, 23);
-
-        jButton5.setBackground(new java.awt.Color(30, 142, 97));
-        jButton5.setForeground(new java.awt.Color(242, 242, 242));
-        jButton5.setText("Update");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jPanel7.add(jButton5);
-        jButton5.setBounds(839, 48, 129, 48);
-
-        jLabel19.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel19.setText("$ 5,000");
-        jPanel7.add(jLabel19);
-        jLabel19.setBounds(839, 17, 102, 25);
-
-        jPanel3.add(jPanel7);
-        jPanel7.setBounds(40, 80, 0, 0);
-
-        jPanel9.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel9.setLayout(null);
-
-        jLabel15.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel15.setText("Sameep");
-        jPanel9.add(jLabel15);
-        jLabel15.setBounds(21, 8, 68, 23);
-
-        jLabel20.setText("Item: Designing Material ");
-        jPanel9.add(jLabel20);
-        jLabel20.setBounds(21, 39, 161, 17);
-
-        jLabel21.setText("Due Date: 2025-12-27");
-        jPanel9.add(jLabel21);
-        jLabel21.setBounds(20, 60, 170, 17);
-
-        jPanel14.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel14.setLayout(null);
-
-        jLabel35.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel35.setText("Sameep");
-        jPanel14.add(jLabel35);
-        jLabel35.setBounds(21, 8, 68, 23);
-
-        jLabel36.setText("Iteam: Designing Material ");
-        jPanel14.add(jLabel36);
-        jLabel36.setBounds(21, 39, 161, 17);
-
-        jLabel37.setText("Due: 2025-12-27");
-        jPanel14.add(jLabel37);
-        jLabel37.setBounds(21, 86, 97, 17);
-
-        jButton16.setBackground(new java.awt.Color(255, 42, 42));
-        jButton16.setForeground(new java.awt.Color(242, 242, 242));
-        jButton16.setText("Active");
-        jButton16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton16ActionPerformed(evt);
-            }
-        });
-        jPanel14.add(jButton16);
-        jButton16.setBounds(256, 10, 72, 23);
-
-        jButton17.setBackground(new java.awt.Color(30, 142, 97));
-        jButton17.setForeground(new java.awt.Color(242, 242, 242));
-        jButton17.setText("Update");
-        jButton17.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton17ActionPerformed(evt);
-            }
-        });
-        jPanel14.add(jButton17);
-        jButton17.setBounds(891, 62, 129, 41);
-
-        jLabel38.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel38.setText("$ 11,000");
-        jPanel14.add(jLabel38);
-        jLabel38.setBounds(899, 25, 101, 31);
-
-        jPanel9.add(jPanel14);
-        jPanel14.setBounds(61, 310, 0, 0);
-
-        jPanel15.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel15.setLayout(null);
-
-        jLabel39.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel39.setText("Sameep");
-        jPanel15.add(jLabel39);
-        jLabel39.setBounds(21, 8, 68, 23);
-
-        jLabel40.setText("Iteam: Designing Material ");
-        jPanel15.add(jLabel40);
-        jLabel40.setBounds(21, 39, 161, 17);
-
-        jLabel41.setText("Due: 2025-12-27");
-        jPanel15.add(jLabel41);
-        jLabel41.setBounds(21, 86, 97, 17);
-
-        jButton22.setBackground(new java.awt.Color(255, 42, 42));
-        jButton22.setForeground(new java.awt.Color(242, 242, 242));
-        jButton22.setText("Active");
-        jButton22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton22ActionPerformed(evt);
-            }
-        });
-        jPanel15.add(jButton22);
-        jButton22.setBounds(256, 10, 72, 23);
-
-        jButton23.setBackground(new java.awt.Color(30, 142, 97));
-        jButton23.setForeground(new java.awt.Color(242, 242, 242));
-        jButton23.setText("Update");
-        jButton23.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton23ActionPerformed(evt);
-            }
-        });
-        jPanel15.add(jButton23);
-        jButton23.setBounds(891, 62, 129, 41);
-
-        jLabel42.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel42.setText("$ 11,000");
-        jPanel15.add(jLabel42);
-        jLabel42.setBounds(899, 25, 101, 31);
-
-        jPanel9.add(jPanel15);
-        jPanel15.setBounds(61, 310, 0, 0);
-
-        jLabel50.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel50.setText("$ 11,000");
-        jPanel9.add(jLabel50);
-        jLabel50.setBounds(870, 30, 102, 25);
-
-        jPanel19.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel19.setLayout(null);
-
-        jLabel57.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel57.setText("Sameep");
-        jPanel19.add(jLabel57);
-        jLabel57.setBounds(21, 8, 68, 23);
-
-        jLabel58.setText("Iteam: Designing Material ");
-        jPanel19.add(jLabel58);
-        jLabel58.setBounds(21, 39, 161, 17);
-
-        jLabel59.setText("Due: 2025-12-27");
-        jPanel19.add(jLabel59);
-        jLabel59.setBounds(21, 86, 97, 17);
-
-        jButton32.setBackground(new java.awt.Color(255, 42, 42));
-        jButton32.setForeground(new java.awt.Color(242, 242, 242));
-        jButton32.setText("Active");
-        jButton32.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton32ActionPerformed(evt);
-            }
-        });
-        jPanel19.add(jButton32);
-        jButton32.setBounds(256, 10, 72, 23);
-
-        jPanel20.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel20.setLayout(null);
-
-        jLabel60.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel60.setText("Sameep");
-        jPanel20.add(jLabel60);
-        jLabel60.setBounds(21, 8, 68, 23);
-
-        jLabel61.setText("Iteam: Designing Material ");
-        jPanel20.add(jLabel61);
-        jLabel61.setBounds(21, 39, 161, 17);
-
-        jLabel62.setText("Due: 2025-12-27");
-        jPanel20.add(jLabel62);
-        jLabel62.setBounds(21, 86, 97, 17);
-
-        jButton33.setBackground(new java.awt.Color(255, 42, 42));
-        jButton33.setForeground(new java.awt.Color(242, 242, 242));
-        jButton33.setText("Active");
-        jButton33.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton33ActionPerformed(evt);
-            }
-        });
-        jPanel20.add(jButton33);
-        jButton33.setBounds(256, 10, 72, 23);
-
-        jButton34.setBackground(new java.awt.Color(30, 142, 97));
-        jButton34.setForeground(new java.awt.Color(242, 242, 242));
-        jButton34.setText("Update");
-        jButton34.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton34ActionPerformed(evt);
-            }
-        });
-        jPanel20.add(jButton34);
-        jButton34.setBounds(891, 62, 129, 41);
-
-        jLabel63.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel63.setText("$ 11,000");
-        jPanel20.add(jLabel63);
-        jLabel63.setBounds(899, 25, 101, 31);
-
-        jPanel19.add(jPanel20);
-        jPanel20.setBounds(61, 310, 0, 0);
-
-        jPanel21.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel21.setLayout(null);
-
-        jLabel64.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel64.setText("Sameep");
-        jPanel21.add(jLabel64);
-        jLabel64.setBounds(21, 8, 68, 23);
-
-        jLabel65.setText("Iteam: Designing Material ");
-        jPanel21.add(jLabel65);
-        jLabel65.setBounds(21, 39, 161, 17);
-
-        jLabel66.setText("Due: 2025-12-27");
-        jPanel21.add(jLabel66);
-        jLabel66.setBounds(21, 86, 97, 17);
-
-        jButton35.setBackground(new java.awt.Color(255, 42, 42));
-        jButton35.setForeground(new java.awt.Color(242, 242, 242));
-        jButton35.setText("Active");
-        jButton35.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton35ActionPerformed(evt);
-            }
-        });
-        jPanel21.add(jButton35);
-        jButton35.setBounds(256, 10, 72, 23);
-
-        jButton36.setBackground(new java.awt.Color(30, 142, 97));
-        jButton36.setForeground(new java.awt.Color(242, 242, 242));
-        jButton36.setText("Update");
-        jButton36.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton36ActionPerformed(evt);
-            }
-        });
-        jPanel21.add(jButton36);
-        jButton36.setBounds(891, 62, 129, 41);
-
-        jLabel67.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel67.setText("$ 11,000");
-        jPanel21.add(jLabel67);
-        jLabel67.setBounds(899, 25, 101, 31);
-
-        jPanel19.add(jPanel21);
-        jPanel21.setBounds(61, 310, 0, 0);
-
-        jButton37.setBackground(new java.awt.Color(30, 142, 97));
-        jButton37.setForeground(new java.awt.Color(242, 242, 242));
-        jButton37.setText("Update");
-        jButton37.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton37ActionPerformed(evt);
-            }
-        });
-        jPanel19.add(jButton37);
-        jButton37.setBounds(870, 60, 129, 48);
-
-        jLabel68.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel68.setText("$ 11,000");
-        jPanel19.add(jLabel68);
-        jLabel68.setBounds(870, 30, 102, 25);
-
-        jPanel9.add(jPanel19);
-        jPanel19.setBounds(60, 330, 1041, 109);
-
-        update3Button.setBackground(new java.awt.Color(30, 142, 97));
-        update3Button.setForeground(new java.awt.Color(242, 242, 242));
-        update3Button.setText("Update");
-        update3Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                update3ButtonActionPerformed(evt);
-            }
-        });
-        jPanel9.add(update3Button);
-        update3Button.setBounds(870, 60, 129, 48);
-
-        jPanel3.add(jPanel9);
-        jPanel9.setBounds(60, 330, 1041, 109);
-
-        jPanel10.setBackground(new java.awt.Color(224, 243, 235));
-
-        jLabel16.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel16.setText("Prajanya");
-
-        jLabel23.setText("Iteam: Mountain Bike");
-
-        jLabel24.setText("Due: 2027-11-11");
-
-        jButton6.setBackground(new java.awt.Color(9, 95, 60));
-        jButton6.setForeground(new java.awt.Color(242, 242, 242));
-        jButton6.setText("Active");
-
-        jButton7.setBackground(new java.awt.Color(30, 142, 97));
-        jButton7.setForeground(new java.awt.Color(242, 242, 242));
-        jButton7.setText("Update");
-
-        jLabel13.setFont(new java.awt.Font("Helvetica", 0, 24)); // NOI18N
-        jLabel13.setText("$ 17,000");
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addGap(181, 181, 181)
-                        .addComponent(jButton6)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 445, Short.MAX_VALUE)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16)
-                            .addComponent(jButton6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel23)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(16, 16, 16)))
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel3.add(jPanel10);
-        jPanel10.setBounds(45, 799, 996, 115);
-
-        jPanel11.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel11.setLayout(null);
-
-        jLabel22.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel22.setText("Prajanya");
-        jPanel11.add(jLabel22);
-        jLabel22.setBounds(21, 21, 81, 23);
-
-        jLabel27.setText("Iteam: Mountain Bike ");
-        jPanel11.add(jLabel27);
-        jLabel27.setBounds(21, 52, 161, 17);
-
-        jLabel28.setText("Due: 2025-11-11");
-        jPanel11.add(jLabel28);
-        jLabel28.setBounds(21, 75, 97, 17);
-
-        jButton10.setBackground(new java.awt.Color(0, 153, 51));
-        jButton10.setForeground(new java.awt.Color(242, 242, 242));
-        jButton10.setText("Active");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-        jPanel11.add(jButton10);
-        jButton10.setBounds(254, 23, 72, 23);
-
-        jButton11.setBackground(new java.awt.Color(30, 142, 97));
-        jButton11.setForeground(new java.awt.Color(242, 242, 242));
-        jButton11.setText("Update");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-        jPanel11.add(jButton11);
-        jButton11.setBounds(837, 52, 129, 41);
-
-        jLabel26.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel26.setText("$ 17,000");
-        jPanel11.add(jLabel26);
-        jLabel26.setBounds(845, 15, 101, 31);
-
-        jPanel3.add(jPanel11);
-        jPanel11.setBounds(61, 437, 0, 0);
-
-        jPanel17.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel17.setLayout(null);
-
-        jLabel47.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel47.setText("Salman");
-        jPanel17.add(jLabel47);
-        jLabel47.setBounds(22, 8, 61, 23);
-
-        jLabel48.setText("Item: Macbook Air");
-        jPanel17.add(jLabel48);
-        jLabel48.setBounds(22, 45, 140, 17);
-
-        jLabel49.setText("Due Date: 2026-11-17");
-        jPanel17.add(jLabel49);
-        jLabel49.setBounds(22, 68, 160, 17);
-
-        update1Button.setBackground(new java.awt.Color(30, 142, 97));
-        update1Button.setForeground(new java.awt.Color(242, 242, 242));
-        update1Button.setText("Update");
-        update1Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                update1ButtonActionPerformed(evt);
-            }
-        });
-        jPanel17.add(update1Button);
-        update1Button.setBounds(870, 60, 129, 48);
-
-        jLabel55.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel55.setText("$ 5,000");
-        jPanel17.add(jLabel55);
-        jLabel55.setBounds(870, 30, 102, 25);
-
-        jPanel3.add(jPanel17);
-        jPanel17.setBounds(60, 70, 1040, 110);
-
-        jPanel16.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel16.setLayout(null);
-
-        jLabel43.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel43.setText("Prajanya");
-        jPanel16.add(jLabel43);
-        jLabel43.setBounds(21, 21, 81, 23);
-
-        jLabel44.setText("Iteam: Mountain Bike ");
-        jPanel16.add(jLabel44);
-        jLabel44.setBounds(21, 52, 161, 17);
-
-        jLabel45.setText("Due: 2025-11-11");
-        jPanel16.add(jLabel45);
-        jLabel45.setBounds(21, 75, 97, 17);
-
-        jButton24.setBackground(new java.awt.Color(0, 153, 51));
-        jButton24.setForeground(new java.awt.Color(242, 242, 242));
-        jButton24.setText("Active");
-        jButton24.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton24ActionPerformed(evt);
-            }
-        });
-        jPanel16.add(jButton24);
-        jButton24.setBounds(254, 23, 72, 23);
-
-        jButton25.setBackground(new java.awt.Color(30, 142, 97));
-        jButton25.setForeground(new java.awt.Color(242, 242, 242));
-        jButton25.setText("Update");
-        jButton25.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton25ActionPerformed(evt);
-            }
-        });
-        jPanel16.add(jButton25);
-        jButton25.setBounds(837, 52, 129, 41);
-
-        jLabel46.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel46.setText("$ 17,000");
-        jPanel16.add(jLabel46);
-        jLabel46.setBounds(845, 15, 101, 31);
-
-        jPanel3.add(jPanel16);
-        jPanel16.setBounds(60, 460, 0, 0);
-
-        jPanel18.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel18.setLayout(null);
-
-        jLabel51.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel51.setText("Prajanya");
-        jPanel18.add(jLabel51);
-        jLabel51.setBounds(21, 21, 81, 23);
-
-        jLabel52.setText("Iteam: Mountain Bike ");
-        jPanel18.add(jLabel52);
-        jLabel52.setBounds(21, 52, 161, 17);
-
-        jLabel53.setText("Due: 2025-11-11");
-        jPanel18.add(jLabel53);
-        jLabel53.setBounds(21, 75, 97, 17);
-
-        jButton28.setBackground(new java.awt.Color(0, 153, 51));
-        jButton28.setForeground(new java.awt.Color(242, 242, 242));
-        jButton28.setText("Active");
-        jButton28.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton28ActionPerformed(evt);
-            }
-        });
-        jPanel18.add(jButton28);
-        jButton28.setBounds(254, 23, 72, 23);
-
-        jButton29.setBackground(new java.awt.Color(30, 142, 97));
-        jButton29.setForeground(new java.awt.Color(242, 242, 242));
-        jButton29.setText("Update");
-        jButton29.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton29ActionPerformed(evt);
-            }
-        });
-        jPanel18.add(jButton29);
-        jButton29.setBounds(837, 52, 129, 41);
-
-        jLabel54.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel54.setText("$ 17,000");
-        jPanel18.add(jLabel54);
-        jLabel54.setBounds(845, 15, 101, 31);
-
-        jPanel3.add(jPanel18);
-        jPanel18.setBounds(60, 460, 0, 0);
-
-        jPanel8.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel8.setLayout(null);
-
-        jLabel14.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel14.setText("Sandesh");
-        jPanel8.add(jLabel14);
-        jLabel14.setBounds(23, 14, 72, 23);
-
-        jLabel17.setText("Item: Photography Equipment");
-        jPanel8.add(jLabel17);
-        jLabel17.setBounds(23, 48, 190, 17);
-
-        jLabel18.setText("Due Date: 2025-09-22");
-        jPanel8.add(jLabel18);
-        jLabel18.setBounds(23, 71, 170, 17);
-
-        jPanel13.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel13.setLayout(null);
-
-        jLabel31.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel31.setText("Sandesh");
-        jPanel13.add(jLabel31);
-        jLabel31.setBounds(23, 14, 72, 23);
-
-        jLabel32.setText("Iteam: Photography Equipment");
-        jPanel13.add(jLabel32);
-        jLabel32.setBounds(23, 48, 190, 17);
-
-        jLabel33.setText("Due: 2025-09-22");
-        jPanel13.add(jLabel33);
-        jLabel33.setBounds(23, 71, 97, 17);
-
-        jButton9.setBackground(new java.awt.Color(51, 0, 51));
-        jButton9.setForeground(new java.awt.Color(242, 242, 242));
-        jButton9.setText("Active");
-        jPanel13.add(jButton9);
-        jButton9.setBounds(252, 16, 72, 23);
-
-        jLabel34.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel34.setText("$ 7,000");
-        jPanel13.add(jLabel34);
-        jLabel34.setBounds(839, 14, 112, 34);
-
-        jButton14.setBackground(new java.awt.Color(30, 142, 97));
-        jButton14.setForeground(new java.awt.Color(242, 242, 242));
-        jButton14.setText("Update");
-        jPanel13.add(jButton14);
-        jButton14.setBounds(839, 48, 129, 41);
-
-        jPanel8.add(jPanel13);
-        jPanel13.setBounds(10, 200, 988, 95);
-
-        update2Button.setBackground(new java.awt.Color(30, 142, 97));
-        update2Button.setForeground(new java.awt.Color(242, 242, 242));
-        update2Button.setText("Update");
-        update2Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                update2ButtonActionPerformed(evt);
-            }
-        });
-        jPanel8.add(update2Button);
-        update2Button.setBounds(870, 60, 129, 48);
-
-        jLabel56.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel56.setText("$ 7,000");
-        jPanel8.add(jLabel56);
-        jLabel56.setBounds(870, 30, 102, 25);
-
-        jPanel22.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel22.setLayout(null);
-
-        jLabel69.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel69.setText("Sandesh");
-        jPanel22.add(jLabel69);
-        jLabel69.setBounds(23, 14, 72, 23);
-
-        jLabel70.setText("Iteam: Photography Equipment");
-        jPanel22.add(jLabel70);
-        jLabel70.setBounds(23, 48, 190, 17);
-
-        jLabel71.setText("Due: 2025-09-22");
-        jPanel22.add(jLabel71);
-        jLabel71.setBounds(23, 71, 97, 17);
-
-        jButton38.setBackground(new java.awt.Color(51, 0, 51));
-        jButton38.setForeground(new java.awt.Color(242, 242, 242));
-        jButton38.setText("Active");
-        jPanel22.add(jButton38);
-        jButton38.setBounds(252, 16, 72, 23);
-
-        jPanel23.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel23.setLayout(null);
-
-        jLabel72.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel72.setText("Sandesh");
-        jPanel23.add(jLabel72);
-        jLabel72.setBounds(23, 14, 72, 23);
-
-        jLabel73.setText("Iteam: Photography Equipment");
-        jPanel23.add(jLabel73);
-        jLabel73.setBounds(23, 48, 190, 17);
-
-        jLabel74.setText("Due: 2025-09-22");
-        jPanel23.add(jLabel74);
-        jLabel74.setBounds(23, 71, 97, 17);
-
-        jButton39.setBackground(new java.awt.Color(51, 0, 51));
-        jButton39.setForeground(new java.awt.Color(242, 242, 242));
-        jButton39.setText("Active");
-        jPanel23.add(jButton39);
-        jButton39.setBounds(252, 16, 72, 23);
-
-        jLabel75.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel75.setText("$ 7,000");
-        jPanel23.add(jLabel75);
-        jLabel75.setBounds(839, 14, 112, 34);
-
-        jButton40.setBackground(new java.awt.Color(30, 142, 97));
-        jButton40.setForeground(new java.awt.Color(242, 242, 242));
-        jButton40.setText("Update");
-        jPanel23.add(jButton40);
-        jButton40.setBounds(839, 48, 129, 41);
-
-        jPanel22.add(jPanel23);
-        jPanel23.setBounds(10, 200, 988, 95);
-
-        jButton41.setBackground(new java.awt.Color(30, 142, 97));
-        jButton41.setForeground(new java.awt.Color(242, 242, 242));
-        jButton41.setText("Update");
-        jButton41.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton41ActionPerformed(evt);
-            }
-        });
-        jPanel22.add(jButton41);
-        jButton41.setBounds(870, 60, 129, 48);
-
-        jLabel76.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel76.setText("$ 7,000");
-        jPanel22.add(jLabel76);
-        jLabel76.setBounds(870, 30, 102, 25);
-
-        jPanel8.add(jPanel22);
-        jPanel22.setBounds(60, 200, 1040, 110);
-
-        jPanel3.add(jPanel8);
-        jPanel8.setBounds(60, 200, 1040, 110);
-
-        jPanel24.setBackground(new java.awt.Color(224, 243, 235));
-        jPanel24.setSize(new java.awt.Dimension(1041, 109));
-        jPanel24.setLayout(null);
-
-        jLabel77.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel77.setText("Prajanya");
-        jPanel24.add(jLabel77);
-        jLabel77.setBounds(21, 8, 90, 23);
-
-        jLabel78.setText("Item: Mountain Bike");
-        jPanel24.add(jLabel78);
-        jLabel78.setBounds(21, 39, 161, 17);
-
-        jLabel79.setText("Due Date: 2025-10-17");
-        jPanel24.add(jLabel79);
-        jLabel79.setBounds(20, 60, 170, 17);
-
-        update4Button.setBackground(new java.awt.Color(30, 142, 97));
-        update4Button.setForeground(new java.awt.Color(242, 242, 242));
-        update4Button.setText("Update");
-        update4Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                update4ButtonActionPerformed(evt);
-            }
-        });
-        jPanel24.add(update4Button);
-        update4Button.setBounds(870, 60, 129, 48);
-
-        jLabel80.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
-        jLabel80.setText("$ 17,000");
-        jPanel24.add(jLabel80);
-        jLabel80.setBounds(870, 30, 102, 25);
-
-        jPanel3.add(jPanel24);
-        jPanel24.setBounds(60, 460, 1041, 109);
-
-        jPanel2.add(jPanel3);
-        jPanel3.setBounds(50, 220, 1180, 580);
-
         jLabel1.setFont(new java.awt.Font("Georgia", 0, 36)); // NOI18N
         jLabel1.setText("Lending & Borrowing");
         jPanel2.add(jLabel1);
@@ -1062,7 +183,7 @@ public lending() {
 
         jLabel7.setFont(new java.awt.Font("Hiragino Sans TC", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 204, 51));
-        jLabel7.setText("$ 25,000");
+        jLabel7.setText("$ 23,000");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1150,7 +271,7 @@ public lending() {
         jPanel2.add(jPanel6);
         jPanel6.setBounds(930, 110, 217, 95);
 
-        search.setText("Search Record.....");
+        search.setText("Search Record");
         search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchActionPerformed(evt);
@@ -1158,6 +279,11 @@ public lending() {
         });
         jPanel2.add(search);
         search.setBounds(790, 30, 200, 40);
+
+        jScrollPane1.setViewportView(recordpanalreal);
+
+        jPanel2.add(jScrollPane1);
+        jScrollPane1.setBounds(70, 250, 1100, 520);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(198, 121, 1250, 800);
@@ -1176,400 +302,251 @@ public lending() {
         setBounds(0, 0, 1436, 947);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton11ActionPerformed
-
     private void myInventeryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myInventeryActionPerformed
-        // TODO add your handling code here:
+        if (controller != null) {
+            controller.navigateToMyInventory();
+        } else {
+            JOptionPane.showMessageDialog(this, "My Inventory - Coming Soon");
+        }
     }//GEN-LAST:event_myInventeryActionPerformed
 
     private void lendingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lendingActionPerformed
-        // TODO add your handling code here;
+        if (controller != null) {
+            controller.navigateToLending();
+        }
     }//GEN-LAST:event_lendingActionPerformed
 
     private void goalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goalActionPerformed
-        // TODO add your handling code here:
+        if (controller != null) {
+            controller.navigateToGoal();
+        } else {
+            JOptionPane.showMessageDialog(this, "Goal - Coming Soon");
+        }
     }//GEN-LAST:event_goalActionPerformed
 
     private void financialAnalyticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_financialAnalyticsActionPerformed
-        // TODO add your handling code here:
+         if (controller != null) {
+            controller.navigateToFinancialAnalytics();
+        } else {
+            JOptionPane.showMessageDialog(this, "Financial Analytics - Coming Soon");
+        }
     }//GEN-LAST:event_financialAnalyticsActionPerformed
 
     private void documentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentsActionPerformed
-        // TODO add your handling code here:
+       if (controller != null) {
+            controller.navigateToDocuments();
+        } else {
+            JOptionPane.showMessageDialog(this, "Documents - Coming Soon");
+        }
     }//GEN-LAST:event_documentsActionPerformed
 
     private void dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardActionPerformed
-        // TODO add your handling code here:
+        if (controller != null) {
+            controller.navigateToDashboard();
+        } else {
+            JOptionPane.showMessageDialog(this, "Dashboard - Coming Soon");
+        }
     }//GEN-LAST:event_dashboardActionPerformed
 
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton16ActionPerformed
-
-    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton17ActionPerformed
-
-    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton22ActionPerformed
-
-    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton23ActionPerformed
-
-    private void update2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update2ButtonActionPerformed
-    System.out.println("Update 2 button clicked! ($7,000 loan)");
+    
+    
+    private void newLoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newLoanActionPerformed
+        System.out.println("New Loan button clicked!");
+    
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
-            UpdateUI updateForm = new UpdateUI();
-            updateForm.setAllFields("Photography Equipment", "7000", "2025-09-22");
-            updateForm.setVisible(true);
-            updateForm.setLocationRelativeTo(null);
-        }
-    });
-    
-    }//GEN-LAST:event_update2ButtonActionPerformed
-
-    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jButton24ActionPerformed
-
-    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton25ActionPerformed
-
-    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton28ActionPerformed
-
-    private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton29ActionPerformed
-
-    private void update4ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update4ButtonActionPerformed
-        // TODO add your handling code here:
-        System.out.println("Update 4 button clicked! ($17,000 loan)");
-        // Open update form for $17,000 loan
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-            UpdateUI updateForm = new UpdateUI();
-            updateForm.setAllFields("Mountain Bike", "17000", "2025-10-17");
-            updateForm.setVisible(true);
-            updateForm.setLocationRelativeTo(null);
-            }
-        });
-    }//GEN-LAST:event_update4ButtonActionPerformed
-
-//*
-    private void update1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update1ButtonActionPerformed
-        System.out.println("Update 1 button clicked! ($5,000 loan)");
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                System.out.println("Opening UpdateUI form...");
-                UpdateUI updateForm = new UpdateUI();
-                updateForm.setAllFields("Macbook Air", "5000", "2026-11-17");
-                updateForm.setVisible(true);
-                updateForm.setLocationRelativeTo(null);
-            }
-        });                
-    }//GEN-LAST:event_update1ButtonActionPerformed
-
-    
-    
-    private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton32ActionPerformed
-
-    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton33ActionPerformed
-
-    private void jButton34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton34ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton34ActionPerformed
-
-    private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton35ActionPerformed
-
-    private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton36ActionPerformed
-
-    private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton37ActionPerformed
-
-    private void jButton41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton41ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton41ActionPerformed
-
-    private void update3ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update3ButtonActionPerformed
-        System.out.println("Update 3 button clicked! ($11,000 loan)");
-        java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-            UpdateUI updateForm = new UpdateUI();
-            updateForm.setAllFields("Designing Material", "11000", "2025-12-27");
-            updateForm.setVisible(true);
-            updateForm.setLocationRelativeTo(null);
-        }
-    });
-    }//GEN-LAST:event_update3ButtonActionPerformed
-
-    private void newLoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newLoanActionPerformed
-        // TODO add your handling code here:
-        System.out.println("New Loan button clicked!");
-        java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
             newloan loanForm = new newloan();
+            
+            if (controller != null) {
+                loanForm.setController(controller);
+            }
+            
+            // Set the form to dispose on close (not exit)
+            loanForm.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+            
+            loanForm.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    System.out.println("New loan form closed, refreshing data...");
+                    refreshView();
+                }
+            });
+            
             loanForm.setVisible(true);
-            loanForm.setLocationRelativeTo(null); // Center the form
+            loanForm.setLocationRelativeTo(null);
         }
     }); 
+
            
     }//GEN-LAST:event_newLoanActionPerformed
+   
+    
+    // Method to refresh the view
 
+    /**
+     *
+     */
+public void refreshView() {
+    if (controller != null) {
+        controller.refreshView();
+    } else {
+        loadRecordCards(); // Fallback
+    }
+    System.out.println("View refreshed");
+}
+    
+ 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         // TODO add your handling code here:
+         
     }//GEN-LAST:event_searchActionPerformed
      
-
-  
+ 
 /**
  * @param args the command line arguments
  */
- 
-    /**
-     * @param args the command line arguments
-     */
+  
   
    public static void main(String args[]) {
-    // Add some system properties for better debugging
-    System.setProperty("sun.awt.exception.handler", MyExceptionHandler.class.getName());
-    
-    try {
-        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-            if ("Nimbus".equals(info.getName())) {
-                javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                break;
+   /* Set the Nimbus look and feel */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(lending.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-    } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-        logger.log(java.util.logging.Level.SEVERE, null, ex);
-        // Fall back to system default if Nimbus fails
-        try {
-            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /* Create and display the form */
-    java.awt.EventQueue.invokeLater(() -> {
-        System.out.println("Starting Lending Application...");
-        try {
-            lending app = new lending();
-            app.setVisible(true);
-            System.out.println("Application started successfully!");
-        } catch (Exception e) {
-            System.err.println("Failed to start application: " + e.getMessage());
-            e.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(null, 
-                "Failed to start application: " + e.getMessage(), 
-                "Error", 
-                javax.swing.JOptionPane.ERROR_MESSAGE);
-        }
-    });
+        
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new lending().setVisible(true);
+            }
+        });
 }
    
-
+ 
+   // ========== ADDED METHODS FOR RECORD CARDS ==========
+    
+    public javax.swing.JPanel getRecordPanel() {
+        return recordpanalreal;
+    }
+    
+    public void addRecordCard(String borrower, String item, String dueDate, double amount) {
+        try {
+            // Create a new RecordCard
+            RecordCard card = new RecordCard();
+        
+        card.setRecordData(borrower, item, dueDate, amount);
+        
+        // Rest of your code remains the same...
+        int cardHeight = 120;
+        int spacing = 10;
+        int cardCount = recordpanalreal.getComponentCount();
+        int yPos = cardCount * (cardHeight + spacing);
+        
+        card.setBounds(0, yPos, 1100, cardHeight);
+        recordpanalreal.add(card);
+        recordpanalreal.setPreferredSize(new java.awt.Dimension(1100, yPos + cardHeight + spacing));
+        recordpanalreal.revalidate();
+        recordpanalreal.repaint();
+        
+        System.out.println("Added RecordCard for: " + borrower + " - " + item);
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error creating record card: " + e.getMessage());
+    }
+}
+    
+    // Add this method to load existing loans
+    public void loadRecordCards() {
+        try {
+            // Clear existing cards
+            recordpanalreal.removeAll();
+            
+            // Check if controller exists
+            if (controller == null) {
+                System.out.println("Controller is null in loadRecordCards");
+                
+                // Add sample data for testing
+                addRecordCard("Salman", "Macbook Air", "2026-11-17", 5000.00);
+                addRecordCard("Sandesh", "Photography Equipment", "2025-09-22", 7000.00);
+                addRecordCard("Sameep", "Designing Material", "2025-12-27", 11000.00);
+                return;
+            }
+            
+            // Get loans from controller
+            List<Loan> loans = controller.getLoans();
+            
+            if (loans == null || loans.isEmpty()) {
+                System.out.println("No loans found");
+                return;
+            }
+            
+            // Add cards for each loan
+            for (Loan loan : loans) {
+                addRecordCard(
+                    loan.getBorrowerName(),
+                    loan.getItemName(),
+                    loan.getDueDate().toString(),
+                    loan.getAmount()
+                );
+            }
+              
+            // Refresh the panel
+            recordpanalreal.revalidate();
+            recordpanalreal.repaint();
+            
+            System.out.println("Loaded " + loans.size() + " record cards");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error loading record cards: " + e.getMessage());
+        }
+    }
+    
+    // Add a setter for the controller
+    public void setController(LendingController controller) {
+        this.controller = controller;
+        System.out.println("Controller set in lending view");
+        
+        // Load record cards after controller is set
+        loadRecordCards();
+    }
+    
+    // Method to refresh the view (can be called from controller)
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton dashboard;
     private javax.swing.JButton documents;
     private javax.swing.JButton financialAnalytics;
     private javax.swing.JButton goal;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton22;
-    private javax.swing.JButton jButton23;
-    private javax.swing.JButton jButton24;
-    private javax.swing.JButton jButton25;
-    private javax.swing.JButton jButton28;
-    private javax.swing.JButton jButton29;
-    private javax.swing.JButton jButton32;
-    private javax.swing.JButton jButton33;
-    private javax.swing.JButton jButton34;
-    private javax.swing.JButton jButton35;
-    private javax.swing.JButton jButton36;
-    private javax.swing.JButton jButton37;
-    private javax.swing.JButton jButton38;
-    private javax.swing.JButton jButton39;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton40;
-    private javax.swing.JButton jButton41;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel52;
-    private javax.swing.JLabel jLabel53;
-    private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel55;
-    private javax.swing.JLabel jLabel56;
-    private javax.swing.JLabel jLabel57;
-    private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel60;
-    private javax.swing.JLabel jLabel61;
-    private javax.swing.JLabel jLabel62;
-    private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel64;
-    private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
-    private javax.swing.JLabel jLabel67;
-    private javax.swing.JLabel jLabel68;
-    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel70;
-    private javax.swing.JLabel jLabel71;
-    private javax.swing.JLabel jLabel72;
-    private javax.swing.JLabel jLabel73;
-    private javax.swing.JLabel jLabel74;
-    private javax.swing.JLabel jLabel75;
-    private javax.swing.JLabel jLabel76;
-    private javax.swing.JLabel jLabel77;
-    private javax.swing.JLabel jLabel78;
-    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel80;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
-    private javax.swing.JPanel jPanel23;
-    private javax.swing.JPanel jPanel24;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton lending;
     private javax.swing.JButton myInventery;
     private javax.swing.JButton newLoan;
+    private javax.swing.JPanel recordpanalreal;
     private javax.swing.JTextField search;
-    private javax.swing.JButton update1Button;
-    private javax.swing.JButton update2Button;
-    private javax.swing.JButton update3Button;
-    private javax.swing.JButton update4Button;
     // End of variables declaration//GEN-END:variables
 
-private void setupActionListeners() {
-    // New Loan button
-    newLoan.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            openNewLoanDialog();
-        }
-    });
 }
-
-// Add this method to handle opening the new loan dialog
-private void openNewLoanDialog() {
-    // Create and show the newloan dialog
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-            newloan loanDialog = new newloan();
-            loanDialog.setVisible(true);
-            loanDialog.setLocationRelativeTo(null); // Center the dialog
-        }
-    });
-  }
-
-    public Object getTotalAmountLabel() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public Object getOverdueLoansLabel() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }   
-
-    private void setupSearchFunctionality() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-}
-
+ 

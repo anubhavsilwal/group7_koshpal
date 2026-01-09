@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.LendingController;
 import javax.swing.JOptionPane;
 
 
@@ -14,12 +15,15 @@ import javax.swing.JOptionPane;
 public class newloan extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(newloan.class.getName());
+    private LendingController controller;
 
     /**
      * Creates new form newloan
      */
+     
     public newloan() {
         initComponents();
+        
     }
 
     /**
@@ -30,16 +34,16 @@ public class newloan extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        item = new javax.swing.JTextField();
-        amount = new javax.swing.JTextField();
-        username = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        due = new javax.swing.JTextField();
-        confirm = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        username = new javax.swing.JLabel();
+        item = new javax.swing.JLabel();
+        DueDate = new javax.swing.JLabel();
+        amount = new javax.swing.JLabel();
+        confirmButton = new javax.swing.JButton();
+        username1 = new javax.swing.JTextField();
+        item1 = new javax.swing.JTextField();
+        duedate1 = new javax.swing.JTextField();
+        amount1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -47,213 +51,123 @@ public class newloan extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(254, 251, 238));
         jPanel1.setLayout(null);
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 400, 90);
+        jPanel1.setBounds(0, 0, 370, 90);
 
-        jPanel2.setBackground(new java.awt.Color(205, 231, 217));
-        jPanel2.setLayout(null);
+        jPanel3.setBackground(new java.awt.Color(205, 231, 217));
+        jPanel3.setLayout(null);
 
-        jLabel1.setText("Item:");
-        jPanel2.add(jLabel1);
-        jLabel1.setBounds(40, 80, 80, 20);
+        username.setText("UserName:");
+        jPanel3.add(username);
+        username.setBounds(20, 40, 90, 20);
 
-        jLabel2.setText("Amount:");
-        jPanel2.add(jLabel2);
-        jLabel2.setBounds(40, 180, 80, 20);
+        item.setText("Item:");
+        jPanel3.add(item);
+        item.setBounds(20, 80, 29, 17);
 
-        jLabel3.setText("User Name:");
-        jPanel2.add(jLabel3);
-        jLabel3.setBounds(40, 30, 80, 20);
+        DueDate.setText("DueDate:");
+        jPanel3.add(DueDate);
+        DueDate.setBounds(20, 110, 70, 17);
 
-        item.setText(" ");
-        item.addActionListener(new java.awt.event.ActionListener() {
+        amount.setText("Amount:");
+        jPanel3.add(amount);
+        amount.setBounds(20, 150, 70, 17);
+
+        confirmButton.setBackground(new java.awt.Color(0, 153, 0));
+        confirmButton.setText("Confirm");
+        jPanel3.add(confirmButton);
+        confirmButton.setBounds(140, 250, 75, 23);
+
+        username1.setText(" ");
+        username1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemActionPerformed(evt);
+                username1ActionPerformed(evt);
             }
         });
-        jPanel2.add(item);
-        item.setBounds(140, 80, 200, 23);
+        jPanel3.add(username1);
+        username1.setBounds(100, 40, 170, 23);
 
-        amount.setText(" ");
-        amount.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                amountActionPerformed(evt);
-            }
-        });
-        jPanel2.add(amount);
-        amount.setBounds(140, 180, 200, 23);
+        item1.setText(" ");
+        jPanel3.add(item1);
+        item1.setBounds(100, 80, 170, 23);
 
-        username.setText(" ");
-        jPanel2.add(username);
-        username.setBounds(140, 30, 200, 23);
+        duedate1.setText(" ");
+        jPanel3.add(duedate1);
+        duedate1.setBounds(100, 110, 170, 23);
 
-        jLabel4.setText("Due Date:");
-        jPanel2.add(jLabel4);
-        jLabel4.setBounds(40, 130, 80, 20);
+        amount1.setText(" ");
+        jPanel3.add(amount1);
+        amount1.setBounds(100, 150, 170, 23);
 
-        due.setText(" ");
-        due.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dueActionPerformed(evt);
-            }
-        });
-        jPanel2.add(due);
-        due.setBounds(140, 130, 200, 23);
-
-        confirm.setBackground(new java.awt.Color(0, 153, 0));
-        confirm.setText("Confirm");
-        confirm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmActionPerformed(evt);
-            }
-        });
-        jPanel2.add(confirm);
-        confirm.setBounds(160, 273, 90, 30);
-
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 90, 400, 350);
+        getContentPane().add(jPanel3);
+        jPanel3.setBounds(0, 90, 380, 350);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void amountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amountActionPerformed
+    private void username1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_username1ActionPerformed
         // TODO add your handling code here:
-             validateAmount();
-    }//GEN-LAST:event_amountActionPerformed
+    }//GEN-LAST:event_username1ActionPerformed
 
-    private void dueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dueActionPerformed
+    private void duedate1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-                validateDate();
+    }                                        
 
-    }//GEN-LAST:event_dueActionPerformed
-
-    private void itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemActionPerformed
+    private void amount1ActionPerformed(java.awt.event.ActionEvent evt) {                                        
         // TODO add your handling code here:
-                validateItemName();
-
-    }//GEN-LAST:event_itemActionPerformed
-
-    private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
-        // TODO add your handling code here:
-               createNewLoan();
-
-    }//GEN-LAST:event_confirmActionPerformed
-
-    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {
-        validateUsername();
-    }
+    }   
+ 
     
-    // SIMPLE VALIDATION METHODS
-    private void validateUsername() {
-        if (username.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "User name cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            username.requestFocus();
+    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        // Get values from the form
+        String borrower = username1.getText().trim();
+        String itemName = item1.getText().trim();
+        String dueDateStr = duedate1.getText().trim();
+        String amountStr = amount1.getText().trim();
+        
+        // Validate all fields
+        if (borrower.isEmpty() || itemName.isEmpty() || dueDateStr.isEmpty() || amountStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-    }
-    
-    private void validateItemName() {
-        if (item.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Item name cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            item.requestFocus();
+        
+        // Validate date format (YYYY-MM-DD)
+        if (!dueDateStr.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            JOptionPane.showMessageDialog(this, "Please enter date in YYYY-MM-DD format!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-    }
-    
-    private void validateAmount() {
+        
         try {
-            String amountText = amount.getText().trim();
-            if (amountText.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Amount cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-                amount.requestFocus();
+            // Parse amount
+            double amount = Double.parseDouble(amountStr);
+            
+            if (amount <= 0) {
+                JOptionPane.showMessageDialog(this, "Amount must be greater than 0!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
-            double amt = Double.parseDouble(amountText);
-            if (amt <= 0) {
-                JOptionPane.showMessageDialog(this, "Amount must be greater than 0!", "Error", JOptionPane.ERROR_MESSAGE);
-                amount.requestFocus();
+            // Use the controller to create the loan
+            if (controller != null) {
+                controller.createLoanFromForm(borrower, itemName, amount, dueDateStr);
+                JOptionPane.showMessageDialog(this, "Loan created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                
+                // Clear form
+                username1.setText("");
+                item1.setText("");
+                duedate1.setText("");
+                amount1.setText("");
+                
+                // Close the form
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Controller not available!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Please enter a valid amount (numbers only)!", "Error", JOptionPane.ERROR_MESSAGE);
-            amount.requestFocus();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
-    }
-    
-    private void validateDate() {
-        String dateText = due.getText().trim();
-        if (dateText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Due date cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            due.requestFocus();
-        } else if (!dateText.matches("\\d{4}-\\d{2}-\\d{2}")) {
-            JOptionPane.showMessageDialog(this, "Please enter date in YYYY-MM-DD format!", "Error", JOptionPane.ERROR_MESSAGE);
-            due.requestFocus();
-        }
-    }
-    
-    private void createNewLoan() {
-        // Validate all fields
-        validateUsername();
-        validateItemName();
-        validateAmount();
-        validateDate();
-        
-        // Check if all fields are valid
-        if (!username.getText().trim().isEmpty() && 
-            !item.getText().trim().isEmpty() && 
-            !amount.getText().trim().isEmpty() && 
-            !due.getText().trim().isEmpty()) {
-            
-            try {
-                double amt = Double.parseDouble(amount.getText().trim());
-                if (amt > 0) {
-                    JOptionPane.showMessageDialog(this, 
-                        "New Loan Created Successfully!\n" +
-                        "Borrower: " + username.getText() + "\n" +
-                        "Item: " + item.getText() + "\n" +
-                        "Amount: $" + amount.getText() + "\n" +
-                        "Due Date: " + due.getText(), 
-                        "Success", 
-                        JOptionPane.INFORMATION_MESSAGE);
-                    
-                    // Clear fields for next entry
-                    username.setText("");
-                    item.setText("");
-                    amount.setText("");
-                    due.setText("");
-                    
-                    this.dispose(); // Close the form
-                }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Invalid amount format!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
-    
-    // Getter methods for form fields (FIXED - using correct field names)
-    public String getBorrowerName() {
-        return username.getText().trim();
-    }
-    
-    public String getItemName() {
-        return item.getText().trim();
-    }
-    
-    public double getAmount() {
-        try {
-            return Double.parseDouble(amount.getText().trim());
-        } catch (NumberFormatException e) {
-            return 0.0;
-        }
-    }
-    
-    public String getDueDate() {
-        return due.getText().trim();
-    }
-    
-    public boolean isFormValid() {
-        return !username.getText().trim().isEmpty() && 
-               !item.getText().trim().isEmpty() && 
-               !amount.getText().trim().isEmpty() && 
-               !due.getText().trim().isEmpty();
-    }
+    }                                            
 
     /**
      * @param args the command line arguments
@@ -266,7 +180,7 @@ public class newloan extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
 
@@ -276,19 +190,26 @@ public class newloan extends javax.swing.JFrame {
         });
     }
 
+    public void setController(LendingController controller) {
+        this.controller = controller;
+        System.out.println("Controller set for newloan form");
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField amount;
-    private javax.swing.JButton confirm;
-    private javax.swing.JTextField due;
-    private javax.swing.JTextField item;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel DueDate;
+    private javax.swing.JLabel amount;
+    private javax.swing.JTextField amount1;
+    private javax.swing.JButton confirmButton;
+    private javax.swing.JTextField duedate1;
+    private javax.swing.JLabel item;
+    private javax.swing.JTextField item1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField username;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel username;
+    private javax.swing.JTextField username1;
     // End of variables declaration//GEN-END:variables
+
+ 
 }
     
      

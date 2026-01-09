@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ArrayList;
 
 public class LendingController {
     private lending view;
@@ -28,6 +29,9 @@ public class LendingController {
             e.printStackTrace();
         }
     }
+    
+    
+    
     
     private void addSampleDataIfEmpty() throws SQLException {
         List<Loan> loans = loanDAO.getAllLoans(currentUserId);
@@ -56,11 +60,30 @@ public class LendingController {
             System.out.println("Loaded " + loans.size() + " loans");
             updateSummaryStats();
             
+            // Update the view with record cards
+            if (view != null) {
+                SwingUtilities.invokeLater(() -> {
+                    view.loadRecordCards();
+                });
+            }
+            
         } catch (SQLException e) {
             showError("Error loading loan data: " + e.getMessage());
             e.printStackTrace();
         }
     }
+    
+    // Add this method to get loans for the view
+    
+    public List<Loan> getLoans() {
+        try {
+            return loanDAO.getAllLoans(currentUserId);
+        } catch (SQLException e) {
+            showError("Error loading loans: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+    
     
     private void updateSummaryStats() throws SQLException {
         double totalAmount = loanDAO.getTotalLoanedAmount(currentUserId);
@@ -229,6 +252,30 @@ public class LendingController {
         }
     }
     
+    // Add this to LendingController.java
+public void createLoanFromForm(String borrower, String itemName, double amount, String dueDate) {
+    try {
+        LocalDate parsedDate = LocalDate.parse(dueDate);
+        Loan newLoan = new Loan(borrower, itemName, amount, parsedDate, "Active");
+        newLoan.setUserId(currentUserId);
+        newLoan.setItemId(1);
+        
+        int loanId = loanDAO.insertLoan(newLoan);
+        
+        if (loanId > 0) {
+            JOptionPane.showMessageDialog(view, "Loan created successfully!");
+            loadLoanData(); // This will refresh the data
+        } else {
+            JOptionPane.showMessageDialog(view, "Failed to create loan.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (Exception e) {
+        showError("Error creating loan: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+    
+    
+    
     private void showError(String message) {
         JOptionPane.showMessageDialog(view, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -257,4 +304,10 @@ public class LendingController {
     public void navigateToLending() {
         loadLoanData();
     }
+    
+     public void refreshView() {
+        loadLoanData();
+    }
 }
+
+
