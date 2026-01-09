@@ -340,7 +340,7 @@ public class Maindash extends javax.swing.JFrame {
         jPanel4.setBounds(230, 150, 700, 410);
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
-        jLabel2.setText("Welcome back!");
+        jLabel2.setText("Welcome back, Salman!");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(230, 110, 380, 30);
 
@@ -410,12 +410,14 @@ public class Maindash extends javax.swing.JFrame {
         jLabel5.setBounds(40, 20, 200, 23);
 
         jLabel10.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jLabel10.setText("Real Estate");
         jPanel7.add(jLabel10);
         jLabel10.setBounds(320, 0, 130, 30);
 
         jLabel11.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
+        jLabel11.setText("$43,000");
         jPanel7.add(jLabel11);
-        jLabel11.setBounds(320, 30, 100, 20);
+        jLabel11.setBounds(330, 30, 100, 20);
 
         jPanel1.add(jPanel7);
         jPanel7.setBounds(950, 580, 470, 60);
@@ -445,8 +447,9 @@ public class Maindash extends javax.swing.JFrame {
         jLabel6.setBounds(40, 20, 170, 20);
 
         jLabel12.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
+        jLabel12.setText("$230,400");
         jPanel9.add(jLabel12);
-        jLabel12.setBounds(330, 20, 110, 0);
+        jLabel12.setBounds(320, 20, 110, 20);
 
         jPanel1.add(jPanel9);
         jPanel9.setBounds(950, 660, 470, 60);
@@ -476,6 +479,7 @@ public class Maindash extends javax.swing.JFrame {
         jLabel9.setBounds(40, 20, 210, 20);
 
         jLabel13.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
+        jLabel13.setText("$23,730");
         jPanel11.add(jLabel13);
         jLabel13.setBounds(330, 20, 110, 30);
 
@@ -491,6 +495,7 @@ public class Maindash extends javax.swing.JFrame {
         jLabel14.setBounds(20, 10, 70, 20);
 
         jLabel17.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel17.setText("12");
         jPanel13.add(jLabel17);
         jLabel17.setBounds(170, 10, 30, 20);
 
