@@ -57,10 +57,10 @@ public boolean check(userModel user){
             
             if (result.next()) {
                 userModel user = new userModel(
-                    result.getString("username"),
-                    result.getString("password"),
-                    result.getString("email")
-                );
+                result.getString("username"),
+                result.getString("email"),     // CORRECT - email 2nd
+                result.getString("password")   // CORRECT - password 3rd
+);
                 user.setId(result.getInt("user_id"));
                 return user;
             }

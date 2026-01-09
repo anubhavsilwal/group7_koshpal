@@ -24,8 +24,91 @@ public class Maindash extends javax.swing.JFrame {
         initComponents();
         fixButtonColors();
         addChartToDashboard();
+        addButtonListeners();
         
     }
+    
+    
+    private void addButtonListeners() {
+    // Dashboard button - refresh charts
+    dashboard.addActionListener(e -> refreshAllCharts());
+    
+    // My Inventory button - open inventory
+    myinventory.addActionListener(e -> openInventory());
+    
+    // Financial Analytics button - open analytics
+    jButton1.addActionListener(e -> openAnalytics());
+    
+    // Documents button - open documents
+    jButton2.addActionListener(e -> openDocuments());
+    
+    // Lending button - open lending
+    lending.addActionListener(e -> openLending());
+}
+    
+   private void openInventory() {
+    try {
+        // Close dashboard
+        this.dispose();
+        
+        // Open inventory
+        view.inventory inventoryView = new view.inventory();
+        controller.InventoryController inventoryController = new controller.InventoryController(inventoryView);
+        inventoryController.setCurrentUserId(this.userId);  // Pass user ID
+        inventoryController.open();
+        
+    } catch (Exception ex) {
+        System.out.println("Error opening inventory: " + ex.getMessage());
+        javax.swing.JOptionPane.showMessageDialog(this, "Error loading inventory");
+    }
+}
+
+private void openAnalytics() {
+    try {
+        // Close dashboard
+        this.dispose();
+        
+        // Open analytics
+        view.analytics analyticsView = new view.analytics();
+        controller.AnalyticsController analyticsController = new controller.AnalyticsController(analyticsView);
+        analyticsView.setVisible(true);
+        
+    } catch (Exception ex) {
+        System.out.println("Error opening analytics: " + ex.getMessage());
+        javax.swing.JOptionPane.showMessageDialog(this, "Error loading analytics");
+    }
+}
+
+private void openDocuments() {
+    try {
+        // Close dashboard
+        this.dispose();
+        
+        // Open documents
+        view.documents documentsView = new view.documents();
+        documentsView.setVisible(true);
+        
+    } catch (Exception ex) {
+        System.out.println("Error opening documents: " + ex.getMessage());
+        javax.swing.JOptionPane.showMessageDialog(this, "Error loading documents");
+    }
+}
+
+private void openLending() {
+    try {
+        // Close dashboard
+        this.dispose();
+        
+        // Open lending
+        view.lending lendingView = new view.lending();
+        lendingView.setVisible(true);
+        
+    } catch (Exception ex) {
+        System.out.println("Error opening lending: " + ex.getMessage());
+        javax.swing.JOptionPane.showMessageDialog(this, "Error loading lending");
+    }
+}
+    
     
     private void fixButtonColors() {
     System.out.println("Fixing button colors...");
