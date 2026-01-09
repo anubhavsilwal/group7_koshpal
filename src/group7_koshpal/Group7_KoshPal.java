@@ -1,20 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package group7_koshpal;
 
 /**
- *
- * @author anubhavsilwal
- */
-public class Group7_KoshPal {
 
-    /**
+ *
+
+ * @author User
+ * 
+ */
+
+
+import view.login;
+import controller.loginController;
+
+ /**
+
      * @param args the command line arguments
+
      */
+
+
+public class Group7_KoshPal {
     public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
+        // Start with login page
+        login loginView = new login();
+        loginController lc = new loginController(loginView);
+        lc.open();
+    } 
 }

@@ -10,7 +10,8 @@ package dao;
  */
 
 
-import model.FinancialData.*;
+import model.FinancialData.MonthlySummary;
+import model.FinancialData.CategoryBreakdown;
 import database.Mysqlconnection;
 import java.sql.*;
 import java.util.*;

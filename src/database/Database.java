@@ -1,9 +1,7 @@
 package database;
 
-import java.sql.*;
-
-
-
+import java.sql.Connection;
+import java.sql.ResultSet;
 /**
 
  *
@@ -12,14 +10,14 @@ import java.sql.*;
 
  */
 
+/**
+ *
+ * @author samee
+ */
 public interface Database {
-
     Connection openConnection();
-
     void closeConnection(Connection conn);
-
     ResultSet runQuery(Connection conn, String query);
-
-    int excecuteUpdate(Connection conn, String query);
-
+    int executeUpdate(Connection conn, String query);
+    
 }

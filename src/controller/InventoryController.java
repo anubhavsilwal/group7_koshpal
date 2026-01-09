@@ -24,7 +24,7 @@ import view.analytics;
 public class InventoryController {
     private final inventory inventoryView;
     private final itemservice itemService;
-    private int currentUserId=1;
+    private int currentUserId;
     
 public InventoryController(inventory inventoryView) {
         this.inventoryView = inventoryView;
@@ -71,6 +71,13 @@ public InventoryController(inventory inventoryView) {
         int onLoanCount = itemService.getOnLoanCount(currentUserId);
         inventoryView.getOnLoanLabel().setText(String.valueOf(onLoanCount));
     }
+    
+    public void setCurrentUserId(int userId) {
+    this.currentUserId = userId;
+    if (itemService != null) {
+        itemService.setCurrentUserId(userId);
+    }
+}
     
     
 private void loadAllItems(){
