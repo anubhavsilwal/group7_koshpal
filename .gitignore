@@ -1,5 +1,29 @@
+# NetBeans project private files
 nbproject/private/
-src/database
 
-/build/
-/dist/
+# Build directories
+build/
+dist/
+target/
+
+# Compiled Java files
+*.class
+*.jar
+
+# IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# NetBeans GUI forms (ignore if you don't want to track forms)
+*.form
+
+
