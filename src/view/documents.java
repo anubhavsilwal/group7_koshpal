@@ -145,7 +145,7 @@ public void addNewDocument(String title, String category, String date, String am
     panel.add(leftPanel, BorderLayout.CENTER);
     panel.add(rightPanel, BorderLayout.EAST);
 
-    // 🔥 THIS LINE WAS MISSING
+  
     return panel;
 
  }
@@ -265,7 +265,7 @@ private void showDocumentDetails(Document doc) {
         case "Health" -> jButton6.setBackground(activeBg);
         case "Financial" -> jButton5.setBackground(activeBg);
         case "Utilities" -> jButton8.setBackground(activeBg);
-        case "Other" -> jButton2.setBackground(activeBg);
+        case "Others" -> jButton2.setBackground(activeBg);
         default -> jButton1.setBackground(activeBg);
     }
     }
